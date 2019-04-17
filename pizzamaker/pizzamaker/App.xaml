@@ -9,12 +9,53 @@
             <SolidColorBrush x:Key="ForeGroundColor" Color="#FFF"/>
             <SolidColorBrush x:Key="ButtonBorderBrushColor" Color="#FFADC698"/>
             <SolidColorBrush x:Key="ButtonBackgroundColor" Color="#FFD0E3C4"/>
-            <Style TargetType="Button" x:Key="PaginationButton" >
+            <SolidColorBrush x:Key="PurpleTaupe" Color="#FF503047"/>
+            <Style TargetType="{x:Type Button}" x:Key="PaginationButton" >
                 <Style.Triggers>
-                   
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource ButtonBackgroundColor }"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="False">
+                        <Setter Property="Background" Value="{StaticResource ButtonBorderBrushColor }"/>
+                    </Trigger>
                 </Style.Triggers>
             </Style>
-             <ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Background" Value="#FFF"></Setter>
+                <Setter Property="BorderBrush" Value="{StaticResource PurpleTaupe}" ></Setter>
+                <Setter Property="Foreground" Value="Black"></Setter>
+                <Setter Property="BorderThickness" Value="3" ></Setter>
+                <Setter Property="Width" Value="200"/>
+                <Setter Property="Height" Value="50"/>
+                <Setter Property="FontSize" Value="26"/> 
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="0" 
+                            Margin="0"
+                            CornerRadius="3" 
+                            Background="{TemplateBinding  Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"   
+                                >
+                            <ContentPresenter Margin="0"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Margin" Value="0"/>
+                                    <Setter Property="Background" Value="{StaticResource PurpleTaupe }"/>
+                                    <Setter Property="BorderBrush" Value="{StaticResource PurpleTaupe }"/>
+                                    <Setter Property="Foreground" Value="{StaticResource ForeGroundColor}"></Setter>
+                                </Trigger>
+
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <local:Bootstrapper x:Key="Bootstrapper"/>
                 </ResourceDictionary>

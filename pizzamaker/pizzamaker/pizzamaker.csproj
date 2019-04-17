@@ -83,10 +83,14 @@
     </ApplicationDefinition>
     <Compile Include="Models\Abstracts\Food.cs" />
     <Compile Include="Models\Abstracts\FoodDecorator.cs" />
-    <Compile Include="Models\Dough.cs" />
+    <Compile Include="Models\Foods\Cheese.cs" />
+    <Compile Include="Models\Foods\Dough.cs" />
     <Compile Include="Models\Exceptions\NegativePriceException.cs" />
     <Compile Include="Models\Exceptions\NoDescriptionException.cs" />
     <Compile Include="Models\Exceptions\NoFoodNameException.cs" />
+    <Compile Include="Models\Foods\Meat.cs" />
+    <Compile Include="Models\Foods\Sauce.cs" />
+    <Compile Include="Models\Foods\Topping.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="ViewModels\CustomerDataViewModel.cs" />
     <Compile Include="ViewModels\StartUpViewModel.cs" />
@@ -145,9 +149,14 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="imgs\italyflag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\pizza-pngrepo-com.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\PizzaTitle.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,7 +7,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Button x:Name="Start" Width="100" Height="50">Start</Button>
-        <Button x:Name="Exit" Width="100" Height="50">Exit</Button>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Image Grid.ColumnSpan="6" Grid.RowSpan="6" Source="/pizzamaker;component/imgs/pizza-pngrepo-com.png" Opacity="0.6"></Image>
+        <Image Grid.ColumnSpan="6" Grid.RowSpan="4" Grid.Row="0" Width="Auto" Height="Auto" Source="/pizzamaker;component/imgs/PizzaTitle.png" Margin="-25,-24,-20,50" RenderTransformOrigin="0.5,0.5" SnapsToDevicePixels="True" StretchDirection="DownOnly"/>
+        <Button Grid.Row="3" Grid.ColumnSpan="6" x:Name="Start" >Start
+
+        </Button>
+        <Button Grid.Row="4" Grid.ColumnSpan="6"  x:Name="Exit" >Exit</Button>
     </Grid>
 </UserControl>

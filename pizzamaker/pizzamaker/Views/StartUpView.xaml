@@ -40,7 +40,7 @@
                 </Polyline>
             </Button>
         </Grid>
-        <Image Panel.ZIndex="2" Grid.Row="0" Grid.Column="5" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Width="137" Height="296" Source="/pizzamaker;component/imgs/italyflag.png" RenderTransformOrigin="0.5,0.5" Margin="0,-100,-28,0" Stretch="Fill">
+        <Image Panel.ZIndex="2" Grid.Row="0" Grid.Column="5" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Width="137" Height="296" Source="/pizzamaker;component/imgs/italyflag.png" RenderTransformOrigin="0.5,0.5" Margin="0,-100,-28,0" Stretch="Fill" Opacity="0.6">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
