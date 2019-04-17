@@ -47,7 +47,27 @@ namespace pizzamaker.Models
             }
             return false;
         }
-
+        public bool Remove(Food food) {
+            if (food != null) {
+                pizzaCondiments.Remove(food);
+                return true;
+            }
+            return false;
+        }
+        public void ResetCondiments() {
+            pizzaCondiments = new List<Food>();
+        }
+        public override string ToString()
+        {
+            if (pizzaCondiments.Count == 0) return "Order is empty!";
+            string mydata = string.Empty;
+            foreach (Food item in pizzaCondiments)
+            {
+                string fooddata = string.Format("{0}/{1}/{2}/{3};",item.Id,item.Price,item.Name,item.Description);
+                mydata += fooddata;
+            }
+            return mydata;
+        }
 
     }
 }
