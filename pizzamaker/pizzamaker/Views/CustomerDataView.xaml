@@ -5,8 +5,54 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pizzamaker.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             FontSize="26"
+             >
     <Grid>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Customer Data</TextBlock>  
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" Foreground="{StaticResource ForeGroundColor}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36">Customer Information</TextBlock>
+        <Border Margin="0" Padding="0" Height="320" CornerRadius="5" BorderBrush="#99FFFFFF" Opacity="50" BorderThickness="1" Background="#99FFFFFF"  Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5" Grid.RowSpan="5" >
+            <Grid Margin="0"   VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock VerticalAlignment="Center" Grid.Row="0" Grid.Column="0" Margin="10,10,20,20">Name:</TextBlock>
+                <TextBlock VerticalAlignment="Center" Grid.Row="1" Grid.Column="0"  Margin="10,10,20,20">E-mail:</TextBlock>
+                <TextBlock VerticalAlignment="Center" Grid.Row="2" Grid.Column="0"  Margin="10,10,20,20">Mobile number:</TextBlock>
+                <TextBlock VerticalAlignment="Center" Grid.Row="3" Grid.Column="0"  Margin="10,10,20,20">Address:</TextBlock>
+
+
+                <TextBox VerticalAlignment="Center"  Grid.Row="0" Grid.Column="1"  Margin="0,10,20,20"></TextBox>
+                <TextBox VerticalAlignment="Center"  Grid.Row="1" Grid.Column="1"  Margin="0,10,20,20"></TextBox>
+                <TextBox VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Margin="0,10,20,20"></TextBox>
+                <TextBox VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Margin="0,10,20,20"></TextBox>
+            
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

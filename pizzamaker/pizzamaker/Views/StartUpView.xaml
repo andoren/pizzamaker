@@ -9,7 +9,8 @@
         Background="{StaticResource MainBackGroundColor}"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        
+        MouseLeftButtonDown="Window_MouseLeftButtonDown" FontFamily="Arial" ResizeMode="NoResize" Icon="/pizzamaker;component/imgs/pizza-pngrepo-com.png"
         >
     <Grid>
         <Grid.ColumnDefinitions>
