@@ -5,6 +5,10 @@
 >
     <Application.Resources>
         <ResourceDictionary>
+            <SolidColorBrush  x:Key="MainBackGroundColor" Color="#FFC05746"/>
+            <SolidColorBrush x:Key="ForeGroundColor" Color="#FFF"/>
+            <SolidColorBrush x:Key="ButtonBorderBrushColor" Color="#FFADC698"/>
+            <SolidColorBrush x:Key="ButtonBackgroundColor" Color="#FFD0E3C4"/>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <local:Bootstrapper x:Key="Bootstrapper"/>

@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:pizzamaker.Views"
         mc:Ignorable="d"
-        Title="StartUpView" Height="450" Width="800">
+        Title="PizzaMaker" Height="600" Width="950"
+        Background="{StaticResource MainBackGroundColor}"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        MouseLeftButtonDown="Window_MouseLeftButtonDown"
+        >
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Image Panel.ZIndex="2" Grid.Row="0" Grid.Column="5" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right" Width="180" Height="390" Source="/pizzamaker;component/imgs/italyflag.png" RenderTransformOrigin="0.5,0.5" Margin="0,-131,-22,0" Stretch="Fill">
+            <Image.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Image.RenderTransform>
+        </Image>
+        <ContentControl Panel.ZIndex="1" Grid.Row="1" Grid.Column="0" Grid.RowSpan="5" Grid.ColumnSpan="6" x:Name="ContentContainer"></ContentControl>
     </Grid>
 </Window>
