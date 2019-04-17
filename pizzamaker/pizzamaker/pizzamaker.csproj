@@ -81,6 +81,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Models\Abstracts\Food.cs" />
+    <Compile Include="Models\Abstracts\FoodDecorator.cs" />
+    <Compile Include="Models\Dough.cs" />
+    <Compile Include="Models\Exceptions\NegativePriceException.cs" />
+    <Compile Include="Models\Exceptions\NoDescriptionException.cs" />
+    <Compile Include="Models\Exceptions\NoFoodNameException.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="ViewModels\CustomerDataViewModel.cs" />
     <Compile Include="ViewModels\StartUpViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
@@ -138,9 +145,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="imgs\italyflag.png" />
   </ItemGroup>

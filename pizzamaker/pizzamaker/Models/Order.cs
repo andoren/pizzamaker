@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pizzamaker.Models.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace pizzamaker.Models
 {
-    class Order:Food
+    public class Order:Food
     {
         private Order()
         {
@@ -16,7 +17,7 @@ namespace pizzamaker.Models
 
         public static Order getInstance() {
             if (order == null) {
-                lock (order) {
+                lock (typeof(Order)) {
                     if (order == null) order = new Order();
                 }
                 
@@ -24,6 +25,29 @@ namespace pizzamaker.Models
             return order;
         }
         private List<Food> pizzaCondiments;
+        public bool Add(Food food)
+        {
+            if (food != null ) {
+                if (food.Price < 0)
+                {
+                    throw new NegativePriceException();
+                }
+                else if (food.Name == "")
+                {
+                    throw new NoFoodNameException();
+                }
+                else if (food.Description == "")
+                {
+                    throw new NoDescriptionException();
+                }
+                else {
+                    pizzaCondiments.Add(food);
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
     }
 }
