@@ -29,18 +29,18 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid x:Name="ButtonsIsVisible" Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="6">
-        <Button x:Name="LoadPrevView" Width="120" Height="150"  VerticalAlignment="Center" VerticalContentAlignment="Top"  HorizontalContentAlignment="Left" HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent">
-            <Polyline 
-                 Points="75,0,0,75,75,150" Stroke="Black">
-            </Polyline>
-        </Button>
-        <Button  x:Name="LoadNextView" Width="120" Height="150" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center" VerticalContentAlignment="Top"  HorizontalContentAlignment="Left" HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
-            <Polyline 
-                 Points="50,0,100,75,50,150" Stroke="Black">
-            </Polyline>
-        </Button>
+            <Button Panel.ZIndex="3" x:Name="LoadPrevView" Width="120" Height="150"  VerticalAlignment="Center" VerticalContentAlignment="Top"  HorizontalContentAlignment="Left" HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent">
+                <Polyline 
+                 Points="75,0,0,75,75,150" Stroke="{StaticResource ButtonBackgroundColor}">
+                </Polyline>
+            </Button>
+            <Button Panel.ZIndex="3"  x:Name="LoadNextView" Width="120" Height="150" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center" VerticalContentAlignment="Top"  HorizontalContentAlignment="Left" HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
+                <Polyline 
+                 Points="50,0,100,75,50,150" Stroke="{StaticResource ButtonBackgroundColor}">
+                </Polyline>
+            </Button>
         </Grid>
-        <Image Panel.ZIndex="2" Grid.Row="0" Grid.Column="5" Grid.RowSpan="4" VerticalAlignment="Top" HorizontalAlignment="Right" Width="180" Height="390" Source="/pizzamaker;component/imgs/italyflag.png" RenderTransformOrigin="0.5,0.5" Margin="0,-131,-22,0" Stretch="Fill">
+        <Image Panel.ZIndex="2" Grid.Row="0" Grid.Column="5" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Right" Width="137" Height="296" Source="/pizzamaker;component/imgs/italyflag.png" RenderTransformOrigin="0.5,0.5" Margin="0,-100,-28,0" Stretch="Fill">
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

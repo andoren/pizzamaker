@@ -31,6 +31,7 @@ namespace pizzamaker.ViewModels
 
             ActivateItem(new CustomerDataViewModel());
             CurrentLoadedView += 1;
+            NotifyOfPropertyChange(() => ButtonsIsVisible);
         }
         public void LoadPrevView() {
             CurrentLoadedView -= 1;
