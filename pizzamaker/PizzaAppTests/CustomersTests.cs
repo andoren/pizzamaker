@@ -3,6 +3,7 @@ using System.Text;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using pizzamaker.Models;
+using pizzamaker.Models.Exceptions;
 
 namespace PizzaAppTests
 {
@@ -272,6 +273,97 @@ namespace PizzaAppTests
             Assert.AreEqual(expected, actual);
 
         }
+        #endregion
+        #region Customer Class Mass Validation
+        [TestMethod]
+        public void MassValidationRegularTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.MassValidation();
+            bool expected = true;
+            Assert.AreEqual(expected, actual);
+
+        }
+        [TestMethod]
+        public void MassValidationBadNameTest()
+        {
+            Customer target = new Customer();
+            target.Name = "";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            Exception expected = null;
+            try { 
+            target.MassValidation();
+            }
+            catch(CustomerNameErrorException e){
+                expected = e;
+            }
+            Assert.AreNotEqual(expected, null);
+        }
+        [TestMethod]
+        public void MassValidationBadEmailTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "";
+            target.MobileNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            Exception expected = null;
+            try
+            {
+                target.MassValidation();
+            }
+            catch (CustomerEmailErrorException e)
+            {
+                expected = e;
+            }
+            Assert.AreNotEqual(expected, null);
+        }
+        [TestMethod]
+        public void MassValidationBadMobileNumberTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            Exception expected = null;
+            try
+            {
+                target.MassValidation();
+            }
+            catch (CustomerMobileNumberErrorException e)
+            {
+                expected = e;
+            }
+            Assert.AreNotEqual(expected, null);
+        }
+        [TestMethod]
+        public void MassValidationBadAddressTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "+36700000000";
+            target.Address = "";
+            Exception expected = null;
+            try
+            {
+                target.MassValidation();
+            }
+            catch (CustomerAddressErrorException e)
+            {
+                expected = e;
+            }
+            Assert.AreNotEqual(expected, null);
+        }
+
+
         #endregion
     }
 }

@@ -51,7 +51,7 @@
                         <RowDefinition/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBox Grid.Row="0" VerticalAlignment="Bottom"></TextBox>
+                    <TextBox x:Name="NameTextBox" Grid.Row="0" VerticalAlignment="Bottom"></TextBox>
                     <TextBlock Text="{Binding NameError, Mode=OneWay}"  Foreground="Red" FontSize="12" VerticalAlignment="Top"  Grid.Row="1"></TextBlock>
                 </Grid>
                 <Grid Margin="0,20,20,0" Grid.Row="1" Grid.Column="1" >
@@ -59,7 +59,7 @@
                         <RowDefinition/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBox Grid.Row="0" VerticalAlignment="Bottom"   ></TextBox>
+                    <TextBox x:Name="EmailTextBox"  Grid.Row="0" VerticalAlignment="Bottom"   ></TextBox>
                     <TextBlock Text="{Binding EmailError, Mode=OneWay}"  Foreground="Red" FontSize="12" VerticalAlignment="Top"  Grid.Row="1"></TextBlock>
                 </Grid>
                 <Grid Margin="0,20,20,0" Grid.Row="2" Grid.Column="1" >
@@ -67,7 +67,7 @@
                         <RowDefinition/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBox Grid.Row="0" VerticalAlignment="Bottom"   ></TextBox>
+                    <TextBox x:Name="MobileTextBox"  Grid.Row="0" VerticalAlignment="Bottom"   ></TextBox>
                     <TextBlock Text="{Binding MobilError, Mode=OneWay}" Foreground="Red" FontSize="12" VerticalAlignment="Top"  Grid.Row="1"></TextBlock>
                 </Grid>
                 <Grid Margin="0,20,20,0" Grid.Row="3" Grid.Column="1" >
@@ -75,11 +75,35 @@
                         <RowDefinition/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
-                    <TextBox Grid.Row="0" VerticalAlignment="Bottom"   ></TextBox>
+                    <TextBox x:Name="AddressTextBox"  Grid.Row="0" VerticalAlignment="Bottom"   ></TextBox>
                     <TextBlock Text="{Binding AddressError, Mode=OneWay}" Foreground="Red" FontSize="12" VerticalAlignment="Top"  Grid.Row="1"></TextBlock>
                 </Grid>
 
             </Grid>
         </Border>
+        <Grid  Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="7">
+            <Button Visibility="Hidden" Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadPrevView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="180"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+
+                <Polyline Fill="{StaticResource PurpleTaupe}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                </Polyline>
+            </Button>
+            <Button  Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadNextView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
+
+                <Polyline Fill="{StaticResource PurpleTaupe}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                </Polyline>
+            </Button>
+        </Grid>
     </Grid>
 </UserControl>

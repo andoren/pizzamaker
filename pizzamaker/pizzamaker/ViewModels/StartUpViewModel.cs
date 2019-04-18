@@ -29,14 +29,14 @@ namespace pizzamaker.ViewModels
             }
         }
         public void LoadNextView() {
-
-            ActivateItem(new CustomerDataViewModel());
+            if(CurrentLoadedView == 0) ActivateItem(new CustomerDataViewModel(this));
+            else ActivateItem(new StartViewModel(this));
             CurrentLoadedView += 1;
             NotifyOfPropertyChange(() => ButtonsIsVisible);
         }
         public void LoadPrevView() {
             CurrentLoadedView -= 1;
-            ActivateItem(new CustomerDataViewModel());
+            ActivateItem(new CustomerDataViewModel(this));
         }
         public bool ButtonsIsVisible
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pizzamaker.Models.Exceptions;
 
 namespace pizzamaker.Models
 {
@@ -30,6 +31,11 @@ namespace pizzamaker.Models
             set { _mobileNumber = value; }
         }
         private string _address;
+        public string Address
+        {
+            get { return _address; }
+            set { _address = value; }
+        }
 
         public bool NameValidation()
         {
@@ -39,12 +45,6 @@ namespace pizzamaker.Models
             else if (!Name.Contains(" ")) answer = false;
             else if (Name.Length < 6 || Name.Length > 30) answer = false;
             return answer;
-        }
-
-        public string Address
-        {
-            get { return _address; }
-            set { _address = value; }
         }
 
         public bool EmailValidaton()
@@ -74,6 +74,18 @@ namespace pizzamaker.Models
             bool answer = true;
             if (String.IsNullOrEmpty(Address)) answer = false;
             return answer;
+        }
+        /// <summary>
+        /// If everything is okay its return true else throws exceptions.
+        /// </summary>
+        /// <returns></returns>
+        public bool MassValidation()
+        {
+            if (!NameValidation()) throw new CustomerNameErrorException();
+            else if (!EmailValidaton()) throw new CustomerEmailErrorException();
+            else if (!MobileValidaton()) throw new CustomerMobileNumberErrorException();
+            else if (!AddressValidation()) throw new CustomerAddressErrorException();
+            return true;
         }
     }
 }
