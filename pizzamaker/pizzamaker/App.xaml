@@ -47,7 +47,7 @@
                 <Setter Property="BorderThickness" Value="3" ></Setter>
                 <Setter Property="Width" Value="200"/>
                 <Setter Property="Height" Value="50"/>
-                <Setter Property="FontSize" Value="26"/> 
+                <Setter Property="FontSize" Value="26"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
@@ -59,7 +59,7 @@
                             Background="{TemplateBinding  Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"   
                                 >
-                            <ContentPresenter Margin="0"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <ContentPresenter Margin="0"  HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                             <ControlTemplate.Triggers>
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -75,6 +75,7 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <local:Bootstrapper x:Key="Bootstrapper"/>

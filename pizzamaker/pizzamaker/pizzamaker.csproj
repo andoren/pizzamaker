@@ -83,6 +83,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Abstracts\Food.cs" />
     <Compile Include="Models\Abstracts\FoodDecorator.cs" />
+    <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="ViewModels\ChooseDoughViewModel.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Exceptions\CustomerAddressErrorException.cs" />
