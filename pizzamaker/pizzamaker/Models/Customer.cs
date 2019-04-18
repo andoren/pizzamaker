@@ -22,12 +22,12 @@ namespace pizzamaker.Models
             get { return _email; }
             set { _email = value; }
         }
-        private string _mobilNumber;
+        private string _mobileNumber;
 
-        public string MobilNumber
+        public string MobileNumber
         {
-            get { return _mobilNumber; }
-            set { _mobilNumber = value; }
+            get { return _mobileNumber; }
+            set { _mobileNumber = value; }
         }
         private string _address;
 
@@ -57,6 +57,15 @@ namespace pizzamaker.Models
             else if (Email.Split('@')[0].Length == 0 || Email.Split('@')[1].Length == 0) answer = false;
             else if (!Email.Contains(".")) answer = false;
             else if (Email.Split('.')[1].Length == 0) answer = false;
+            return answer;
+        }
+
+        public bool MobileValidaton()
+        {
+            bool answer = true;
+            if (String.IsNullOrEmpty(MobileNumber)) answer = false;
+            else if (!MobileNumber.StartsWith("+")) answer = false;
+            else if (MobileNumber.Length != 12) answer = false;
             return answer;
         }
     }

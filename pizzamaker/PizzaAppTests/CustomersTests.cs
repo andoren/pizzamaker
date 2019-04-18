@@ -11,7 +11,7 @@ namespace PizzaAppTests
     /// </summary>
     [TestClass]
     public class CustomersTests
-    {
+    { //TODO false-ok cseréje excpetionokre
         #region Customer Class Name Validaton
         [TestMethod]
         public void NameValidationRegularTest()
@@ -19,7 +19,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "ezegykamuemail@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.NameValidation();
             bool expected = true;
@@ -31,7 +31,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "";
             target.Email = "ezegykamuemail@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.NameValidation();
             bool expected = false;
@@ -43,7 +43,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "ValamiNév";
             target.Email = "ezegykamuemail@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.NameValidation();
             bool expected = false;
@@ -55,7 +55,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "      ";
             target.Email = "ezegykamuemail@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.NameValidation();
             bool expected = false;
@@ -67,7 +67,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "less ";
             target.Email = "ezegykamuemail@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.NameValidation();
             bool expected = false;
@@ -79,7 +79,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "1234567adasdqwokeűkasdűaskdékadÁks adlkűasdkaűdékasűdasdmnfmnkldnadhnpiájőqkwdákasdasádláad";
             target.Email = "ezegykamuemail@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.NameValidation();
             bool expected = false;
@@ -94,7 +94,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "ezegykamuemail@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
             bool expected = true;
@@ -106,7 +106,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
             bool expected = false;
@@ -118,7 +118,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "ez egykamuemail@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
             bool expected = false;
@@ -130,7 +130,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "ezegykamuemailgmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
             bool expected = false;
@@ -142,7 +142,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "2@a.h";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
             bool expected = false;
@@ -154,7 +154,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "@gmail.com";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
             bool expected = false;
@@ -166,7 +166,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "ezegyemail@";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
             bool expected = false;
@@ -178,7 +178,7 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "ezegy@validemail";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
             bool expected = false;
@@ -190,9 +190,58 @@ namespace PizzaAppTests
             Customer target = new Customer();
             target.Name = "Pekár Mihály";
             target.Email = "ezegy@validemail.";
-            target.MobilNumber = "+36700000000";
+            target.MobileNumber = "+36700000000";
             target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
             bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
+        #region Customer Class Mobile Number Validation
+        [TestMethod]
+        public void MobileValidationRegularTest() {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.MobileValidaton();
+            bool expected = true;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void MobileValidationEmptyTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.MobileValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void MobileValidationNotStartWithPlusSymbolTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "036700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.MobileValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void MobileValidationNotEqualsCorrectLengthTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "+367000000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.MobileValidaton();
             bool expected = false;
             Assert.AreEqual(expected, actual);
         }
