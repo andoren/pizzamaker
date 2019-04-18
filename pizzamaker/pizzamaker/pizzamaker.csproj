@@ -83,6 +83,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Abstracts\Food.cs" />
     <Compile Include="Models\Abstracts\FoodDecorator.cs" />
+    <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Foods\Cheese.cs" />
     <Compile Include="Models\Foods\Dough.cs" />
     <Compile Include="Models\Exceptions\NegativePriceException.cs" />
