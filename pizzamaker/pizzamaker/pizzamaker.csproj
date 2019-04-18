@@ -93,6 +93,7 @@
     <Compile Include="Models\Foods\Topping.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="ViewModels\CustomerDataViewModel.cs" />
+    <Compile Include="Models\SceneFactory.cs" />
     <Compile Include="ViewModels\StartUpViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="Views\CustomerDataView.xaml.cs">

@@ -16,6 +16,7 @@ namespace pizzamaker.ViewModels
         {
             ActivateItem(new StartViewModel(this));
         }
+        SceneFactory sceneFactory = new SceneFactory();
         private int _currentLoadedView = 0;
 
         public int CurrentLoadedView

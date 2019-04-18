@@ -30,14 +30,26 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid x:Name="ButtonsIsVisible" Grid.Row="0" Grid.RowSpan="6" Grid.Column="0" Grid.ColumnSpan="6">
-            <Button Panel.ZIndex="3" x:Name="LoadPrevView" Width="120" Height="150"  VerticalAlignment="Center" VerticalContentAlignment="Top"  HorizontalContentAlignment="Left" HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent">
-                <Polyline 
-                 Points="75,0,0,75,75,150" Stroke="{StaticResource ButtonBackgroundColor}">
+            <Button Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadPrevView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="180"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+
+                <Polyline Fill="{StaticResource PurpleTaupe}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
                 </Polyline>
             </Button>
-            <Button Panel.ZIndex="3"  x:Name="LoadNextView" Width="120" Height="150" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center" VerticalContentAlignment="Top"  HorizontalContentAlignment="Left" HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
-                <Polyline 
-                 Points="50,0,100,75,50,150" Stroke="{StaticResource ButtonBackgroundColor}">
+            <Button Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadNextView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
+
+                <Polyline Fill="{StaticResource PurpleTaupe}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
                 </Polyline>
             </Button>
         </Grid>

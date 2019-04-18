@@ -11,12 +11,31 @@
             <SolidColorBrush x:Key="ButtonBackgroundColor" Color="#FFD0E3C4"/>
             <SolidColorBrush x:Key="PurpleTaupe" Color="#FF503047"/>
             <Style TargetType="{x:Type Button}" x:Key="PaginationButton" >
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="border" 
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="0" 
+                            Margin="0"
+                            CornerRadius="3" 
+                            Background="{TemplateBinding  Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"   
+                             >
+                            <ContentPresenter Margin="0"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Padding" Value="5,5,5,5"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="{StaticResource ButtonBackgroundColor }"/>
-                    </Trigger>
-                    <Trigger Property="IsMouseOver" Value="False">
-                        <Setter Property="Background" Value="{StaticResource ButtonBorderBrushColor }"/>
+                        <Setter Property="Margin" Value="0,0,5,5"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
