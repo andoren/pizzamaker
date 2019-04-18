@@ -246,5 +246,32 @@ namespace PizzaAppTests
             Assert.AreEqual(expected, actual);
         }
         #endregion
+        #region Customer Class Address Validaton
+        [TestMethod]
+        public void AddressValidationRegularTest() {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.AddressValidation();
+            bool expected = true;
+            Assert.AreEqual(expected, actual);
+
+        }
+        [TestMethod]
+        public void AddressValidationEmptyTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobileNumber = "+36700000000";
+            target.Address = "";
+            bool actual = target.AddressValidation();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+
+        }
+        #endregion
     }
 }

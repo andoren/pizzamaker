@@ -68,5 +68,12 @@ namespace pizzamaker.Models
             else if (MobileNumber.Length != 12) answer = false;
             return answer;
         }
+
+        public bool AddressValidation()
+        {
+            bool answer = true;
+            if (String.IsNullOrEmpty(Address)) answer = false;
+            return answer;
+        }
     }
 }
