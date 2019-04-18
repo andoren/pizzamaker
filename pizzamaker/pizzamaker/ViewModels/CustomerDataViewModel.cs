@@ -15,6 +15,7 @@ namespace pizzamaker.ViewModels
         public CustomerDataViewModel(StartUpViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
+            LoadDataIfExits();
         }
         StartUpViewModel mainWindow;
         private string _nameError;
@@ -64,7 +65,7 @@ namespace pizzamaker.ViewModels
 
         private void ResetErrorsTexts() {
             NameError = "";
-            EmailError = "";
+            EmailError = ""; 
             MobilError = "";
             AddressError = "";
         }
@@ -77,23 +78,27 @@ namespace pizzamaker.ViewModels
             customer.Address = AddressTextBox;
             try {
                 ResetErrorsTexts();
-                if(customer.MassValidation()) mainWindow.LoadNextView(); 
+                if (customer.MassValidation()) {
+                    var order = Order.getInstance();
+                    order.Customer = customer;
+                    mainWindow.LoadNextView();
+                } 
             }
             catch (CustomerNameErrorException)
             {
-                NameError = "Invalid name. eg.:John Smith";
+                NameError = "Invalid name. eg.: John Smith";
             }
             catch (CustomerEmailErrorException)
             {
-                EmailError = "Invalid email. eg.:example@example.com";
+                EmailError = "Invalid email. eg.: example@example.com";
             }
             catch (CustomerMobileNumberErrorException)
             {
-                MobilError = "Invalid mobile number. eg.:+36701234567";
+                MobilError = "Invalid mobile number. eg.: +36701234567";
             }
             catch (CustomerAddressErrorException)
             {
-                AddressError = "Invalid address. eg.: 3390 Eger, Leányka utca 2.";
+                AddressError = "Invalid address. eg.: 3300 Eger, Leányka utca 2.";
             }
             catch (Exception e)
             {
@@ -102,5 +107,16 @@ namespace pizzamaker.ViewModels
 
         }
 
+        private void LoadDataIfExits()
+        {
+            var order = Order.getInstance();
+            if (order.Customer != null) {
+                NameTextBox = order.Customer.Name;
+                EmailTextBox = order.Customer.Email;
+                MobileTextBox = order.Customer.MobileNumber;
+                AddressTextBox = order.Customer.Address;
+            }
+
+        }
     }
 }

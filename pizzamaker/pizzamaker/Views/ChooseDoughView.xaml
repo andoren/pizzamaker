@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="pizzamaker.Views.ChooseDoughView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:pizzamaker.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <TextBlock x:Name="CustomerName" FontSize="26"></TextBlock>
+        <Grid  Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="7">
+            <Button Visibility="Visible" Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadPrevView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="180"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+
+                <Polyline Fill="{StaticResource PurpleTaupe}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                </Polyline>
+            </Button>
+            <Button  Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadNextView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
+
+                <Polyline Fill="{StaticResource PurpleTaupe}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                </Polyline>
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

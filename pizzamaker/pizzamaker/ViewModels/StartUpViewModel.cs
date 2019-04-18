@@ -14,7 +14,7 @@ namespace pizzamaker.ViewModels
 
         public StartUpViewModel()
         {
-            ActivateItem(new StartViewModel(this));
+            ActivateItem(sceneFactory.CreateScene(this, 0));
         }
         SceneFactory sceneFactory = new SceneFactory();
         private int _currentLoadedView = 0;
@@ -29,21 +29,15 @@ namespace pizzamaker.ViewModels
             }
         }
         public void LoadNextView() {
-            if(CurrentLoadedView == 0) ActivateItem(new CustomerDataViewModel(this));
-            else ActivateItem(new StartViewModel(this));
             CurrentLoadedView += 1;
-            NotifyOfPropertyChange(() => ButtonsIsVisible);
+            ActivateItem(sceneFactory.CreateScene(this,CurrentLoadedView));
+            
+           
         }
         public void LoadPrevView() {
             CurrentLoadedView -= 1;
-            ActivateItem(new CustomerDataViewModel(this));
+            ActivateItem(sceneFactory.CreateScene(this, CurrentLoadedView));
         }
-        public bool ButtonsIsVisible
-        {
-            get {
-                return CurrentLoadedView != 0 ? true : false;
-            }
 
-        }
     }
 }

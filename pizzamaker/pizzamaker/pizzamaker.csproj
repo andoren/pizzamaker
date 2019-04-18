@@ -83,6 +83,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Abstracts\Food.cs" />
     <Compile Include="Models\Abstracts\FoodDecorator.cs" />
+    <Compile Include="ViewModels\ChooseDoughViewModel.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Exceptions\CustomerAddressErrorException.cs" />
     <Compile Include="Models\Exceptions\CustomerEmailErrorException.cs" />
@@ -101,6 +102,9 @@
     <Compile Include="Models\SceneFactory.cs" />
     <Compile Include="ViewModels\StartUpViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="Views\ChooseDoughView.xaml.cs">
+      <DependentUpon>ChooseDoughView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CustomerDataView.xaml.cs">
       <DependentUpon>CustomerDataView.xaml</DependentUpon>
     </Compile>
@@ -115,6 +119,10 @@
     <Compile Include="Views\StartView.xaml.cs">
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ChooseDoughView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\CustomerDataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

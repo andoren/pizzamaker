@@ -25,6 +25,14 @@ namespace pizzamaker.Models
             return order;
         }
         private List<Food> pizzaCondiments;
+        private Customer customer;
+
+        public Customer Customer
+        {
+            get { return customer; }
+            set { customer = value; }
+        }
+
         public bool Add(Food food)
         {
             if (food != null ) {
