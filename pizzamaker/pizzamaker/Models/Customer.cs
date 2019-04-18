@@ -47,9 +47,17 @@ namespace pizzamaker.Models
             set { _address = value; }
         }
 
-
-
-
-
+        public bool EmailValidaton()
+        {
+            bool answer = true;
+            if (String.IsNullOrEmpty(Email)) answer = false;
+            else if (Email.Contains(" ")) answer = false;
+            else if (!Email.Contains("@")) answer = false;
+            else if (Email.Length < 7 || Email.Length > 30) answer = false;
+            else if (Email.Split('@')[0].Length == 0 || Email.Split('@')[1].Length == 0) answer = false;
+            else if (!Email.Contains(".")) answer = false;
+            else if (Email.Split('.')[1].Length == 0) answer = false;
+            return answer;
+        }
     }
 }

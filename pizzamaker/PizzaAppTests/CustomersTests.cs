@@ -12,7 +12,7 @@ namespace PizzaAppTests
     [TestClass]
     public class CustomersTests
     {
-       
+        #region Customer Class Name Validaton
         [TestMethod]
         public void NameValidationRegularTest()
         {
@@ -85,5 +85,117 @@ namespace PizzaAppTests
             bool expected = false;
             Assert.AreEqual(expected, actual);
         }
+        #endregion
+
+        #region Customer Class Email Validaton
+        [TestMethod]
+        public void EmailValidationRegularTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemail@gmail.com";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = true;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void EmailValidationEmptyTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void EmailValidationContainsSpaceTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ez egykamuemail@gmail.com";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void EmailValidationWithoutAtTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegykamuemailgmail.com";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void EmailValidationLessThan7CharTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "2@a.h";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void EmailValidationNoTextBeforeAtTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "@gmail.com";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void EmailValidationNoTextAfterAtTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegyemail@";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void EmailValidationNoDotTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegy@validemail";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        [TestMethod]
+        public void EmailValidationNoTextAfterDotTest()
+        {
+            Customer target = new Customer();
+            target.Name = "Pekár Mihály";
+            target.Email = "ezegy@validemail.";
+            target.MobilNumber = "+36700000000";
+            target.Address = "5540, Szarvas Tessedik Sámuel u. 55.";
+            bool actual = target.EmailValidaton();
+            bool expected = false;
+            Assert.AreEqual(expected, actual);
+        }
+        #endregion
     }
 }
