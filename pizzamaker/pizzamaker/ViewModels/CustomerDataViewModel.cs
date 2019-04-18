@@ -58,10 +58,10 @@ namespace pizzamaker.ViewModels
             }
         }
 
-        public string NameTextBox { get; set; } 
-        public string EmailTextBox { get; set; } 
-        public string MobileTextBox { get; set; } 
-        public string AddressTextBox { get; set; }
+        public string NameTextBox { get; set; } = "Pekár Mihály";
+        public string EmailTextBox { get; set; } = "mpekar55@gmail.com";
+        public string MobileTextBox { get; set; } = "+36707016759";
+        public string AddressTextBox { get; set; } = "5540 Szarvas, Tessedik Sámuel utca 55.";
 
         private void ResetErrorsTexts() {
             NameError = "";

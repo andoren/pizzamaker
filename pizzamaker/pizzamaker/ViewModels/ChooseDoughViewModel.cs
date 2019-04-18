@@ -9,18 +9,27 @@ namespace pizzamaker.ViewModels
         public ChooseDoughViewModel(StartUpViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
-            var order = Order.getInstance();
-            CustomerName = order.Customer.Name;
-
         }
         private StartUpViewModel mainWindow;
-        private string _customerName;
+        private string _selectedDoughName = "Olasz Zászló";
 
-        public string CustomerName
+        public string SelectedDoughName
         {
-            get { return _customerName; }
-            set { _customerName = value; }
+            get { return _selectedDoughName; }
+            set
+            {
+                _selectedDoughName = value;
+                NotifyOfPropertyChange(() => SelectedDoughName);
+            } 
         }
+        private string _selectedDoughDescription ="Ez egy szép olasz zászló (csak átmenetileg leszek itt amig nincs adatbázis kapcsolat)";
+
+        public string SelectedDoughDescription
+        {
+            get { return _selectedDoughDescription; }
+            set { _selectedDoughDescription = value; } 
+        }
+
         public void LoadNextView()
         {  
              mainWindow.LoadNextView();

@@ -5,10 +5,30 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pizzamaker.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height="600" Width="950">
     <Grid>
-        <TextBlock x:Name="CustomerName" FontSize="26"></TextBlock>
-        <Grid  Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="7">
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ForeGroundColor}" FontSize="36">Choose your dough</TextBlock>
+        <Grid  Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="7">
             <Button Visibility="Visible" Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadPrevView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" RenderTransformOrigin="0.5,0.5">
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -32,5 +52,37 @@
                 </Polyline>
             </Button>
         </Grid>
+        <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="1" Grid.RowSpan="8" Grid.ColumnSpan="7" Width="450" Height="300">
+            <Grid >
+                <Grid Background="#99FFFFFF"  Panel.ZIndex="2" Margin="0,0,0,0" Width="230" Height="50" VerticalAlignment="Top">
+                    <TextBlock Margin="0,0,0,0" Text="{Binding SelectedDoughName, Mode=OneWay}" Height="36" VerticalAlignment="Top" FontSize="30" HorizontalAlignment="Center" ></TextBlock>
+                </Grid>
+                <Image x:Name="SelectedDough" ToolTip="{Binding SelectedDoughDescription, Mode=OneWay}"  Source="/pizzamaker;component/imgs/italyflag.png"></Image>
+            </Grid>
+        </Border>
+
+        
+        <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="4" Grid.Row="7" Height="130" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="7">
+            <Grid Background="{StaticResource PurpleTaupe}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="20,20,20,20" Width="130" Height="100">
+                    <Image Source="/pizzamaker;component/imgs/italyflag.png" Stretch="Fill"></Image>
+                </Button>
+                <Button Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="20,20,20,20" Width="130" Height="100">
+                    <Image Source="/pizzamaker;component/imgs/italyflag.png" Stretch="Fill"></Image>
+                </Button>
+                <Button Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="20,20,20,20" Width="130" Height="100">
+                    <Image Source="/pizzamaker;component/imgs/italyflag.png" Stretch="Fill"></Image>
+                </Button>
+                <Button Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="20,20,20,20" Width="130" Height="100">
+                    <Image Source="/pizzamaker;component/imgs/italyflag.png" Stretch="Fill"></Image>
+                </Button>
+                <Button Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" Margin="20,20,20,20" Width="130" Height="100">
+                    <Image Source="/pizzamaker;component/imgs/italyflag.png" Stretch="Fill"></Image>
+                </Button>
+                </StackPanel>
+            </Grid>
+        </Border>
+        
     </Grid>
 </UserControl>
