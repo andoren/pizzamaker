@@ -461,7 +461,7 @@ dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
             get { return _rawpicture; }
             set { _rawpicture = value; }
         }
-        protected BitmapImage _picture;
+        protected volatile BitmapImage _picture;
 
         
         public virtual BitmapImage Picture

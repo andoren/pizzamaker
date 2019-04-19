@@ -20,7 +20,7 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -69,12 +69,12 @@
         
         <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="4" Grid.Row="7" Height="130" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="7">
             <Grid Background="{StaticResource PurpleTaupe}">
-                <ScrollViewer x:Name="DoughScroller" HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Disabled">
+                <ScrollViewer Margin="130,0,130,0"  x:Name="DoughScroller" HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Disabled">
                 <ItemsControl x:Name="Doughs">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             
-                            <StackPanel Margin="130,0,130,0" HorizontalAlignment="left" VerticalAlignment="Center" Orientation="Horizontal"/>
+                            <StackPanel  HorizontalAlignment="left" VerticalAlignment="Center" Orientation="Horizontal"/>
                             
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>

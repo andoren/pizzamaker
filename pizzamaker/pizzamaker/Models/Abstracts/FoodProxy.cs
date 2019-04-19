@@ -20,6 +20,7 @@ namespace pizzamaker.Models.Abstracts
             CreateBitMapImage();
 
         }
+        bool retrieving = false;
         public event PropertyChangedEventHandler PropertyChanged;
         public bool IsNotifying { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public void NotifyOfPropertyChange(string propertyName)
@@ -47,10 +48,10 @@ namespace pizzamaker.Models.Abstracts
         protected override void CreateBitMapImage()
         {
             var image = new BitmapImage();
-            if (RawPicture == null || RawPicture.Length == 0)
+            if (RawPicture == null || RawPicture.Length == 0 || !retrieving)
             {
 
-
+                retrieving = true;
                 image.BeginInit();
                 image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
                 image.CacheOption = BitmapCacheOption.OnLoad;
@@ -61,11 +62,10 @@ namespace pizzamaker.Models.Abstracts
 
                 Thread t = new Thread(() =>
                 {
-                    Thread.Sleep(200);
-                    Dispatcher.CurrentDispatcher.Invoke(() => {
-                        this.RawPicture = Convert.FromBase64String(temp);
-                        CreateBitMapImage();
-                    });
+                    Thread.Sleep(200);                   
+                    this.RawPicture = Convert.FromBase64String(temp);
+                    CreateBitMapImage();
+                    
 
                 }
                  );
@@ -80,7 +80,6 @@ namespace pizzamaker.Models.Abstracts
                     image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
                     image.CacheOption = BitmapCacheOption.OnLoad;
                     image.UriSource = null;
-
                     image.StreamSource = mem;
                     image.EndInit();
                     mem.Close();

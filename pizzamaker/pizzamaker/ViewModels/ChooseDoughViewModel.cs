@@ -8,6 +8,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media.Animation;
 using System.Windows;
 using System.Windows.Threading;
+using System.Reflection;
 
 namespace pizzamaker.ViewModels
 {
@@ -116,7 +117,7 @@ namespace pizzamaker.ViewModels
                 NotifyOfPropertyChange(() => SelectedDoughName);
             }
         }
-        private string _selectedDoughDescription = "Ez egy szép olasz zászló (csak átmenetileg leszek itt amig nincs adatbázis kapcsolat)";
+        private string _selectedDoughDescription;
 
         public string SelectedDoughDescription
         {
@@ -125,6 +126,10 @@ namespace pizzamaker.ViewModels
         }
         public void DoughSelected(object obj) {
             if (obj is Dough) {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
                 Dough dough = obj as Dough;
                 SelectedDoughName = dough.Name;
                 SelectedDough = dough.Picture;
@@ -142,22 +147,27 @@ namespace pizzamaker.ViewModels
         {
             mainWindow.LoadPrevView();
         }
-
         public void ScrollerToRight(object obj) {
             if (obj is ScrollViewer)
             {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
                 ScrollViewer scrollViewer = obj as ScrollViewer;
                 scrollTimer = new DispatcherTimer();
 
                 scrollTimer.Start();
                 double curroffset = scrollViewer.HorizontalOffset;
-                scrollTimer.Interval = TimeSpan.FromMilliseconds(15);
 
+
+                scrollTimer.Interval = TimeSpan.FromTicks(5000);
+                
                 scrollTimer.Tick += (s, e) =>
                 {
-                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 5);
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 0.2);
 
-                    if (curroffset + 140 == scrollViewer.HorizontalOffset)
+                    if (curroffset + 170 <= scrollViewer.HorizontalOffset )
                     {
                         scrollTimer.Stop();
                     }
@@ -167,22 +177,43 @@ namespace pizzamaker.ViewModels
         }
         public void ScrollerToLeft(object obj)
         {
-            ScrollViewer scrollViewer = obj as ScrollViewer;
-            scrollTimer = new DispatcherTimer();
-
-            scrollTimer.Start();
-            double curroffset = scrollViewer.HorizontalOffset;
-            scrollTimer.Interval = TimeSpan.FromMilliseconds(15);
-
-            scrollTimer.Tick += (s, e) =>
+            if (obj is ScrollViewer)
             {
-                scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - 5);
-
-                if (curroffset - 140 == scrollViewer.HorizontalOffset)
+                if (scrollTimer != null)
                 {
-                    scrollTimer.Stop();
+                    RemoveHandlers(scrollTimer);
                 }
-            };
+                ScrollViewer scrollViewer = obj as ScrollViewer;
+                scrollTimer = new DispatcherTimer();
+
+                scrollTimer.Start();
+                double curroffset = scrollViewer.HorizontalOffset;
+                scrollTimer.Interval = TimeSpan.FromTicks(5000);
+
+                scrollTimer.Tick += (s, e) =>
+                {
+                    scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - 0.2);
+
+                    if (curroffset - 170 >= scrollViewer.HorizontalOffset)
+                    {
+                        scrollTimer.Stop();
+                    }
+                };
+            }
+        }
+        private void RemoveHandlers(DispatcherTimer dispatchTimer)
+        {
+            var eventField = dispatchTimer.GetType().GetField("Tick",
+                    BindingFlags.NonPublic | BindingFlags.Instance);
+            var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
+            if (eventDelegate != null)
+            {
+                var invocatationList = eventDelegate.GetInvocationList();
+
+                foreach (var handler in invocatationList)
+                    dispatchTimer.Tick -= ((EventHandler)handler);
+            }
+
         }
     }
 }
