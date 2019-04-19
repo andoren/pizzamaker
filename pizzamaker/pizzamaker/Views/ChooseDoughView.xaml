@@ -7,19 +7,8 @@
              mc:Ignorable="d" 
              Height="600" Width="950">
     <UserControl.Resources>
-        <CommandBinding x:Name="SelectedDoughCommand" x:Key="SelectedDoughCommand">
-            
-        </CommandBinding>
-        <Style TargetType="{x:Type Button}">
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Margin" Value="20,0,20,0"/>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="BorderBrush" Value="White"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+
+       
     </UserControl.Resources>
 
     <Grid>
@@ -70,8 +59,8 @@
         </Grid>
         <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="1" Grid.RowSpan="8" Grid.ColumnSpan="7" Width="450" Height="300">
             <Grid >
-                <Grid Background="#99FFFFFF"  Panel.ZIndex="2" Margin="0,0,0,0" Width="230" Height="50" VerticalAlignment="Top">
-                    <TextBlock Margin="0,0,0,0" Text="{Binding SelectedDoughName, Mode=OneWay}" Height="36" VerticalAlignment="Top" FontSize="30" HorizontalAlignment="Center" ></TextBlock>
+                <Grid Background="#99FFFFFF"  Panel.ZIndex="2" Margin="0,0,0,0" MinWidth="230" Height="50" VerticalAlignment="Top">
+                    <TextBlock Margin="0,0,0,0" Text="{Binding SelectedDoughName, Mode=OneWay}" Height="36" VerticalAlignment="Center" FontSize="30" HorizontalAlignment="Center" ></TextBlock>
                 </Grid>
                 <Image Opacity="1" Source="{Binding SelectedDough}" ToolTip="{Binding SelectedDoughDescription, Mode=OneWay}" Stretch="Fill"  ></Image>
             </Grid>
@@ -80,26 +69,53 @@
         
         <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="4" Grid.Row="7" Height="130" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="7">
             <Grid Background="{StaticResource PurpleTaupe}">
+                <ScrollViewer x:Name="DoughScroller" HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Disabled">
                 <ItemsControl x:Name="Doughs">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal"/>
+                            
+                            <StackPanel Margin="130,0,130,0" HorizontalAlignment="left" VerticalAlignment="Center" Orientation="Horizontal"/>
+                            
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
+                            
                             <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ChooseDoughView}}, Path=DataContext.SelectedDoughCommand}" 
         CommandParameter="{Binding}" >
-                                <Image ToolTip="{Binding Description}"  >
+                                <Button.Style>
+                                    <Style TargetType="{x:Type Button}">
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Margin" Value="20,0,20,0"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="Transparent"/>
+                                                <Setter Property="BorderBrush" Value="Transparent"/>
+                                                <Setter Property="BorderThickness" Value="0"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Image ToolTip="{Binding Description}" Stretch="Fill"  >
                                     <Image.Style>
-                                        <Style TargetType="{x:Type Image}">
-                                            <Setter Property="Opacity" Value="0.6"/>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Cursor" Value="Hand" />
+                                            <Setter Property="Height" Value="105" />
+                                            <Setter Property="Width" Value="135" />
+                                            <Setter Property="Margin" Value="0" />
+                                            <Setter Property="HorizontalAlignment" Value="Center" />
+                                            <Setter Property="VerticalAlignment" Value="Center" />
+                                            <Setter Property="Opacity" Value="0.6" />
                                             <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Opacity" Value="1"/>
+                                                <Trigger Property="Image.IsMouseOver" Value="True">
+                                                    <Setter Property="Image.Opacity" Value="1" />
                                                 </Trigger>
                                             </Style.Triggers>
                                         </Style>
+
                                     </Image.Style>
                                     <Image.Source>
                                         <Binding Path="Picture">
@@ -110,11 +126,36 @@
                                     </Image.Source>
                                 </Image>
                             </Button>
+                            
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                
-                
+                </ScrollViewer>
+                <Grid  Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="7">
+                    <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ChooseDoughView}}, Path=DataContext.ScrollerToLeftCommand}" CommandParameter="{Binding ElementName=DoughScroller}" Style="{StaticResource PaginationButton}"  Panel.ZIndex="3" Padding="0" Margin="0" Width="100" Height="100" Grid.Row="0"  HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="180"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+
+                        <Polyline Fill="{StaticResource MainBackGroundColor}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                        </Polyline>
+                    </Button>
+                    <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ChooseDoughView}}, Path=DataContext.ScrollerToRightCommand}" CommandParameter="{Binding ElementName=DoughScroller}" Style="{StaticResource PaginationButton}"  Panel.ZIndex="3" Padding="0" Margin="0" Width="100" Height="100" Grid.Row="0"  HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
+
+                        <Polyline Fill="{StaticResource MainBackGroundColor}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                        </Polyline>
+                    </Button>
+                </Grid>
+
             </Grid>
         </Border>
         
