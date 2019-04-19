@@ -1,4 +1,5 @@
-﻿using System;
+﻿using pizzamaker.Models.Abstracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Windows;
 
 namespace pizzamaker.Models
 {
-    public class Dough:Food
+    public class Dough:FoodProxy
     {
         public Dough():base()
         {

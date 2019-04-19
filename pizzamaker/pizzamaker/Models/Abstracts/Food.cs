@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using Caliburn.Micro;
+using System.Windows.Threading;
+using System.ComponentModel;
 
 namespace pizzamaker.Models
 {
     public abstract class Food
     {
-        string temp = @"/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwMDAgQDAwMEBAQFBgoGBgUFBgwICQcKDgwPDg4M
+        protected string temp = @"/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAQDAwMDAgQDAwMEBAQFBgoGBgUFBgwICQcKDgwPDg4M
 DQ0PERYTDxAVEQ0NExoTFRcYGRkZDxIbHRsYHRYYGRj/2wBDAQQEBAYFBgsGBgsYEA0QGBgYGBgY
 GBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBgYGBj/wAARCAEOAeADASIA
 AhEBAxEB/8QAHQAAAQUBAQEBAAAAAAAAAAAABQIDBAYHAQgACf/EAEQQAAIBAwMCBAUBBgMFBwQD
@@ -416,11 +420,7 @@ oAklQkaxInpYkkA9PfHsKciiVPLIAAHO73UnP+lNtlIWIYgKmSB+ccU2t858wvGrQekKOjDkZoAI
 jYsTFuDuyu3uKTbtFalo1LbG5KuckE1Gsbj5m9eMoAImBU+4z3+9Sbu3eG0LFlYE8jHXBoIaI95c
 SRqohQyPJnCjsRUTzpnMLyhYGC4lA6E54PHbOKTby/MztIwI59P+6PanDIxmY/wr/WgkTcTXTwlV
 dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
-        public Food()
-        {
-            this.RawPicture = Convert.FromBase64String(temp);
-            CreateBitMapImage();
-        }
+
         private int _id;
 
         public int Id
@@ -461,17 +461,23 @@ dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
             get { return _rawpicture; }
             set { _rawpicture = value; }
         }
-        private BitmapImage _picture;
+        protected BitmapImage _picture;
 
-        public BitmapImage Picture
+        
+        public virtual BitmapImage Picture
         {
             get { return _picture; }
-            set { _picture = value; }
+            set {
+                _picture = value;
+                
+
+            }
         }
 
-        protected  void CreateBitMapImage()
+
+
+        protected virtual void CreateBitMapImage()
         {
-            if (RawPicture == null || RawPicture.Length == 0) return;
             var image = new BitmapImage();
             using (var mem = new MemoryStream(RawPicture))
             {
@@ -480,7 +486,7 @@ dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
                 image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
                 image.CacheOption = BitmapCacheOption.OnLoad;
                 image.UriSource = null;
-                
+
                 image.StreamSource = mem;
                 image.EndInit();
                 mem.Close();
@@ -488,6 +494,7 @@ dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
             image.Freeze();
             Picture = image;
         }
+
 
     }
 }

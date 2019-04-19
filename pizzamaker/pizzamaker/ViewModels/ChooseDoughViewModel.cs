@@ -22,6 +22,7 @@ namespace pizzamaker.ViewModels
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
+            
         }
 
         DispatcherTimer scrollTimer;
@@ -94,8 +95,8 @@ namespace pizzamaker.ViewModels
         }
 
         public BindableCollection<Food> Doughs { get; set; }
-        private string _selectedDoughName = "Olasz Zászló";
-        private BitmapImage _selectedDough = new BitmapImage(new Uri(@"E:\git2019\pizzamaker\pizzamaker\pizzamaker\imgs\italyflag.png", UriKind.Absolute));
+        private string _selectedDoughName = "Dough name";
+        private BitmapImage _selectedDough;
 
         public BitmapImage SelectedDough
         {

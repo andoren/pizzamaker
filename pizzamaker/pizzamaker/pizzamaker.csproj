@@ -83,6 +83,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Abstracts\Food.cs" />
     <Compile Include="Models\Abstracts\FoodDecorator.cs" />
+    <Compile Include="Models\Abstracts\FoodProxy.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="ViewModels\ChooseDoughViewModel.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -172,6 +173,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="imgs\PizzaTitle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\imgicon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
