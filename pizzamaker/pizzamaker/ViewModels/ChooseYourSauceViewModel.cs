@@ -1,51 +1,44 @@
-﻿
-using Caliburn.Micro;
+﻿using Caliburn.Micro;
 using pizzamaker.Models;
+using pizzamaker.Models.Foods;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
-using System.Windows.Media.Animation;
-using System.Windows;
 using System.Windows.Threading;
-using System.Reflection;
 
 namespace pizzamaker.ViewModels
 {
-    public class ChooseDoughViewModel : Screen
+    class ChooseYourSauceViewModel:Screen
     {
-
-        public ChooseDoughViewModel(StartUpViewModel mainWindow)
+        public ChooseYourSauceViewModel(StartUpViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
-            Initialize();
-            LoadOrderData();
-        }
-        private void Initialize() {
-            Doughs = new BindableCollection<Food>() { new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(2, "Wholegrain Dough", "Regualr dough with our spicy spice", 1.99), new Dough(3, "GlutenFree Dough", "Regualr dough with our spicy spice", 1.99), new Dough(4, "Crusty Dough", "Regualr dough with our spicy spice", 1.99) };
-            SelectedDoughCommand = new RelayCommand(DoughSelected, param => this.canExecute);
+            Sauces = new BindableCollection<Food>() { new Sauce(),new Sauce(1,"Spicy Sauce","This is our Spicy sauce",1.99)};
+            SelectedSauceCommand = new RelayCommand(SauceSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
-
-
         }
-        private void LoadOrderData() {
-            var order = Order.getInstance();
-            if (order.dough != null) SelectedDough = order.dough;
-        }
-        DispatcherTimer scrollTimer;
+        public BindableCollection<Food> Sauces { get; set; }
         private StartUpViewModel mainWindow;
-        private ICommand selectedDoughCommand;
-        public ICommand SelectedDoughCommand
+        DispatcherTimer scrollTimer;
+        private bool canExecute = true;
+        private ICommand selectedSauceCommand;
+        public ICommand SelectedSauceCommand
         {
             get
             {
-                return selectedDoughCommand;
+                return selectedSauceCommand;
             }
             set
             {
-                selectedDoughCommand = value;
+                selectedSauceCommand = value;
             }
         }
         private ICommand scrollerToLeft;
@@ -84,67 +77,44 @@ namespace pizzamaker.ViewModels
                 toggleExecuteCommand = value;
             }
         }
-        private bool canExecute = true;
-        public bool CanExecute
-        {
-            get
-            {
-                return this.canExecute;
-            }
-
-            set
-            {
-                if (this.canExecute == value)
-                {
-                    return;
-                }
-
-                this.canExecute = value;
-            }
-        }
-
-        public BindableCollection<Food> Doughs { get; set; }
-
-        private Dough _selectedDough;
-
-        public Dough SelectedDough
-        {
-            get { return _selectedDough; }
-            set {
-                _selectedDough = value;
-                var order = Order.getInstance();
-                order.dough = value;
-                NotifyOfPropertyChange(() => SelectedDough);
-            }
-        }
-
-        public void DoughSelected(object obj) {
-            if (obj is Dough) {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
-                SelectedDough = obj as Dough;
-            }
-        }
         public void ChangeCanExecute(object obj)
         {
             canExecute = !canExecute;
         }
+        public void SauceSelected(object obj)
+        {
+            if (obj is Sauce)
+            {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
+                SelectedSauce = obj as Sauce;
+            }
+        }
+        private Sauce _selectedSauce;
+
+        public Sauce SelectedSauce
+        {
+            get { return _selectedSauce; }
+            set
+            {
+                _selectedSauce = value;
+
+                NotifyOfPropertyChange(() => SelectedSauce);
+            }
+        }
+
         public void LoadNextView()
         {
-            var order = Order.getInstance();
-            if (order.dough == null) {
-                MessageBox.Show("You must selected a dough first!");
-                return;
-            }
             mainWindow.LoadNextView();
         }
         public void LoadPrevView()
         {
             mainWindow.LoadPrevView();
         }
-        public void ScrollerToRight(object obj) {
+        public void ScrollerToRight(object obj)
+        {
             if (obj is ScrollViewer)
             {
                 if (scrollTimer != null)
@@ -159,17 +129,17 @@ namespace pizzamaker.ViewModels
 
 
                 scrollTimer.Interval = TimeSpan.FromTicks(5000);
-                
+
                 scrollTimer.Tick += (s, e) =>
                 {
                     scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 0.2);
 
-                    if (curroffset + 170 <= scrollViewer.HorizontalOffset )
+                    if (curroffset + 170 <= scrollViewer.HorizontalOffset)
                     {
                         scrollTimer.Stop();
                     }
                 };
-                
+
             }
         }
         public void ScrollerToLeft(object obj)
@@ -213,4 +183,5 @@ namespace pizzamaker.ViewModels
 
         }
     }
+   
 }

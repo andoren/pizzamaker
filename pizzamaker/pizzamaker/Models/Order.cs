@@ -26,7 +26,7 @@ namespace pizzamaker.Models
         }
         private List<Food> pizzaCondiments;
         private Customer customer;
-
+        public Dough dough;
         public Customer Customer
         {
             get { return customer; }

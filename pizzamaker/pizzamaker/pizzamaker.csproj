@@ -100,12 +100,16 @@
     <Compile Include="Models\Foods\Sauce.cs" />
     <Compile Include="Models\Foods\Topping.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="ViewModels\ChooseYourSauceViewModel.cs" />
     <Compile Include="ViewModels\CustomerDataViewModel.cs" />
     <Compile Include="Models\SceneFactory.cs" />
     <Compile Include="ViewModels\StartUpViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="Views\ChooseDoughView.xaml.cs">
       <DependentUpon>ChooseDoughView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChooseYourSauceView.xaml.cs">
+      <DependentUpon>ChooseYourSauceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CustomerDataView.xaml.cs">
       <DependentUpon>CustomerDataView.xaml</DependentUpon>
@@ -122,6 +126,10 @@
       <DependentUpon>StartView.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\ChooseDoughView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ChooseYourSauceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

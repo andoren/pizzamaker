@@ -60,9 +60,9 @@
         <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="1" Grid.RowSpan="8" Grid.ColumnSpan="7" Width="450" Height="300">
             <Grid >
                 <Grid Background="#99FFFFFF"  Panel.ZIndex="2" Margin="0,0,0,0" MinWidth="230" Height="50" VerticalAlignment="Top">
-                    <TextBlock Margin="0,0,0,0" Text="{Binding SelectedDoughName, Mode=OneWay}" Height="36" VerticalAlignment="Center" FontSize="30" HorizontalAlignment="Center" ></TextBlock>
+                    <TextBlock Margin="0,0,0,0" Text="{Binding SelectedDough.Name, Mode=OneWay}" Height="36" VerticalAlignment="Center" FontSize="30" HorizontalAlignment="Center" ></TextBlock>
                 </Grid>
-                <Image Opacity="1" Source="{Binding SelectedDough}" ToolTip="{Binding SelectedDoughDescription, Mode=OneWay}" Stretch="Fill"  ></Image>
+                <Image Opacity="1" Source="{Binding SelectedDough.Picture}" ToolTip="{Binding SelectedDough.Description, Mode=OneWay}" Stretch="Fill"  ></Image>
             </Grid>
         </Border>
 
