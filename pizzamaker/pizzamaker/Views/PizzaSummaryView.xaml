@@ -5,8 +5,33 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:pizzamaker.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Height="600" Width="950">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Foreground="{StaticResource ForeGroundColor}" FontSize="36" Grid.ColumnSpan="8" HorizontalAlignment="Center" VerticalAlignment="Center" >Order summary</TextBlock>
+        <Grid Background="#9EFFFFFF" Grid.Row="1" Margin="0,0,0,30" Grid.RowSpan="7" Grid.Column="2" Grid.ColumnSpan="4">
             
+        </Grid>
+        <Button x:Name="LoadPrevView" Grid.Row="6" Grid.RowSpan="2" Grid.ColumnSpan="2">Back</Button>
+        <Button Grid.Row="6" Grid.RowSpan="2" Grid.Column="6" Grid.ColumnSpan="2">Order</Button>
     </Grid>
 </UserControl>

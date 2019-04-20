@@ -21,6 +21,8 @@ namespace pizzamaker.ViewModels
         public ChooseCheeseViewModel(StartUpViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
+            Initialize();
+            LoadOrderData();
         }
         #region Initialize data
         private void Initialize()
@@ -78,6 +80,9 @@ namespace pizzamaker.ViewModels
                     RemoveHandlers(scrollTimer);
                 }
                 SelectedCheese = obj as Cheese;
+                order.AddAt(SelectedCheese, 4);
+                NotifyOfPropertyChange(() => SelectedCheese);
+                
             }
         }
         public void ChangeCanExecute(object obj)

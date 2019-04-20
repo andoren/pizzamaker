@@ -15,5 +15,9 @@ namespace pizzamaker.ViewModels
         {
             this.mainWindow = mainWindow;
         }
+        public void LoadPrevView()
+        {
+            mainWindow.LoadPrevView();
+        }
     }
 }
