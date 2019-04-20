@@ -14,41 +14,38 @@ using System.Windows.Threading;
 
 namespace pizzamaker.ViewModels
 {
-    class SelectToppingsViewModel:Screen
+    class ChooseCheeseViewModel : Screen
     {
-        
 
-        public SelectToppingsViewModel(StartUpViewModel mainWindow)
+
+        public ChooseCheeseViewModel(StartUpViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
-            Initialize();
-            LoadOrderData();
         }
         #region Initialize data
         private void Initialize()
         {
-            Toppings = new BindableCollection<Food>() { new Topping(1, "Normal Topping", "Regualr Topping with our spicy spice", 0.99), new Topping(2, "Spicy Topping", "Regualr Topping with our spicy spice", 2.99), new Topping(3, "Banana", "Regualr Topping with our spicy spice", 1.99), new Topping(4, "Wholegrain Topping", "Regualr Topping with our spicy spice", 13.99), new Topping(5, "GlutenFree Topping", "Regualr Topping with our spicy spice", 1.99), new Topping(6, "Crusty Topping", "Regualr Topping with our spicy spice", 4.99) };
+            Cheeses = new BindableCollection<Food>() { new Cheese(1, "Normal Cheese", "Regualr Cheese with our spicy spice", 0.99), new Cheese(1, "Normal Cheese", "Regualr Cheese with our spicy spice", 2.99), new Cheese(1, "Normal Cheese", "Regualr Cheese with our spicy spice", 1.99), new Cheese(2, "Wholegrain Cheese", "Regualr Cheese with our spicy spice", 13.99), new Cheese(3, "GlutenFree Cheese", "Regualr Cheese with our spicy spice", 1.99), new Cheese(4, "Crusty Cheese", "Regualr Cheese with our spicy spice", 4.99) };
+            SelectedCheeseCommand = new RelayCommand(CheeseSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
-            ToppingSelectedCommand = new RelayCommand(ToppingSelected, param => this.canExecute);
-            ToppingRemoveCommand = new RelayCommand(RemoveTopping, param => this.canExecute);
+
+
         }
         private void LoadOrderData()
         {
             Order = Order.getInstance();
-            if (Order.AllToppings == null)
+            if (Order.Cheese != null)
             {
-                Order.AllToppings = new Toppings();
-                Order.AllToppings.AllToppings = new List<Topping>();
+                SelectedCheese = Order.Cheese;
+                Order.Remove(SelectedCheese);
             }
-            
         }
         #endregion
-        #region View properties and methods like current Topping
-        //
+
+        #region View properties and Methods like page changing or current Cheese
         private StartUpViewModel mainWindow;
-        public BindableCollection<Food> Toppings { get; set; }
         private Order order;
 
         public Order Order
@@ -56,102 +53,69 @@ namespace pizzamaker.ViewModels
             get { return order; }
             set { order = value; }
         }
-        private BindableCollection<Food> _selectedToppings;
 
-        public BindableCollection<Food> SelectedToppings
+        public BindableCollection<Food> Cheeses { get; set; }
+        private Cheese _selectedCheese;
+        public Cheese SelectedCheese
         {
-            get
+            get { return _selectedCheese; }
+            set
             {
-                BindableCollection<Food> temp = new BindableCollection<Food>();
-                foreach (var item in Order.AllToppings.AllToppings)
-                {
-                    temp.Add(item);
-                }
-                return temp;
 
+
+                _selectedCheese = value;
+                order.AddAt(SelectedCheese, 0);
+                NotifyOfPropertyChange(() => SelectedCheese);
             }
-            set { _selectedToppings = value; }
         }
 
+        public void CheeseSelected(object obj)
+        {
+            if (obj is Cheese)
+            {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
+                SelectedCheese = obj as Cheese;
+            }
+        }
+        public void ChangeCanExecute(object obj)
+        {
+            canExecute = !canExecute;
+        }
         public void LoadNextView()
         {
-            if (SelectedToppings == null)
+
+            if (SelectedCheese == null)
             {
-                MessageBox.Show("You must select atleast one topping Topping first!");
+                MessageBox.Show("You must selected a Cheese first!");
                 return;
             }
-            order.AddAt(Order.AllToppings, 3);
+            Order.Remove(_selectedCheese);
+            Order.Cheese = SelectedCheese;
+            Order.AddAt(SelectedCheese, 0);
             mainWindow.LoadNextView();
         }
         public void LoadPrevView()
         {
             mainWindow.LoadPrevView();
         }
-        public void RemoveTopping(object obj) {
-            if (obj is Topping) {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
-                Order.AllToppings.RemoveTopping(obj as Topping);
-                NotifyOfPropertyChange(() => FullPrice);
-                NotifyOfPropertyChange(() => SelectedToppings);
-            }
-        }
-        public void ToppingSelected(object obj)
-        {
-            if (obj is Topping)
-            {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
-                Order.AllToppings.AddTopping(obj as Topping);
-                NotifyOfPropertyChange(()=>FullPrice);
-                NotifyOfPropertyChange(() => SelectedToppings);
-            }
-        }
-        public double FullPrice {
-            get
-            {
-                return Order.Price + Order.AllToppings.Price;
-            }
-        }
         #endregion
         #region Scrollers properties and methods
-        //This timer moves the scroller in the view.
         DispatcherTimer scrollTimer;
-
-        private bool canExecute = true;
-        //Command for the scroller image button
-        private ICommand selectedToppingCommand;
-        public ICommand SelectedToppingCommand
+        private ICommand selectedCheeseCommand;
+        public ICommand SelectedCheeseCommand
         {
             get
             {
-                return selectedToppingCommand;
+                return selectedCheeseCommand;
             }
             set
             {
-                selectedToppingCommand = value;
+                selectedCheeseCommand = value;
             }
         }
-        private ICommand _toppingSelectedComand;
-
-        public ICommand ToppingSelectedCommand
-        {
-            get { return _toppingSelectedComand; }
-            set { _toppingSelectedComand = value; }
-        }
-        private ICommand _toppingRemoveCommand;
-            
-        public ICommand ToppingRemoveCommand
-        {
-            get { return _toppingRemoveCommand; }
-            set { _toppingRemoveCommand = value; }
-        }
-
-        //Command for the scroller button
         private ICommand scrollerToLeft;
         public ICommand ScrollerToLeftCommand
         {
@@ -164,7 +128,6 @@ namespace pizzamaker.ViewModels
                 scrollerToLeft = value;
             }
         }
-        //Command for the scroller button
         private ICommand scrollerToRight;
         public ICommand ScrollerToRightCommand
         {
@@ -177,7 +140,6 @@ namespace pizzamaker.ViewModels
                 scrollerToRight = value;
             }
         }
-
         private ICommand toggleExecuteCommand { get; set; }
         public ICommand ToggleExecuteCommand
         {
@@ -190,15 +152,24 @@ namespace pizzamaker.ViewModels
                 toggleExecuteCommand = value;
             }
         }
-
-        public void ChangeCanExecute(object obj)
+        private bool canExecute = true;
+        public bool CanExecute
         {
-            canExecute = !canExecute;
+            get
+            {
+                return this.canExecute;
+            }
+
+            set
+            {
+                if (this.canExecute == value)
+                {
+                    return;
+                }
+
+                this.canExecute = value;
+            }
         }
-        /// <summary>
-        /// Gets the object(Scroller) as command parameter from the view and moving the scroller right with DispatcherTimer
-        /// </summary>
-        /// <param name="obj"></param>
         public void ScrollerToRight(object obj)
         {
             if (obj is ScrollViewer)
@@ -228,10 +199,6 @@ namespace pizzamaker.ViewModels
 
             }
         }
-        /// <summary>
-        /// Gets the object(Scroller) as command parameter from the view and moving the scroller left with DispatcherTimer
-        /// </summary>
-        /// <param name="obj"></param>
         public void ScrollerToLeft(object obj)
         {
             if (obj is ScrollViewer)
@@ -258,10 +225,6 @@ namespace pizzamaker.ViewModels
                 };
             }
         }
-        /// <summary>
-        /// Removes the given DispatcherTimer tick events if has any.
-        /// </summary>
-        /// <param name="dispatchTimer"></param>
         private void RemoveHandlers(DispatcherTimer dispatchTimer)
         {
             var eventField = dispatchTimer.GetType().GetField("Tick",

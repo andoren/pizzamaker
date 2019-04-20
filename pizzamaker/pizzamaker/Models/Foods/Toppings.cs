@@ -33,12 +33,17 @@ namespace pizzamaker.Models.Foods
                 return prices;
             }
         }
-        public void AddTopping(Topping topping) {
+        public void AddTopping(Topping topping)
+        {
             AllToppings.Add(topping);
             NotifyOfPropertyChange("AllToppings");
+            NotifyOfPropertyChange("Price");
         }
-        public void RemoveTopping(Topping topping) {
+        public void RemoveTopping(Topping topping)
+        {
             AllToppings.Remove(topping);
+            NotifyOfPropertyChange("AllToppings");
+            NotifyOfPropertyChange("Price");
         }
 
 

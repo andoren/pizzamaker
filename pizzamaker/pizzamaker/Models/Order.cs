@@ -27,7 +27,7 @@ namespace pizzamaker.Models
             }
             return order;
         }
-        private Food[] foods = new Food[4];
+        private Food[] foods = new Food[5];
         
         private BindableCollection<Food> pizzaCondiments;
         public BindableCollection<Food> PizzaCondiments {
@@ -67,10 +67,29 @@ namespace pizzamaker.Models
         private Toppings _toppings;
         public Toppings AllToppings
         {
-            get { return _toppings; }
-            set { _toppings = value; }
+            get {
+                
+                return _toppings;
+                
+
+            }
+            set {
+                _toppings = value;
+            }
+        }
+        private Cheese cheese;
+
+        public Cheese Cheese
+        {
+            get { return cheese; }
+            set { cheese = value; }
         }
 
+        public Customer Customer
+        {
+            get { return customer; }
+            set { customer = value; }
+        }
         #endregion
 
         public override double Price {
@@ -85,11 +104,7 @@ namespace pizzamaker.Models
                 return fullprice;
             }
         }
-        public Customer Customer
-        {
-            get { return customer; }
-            set { customer = value; }
-        }
+   
 
         public bool Add(Food food)
         {
@@ -146,6 +161,8 @@ namespace pizzamaker.Models
             }
             return mydata;
         }
+
+        #region NotifyPropertyChangedInterface Properties etc...
         public event PropertyChangedEventHandler PropertyChanged;
         public bool IsNotifying { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public void NotifyOfPropertyChange(string propertyName)
@@ -159,6 +176,6 @@ namespace pizzamaker.Models
         {
             throw new NotImplementedException();
         }
-
+        #endregion
     }
 }

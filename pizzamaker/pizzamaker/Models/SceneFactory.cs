@@ -41,10 +41,15 @@ namespace pizzamaker.ViewModels
                     }
                 case 6:
                     {
-                        scene = new PizzaSummaryViewModel(mainWindow);
+                        scene = new ChooseCheeseViewModel(mainWindow);
                         break;
                     }
                 case 7:
+                    {
+                        scene = new PizzaSummaryViewModel(mainWindow);
+                        break;
+                    }
+                case 8:
                     {
                         scene = new DeliverViewModel(mainWindow);
                         break;

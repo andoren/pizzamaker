@@ -74,7 +74,7 @@
                 </ItemsControl>
                 <StackPanel  Grid.Column="1">
                     <TextBlock Margin="0,0,10,0" FontSize="20">Your order price:</TextBlock>
-                    <TextBlock Text="{Binding Order.Price}" HorizontalAlignment="Center" Margin="0,10,10,0" FontSize="20"></TextBlock>
+                    <TextBlock Text="{Binding FullPrice}" HorizontalAlignment="Center" Margin="0,10,10,0" FontSize="20"></TextBlock>
                 </StackPanel>
             </Grid>
             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ForeGroundColor}" FontSize="36">Choose your Toppings</TextBlock>
@@ -102,13 +102,13 @@
                     </Polyline>
                 </Button>
             </Grid>
-            <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="1" Grid.RowSpan="8" Grid.ColumnSpan="7" Width="450" Height="300">
-                <ScrollViewer Background="#99FFFFFF" x:Name="SelectedToppingsScroller" HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Disabled">
+            <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="1" Grid.RowSpan="8" Grid.ColumnSpan="7" Width="650" Height="300">
+                <ScrollViewer Background="#99FFFFFF" x:Name="SelectedToppingsScroller" HorizontalScrollBarVisibility="Disabled"  VerticalScrollBarVisibility="Auto">
                     <ItemsControl x:Name="SelectedToppings">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
 
-                                <WrapPanel Orientation="Horizontal"  HorizontalAlignment="left" VerticalAlignment="Top" Margin="10" />
+                                <WrapPanel MaxWidth="650" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10" />
 
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
