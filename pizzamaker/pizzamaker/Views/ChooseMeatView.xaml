@@ -7,6 +7,201 @@
              mc:Ignorable="d" 
              Height="600" Width="950">
     <Grid>
-        <TextBlock>Choose your meat</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+
+        </Grid.ColumnDefinitions>
+        <Grid Background="#99FFFFFF" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <ItemsControl Grid.Column="0" ItemsSource="{Binding Order.PizzaCondiments}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+
+                        <StackPanel  HorizontalAlignment="left" VerticalAlignment="Center" Orientation="Horizontal"/>
+
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image ToolTip="{Binding GetInformation}" Stretch="Fill"  >
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter Property="Height" Value="50" />
+                                    <Setter Property="Width" Value="70" />
+                                    <Setter Property="Margin" Value="10,10,10,10" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Opacity" Value="0.6" />
+                                    <Style.Triggers>
+                                        <Trigger Property="Image.IsMouseOver" Value="True">
+                                            <Setter Property="Image.Opacity" Value="1" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                            <Image.Source>
+                                <Binding Path="Picture">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>/imgs/italyflag.png</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel  Grid.Column="1">
+                <TextBlock Margin="0,0,10,0" FontSize="20">Your order price:</TextBlock>
+                <TextBlock Text="{Binding Order.Price}" HorizontalAlignment="Center" Margin="0,10,10,0" FontSize="20"></TextBlock>
+            </StackPanel>
+        </Grid>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ForeGroundColor}" FontSize="36">Choose your Meat</TextBlock>
+        <Grid  Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="7">
+            <Button Visibility="Visible" Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadPrevView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="180"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+
+                <Polyline Fill="{StaticResource PurpleTaupe}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                </Polyline>
+            </Button>
+            <Button  Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadNextView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
+
+                <Polyline Fill="{StaticResource PurpleTaupe}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                </Polyline>
+            </Button>
+        </Grid>
+        <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="1" Grid.RowSpan="8" Grid.ColumnSpan="7" Width="450" Height="300">
+            <Grid >
+                <Grid Background="#99FFFFFF"  Panel.ZIndex="2" Margin="0,0,0,0" MinWidth="230" Height="50" VerticalAlignment="Top">
+                    <TextBlock Margin="0,0,0,0" Text="{Binding SelectedMeat.Name, Mode=OneWay}" Height="36" VerticalAlignment="Center" FontSize="30" HorizontalAlignment="Center" ></TextBlock>
+                </Grid>
+                <Image Opacity="1" Source="{Binding SelectedMeat.Picture}" ToolTip="{Binding SelectedMeat.Description, Mode=OneWay}" Stretch="Fill"  ></Image>
+            </Grid>
+        </Border>
+
+
+        <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="4" Grid.Row="7" Height="130" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="7">
+            <Grid Background="{StaticResource PurpleTaupe}">
+                <ScrollViewer Margin="130,0,130,0"  x:Name="MeatScroller" HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl x:Name="Meats">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+
+                                <StackPanel  HorizontalAlignment="left" VerticalAlignment="Center" Orientation="Horizontal"/>
+
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+
+                                <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ChooseMeatView}}, Path=DataContext.SelectedMeatCommand}" 
+        CommandParameter="{Binding}" >
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Padding" Value="0"/>
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="BorderBrush" Value="Transparent"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Margin" Value="20,0,20,0"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Transparent"/>
+                                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                                    <Setter Property="BorderThickness" Value="0"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Image ToolTip="{Binding Description}" Stretch="Fill"  >
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Cursor" Value="Hand" />
+                                                <Setter Property="Height" Value="105" />
+                                                <Setter Property="Width" Value="135" />
+                                                <Setter Property="Margin" Value="0" />
+                                                <Setter Property="HorizontalAlignment" Value="Center" />
+                                                <Setter Property="VerticalAlignment" Value="Center" />
+                                                <Setter Property="Opacity" Value="0.6" />
+                                                <Style.Triggers>
+                                                    <Trigger Property="Image.IsMouseOver" Value="True">
+                                                        <Setter Property="Image.Opacity" Value="1" />
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+
+                                        </Image.Style>
+                                        <Image.Source>
+                                            <Binding Path="Picture">
+                                                <Binding.TargetNullValue>
+                                                    <ImageSource>/imgs/italyflag.png</ImageSource>
+                                                </Binding.TargetNullValue>
+                                            </Binding>
+                                        </Image.Source>
+                                    </Image>
+                                </Button>
+
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+                <Grid  Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="7">
+                    <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ChooseMeatView}}, Path=DataContext.ScrollerToLeftCommand}" CommandParameter="{Binding ElementName=MeatScroller}" Style="{StaticResource PaginationButton}"  Panel.ZIndex="3" Padding="0" Margin="0" Width="100" Height="100" Grid.Row="0"  HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" RenderTransformOrigin="0.5,0.5">
+                        <Button.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform Angle="180"/>
+                                <TranslateTransform/>
+                            </TransformGroup>
+                        </Button.RenderTransform>
+
+                        <Polyline Fill="{StaticResource MainBackGroundColor}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                        </Polyline>
+                    </Button>
+                    <Button Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ChooseMeatView}}, Path=DataContext.ScrollerToRightCommand}" CommandParameter="{Binding ElementName=MeatScroller}" Style="{StaticResource PaginationButton}"  Panel.ZIndex="3" Padding="0" Margin="0" Width="100" Height="100" Grid.Row="0"  HorizontalAlignment="Right" BorderBrush="Transparent" Background="Transparent">
+
+                        <Polyline Fill="{StaticResource MainBackGroundColor}" Margin="0"
+                 Points="0,20,45,30,45,0,90,45,45,90,45,60,0,70,0,20" Stroke="White">
+
+                        </Polyline>
+                    </Button>
+                </Grid>
+
+            </Grid>
+        </Border>
+
     </Grid>
 </UserControl>

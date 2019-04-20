@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
@@ -26,7 +27,7 @@ namespace pizzamaker.ViewModels
         #region Initialize data
         void Initialize()
         {
-            Sauces = new BindableCollection<Food>() { new Sauce(), new Sauce(1, "Spicy Sauce", "This is our Spicy sauce", 1.99) };
+            Sauces = new BindableCollection<Food>() { new Sauce(), new Sauce(1, "Spicy Sauce", "This is our Spicy sauce", 4.99) };
             SelectedSauceCommand = new RelayCommand(SauceSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
@@ -35,7 +36,12 @@ namespace pizzamaker.ViewModels
         private void LoadOrderData()
         {
             Order = Order.getInstance();
-            if (Order.Sauce != null) SelectedSauce = Order.Sauce;
+            if (Order.Sauce != null)
+            {
+                SelectedSauce = Order.Sauce;
+                order.Remove(SelectedSauce);
+                
+            }
         }
         #endregion
         #region View properties and methods like current Sauce
@@ -67,13 +73,22 @@ namespace pizzamaker.ViewModels
             get { return _selectedSauce; }
             set
             {
+                
                 _selectedSauce = value;
-
+                order.AddAt(SelectedSauce, 1);
                 NotifyOfPropertyChange(() => SelectedSauce);
             }
         }
         public void LoadNextView()
         {
+            if (SelectedSauce == null)
+            {
+                MessageBox.Show("You must selected a sauce first!");
+                return;
+            }
+            order.Remove(SelectedSauce);
+            order.Sauce = SelectedSauce;
+            order.AddAt(SelectedSauce,1);
             mainWindow.LoadNextView();
         }
         public void LoadPrevView()

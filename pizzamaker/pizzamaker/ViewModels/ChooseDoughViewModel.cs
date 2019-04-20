@@ -24,34 +24,44 @@ namespace pizzamaker.ViewModels
         #region Initialize data
         private void Initialize()
         {
-            Doughs = new BindableCollection<Food>() { new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(2, "Wholegrain Dough", "Regualr dough with our spicy spice", 1.99), new Dough(3, "GlutenFree Dough", "Regualr dough with our spicy spice", 1.99), new Dough(4, "Crusty Dough", "Regualr dough with our spicy spice", 1.99) };
+            Doughs = new BindableCollection<Food>() { new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 0.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice",2.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(2, "Wholegrain Dough", "Regualr dough with our spicy spice", 13.99), new Dough(3, "GlutenFree Dough", "Regualr dough with our spicy spice", 1.99), new Dough(4, "Crusty Dough", "Regualr dough with our spicy spice", 4.99) };
             SelectedDoughCommand = new RelayCommand(DoughSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
-
+            
 
         }
         private void LoadOrderData()
         {
-            var order = Order.getInstance();
-            if (order.Dough != null) SelectedDough = order.Dough;
+            Order= Order.getInstance();
+            if (Order.Dough != null) {
+                SelectedDough = Order.Dough;
+                Order.Remove(SelectedDough);
+            } 
         }
         #endregion
 
         #region View properties and Methods like page changing or current dough
         private StartUpViewModel mainWindow;
+        private Order order ;
+
+        public Order  Order
+        {
+            get { return order; }
+            set { order = value; }
+        }
+
         public BindableCollection<Food> Doughs { get; set; }
         private Dough _selectedDough;
         public Dough SelectedDough
         {
             get { return _selectedDough; }
             set {
-                var order = Order.getInstance();
-                order.Remove(_selectedDough);
+                
+                
                 _selectedDough = value;
-                order.Dough = value;
-                order.Add(_selectedDough);
+                order.AddAt(SelectedDough, 0);
                 NotifyOfPropertyChange(() => SelectedDough);
             }
         }
@@ -71,11 +81,14 @@ namespace pizzamaker.ViewModels
         }
         public void LoadNextView()
         {
-            var order = Order.getInstance();
-            if (order.Dough == null) {
+           
+            if (SelectedDough == null) {
                 MessageBox.Show("You must selected a dough first!");
                 return;
             }
+            Order.Remove(_selectedDough);
+            Order.Dough = SelectedDough;
+            Order.AddAt(SelectedDough,0);
             mainWindow.LoadNextView();
         }
         public void LoadPrevView()

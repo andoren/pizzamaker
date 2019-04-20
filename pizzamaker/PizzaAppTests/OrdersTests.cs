@@ -11,7 +11,7 @@ namespace PizzaAppTests
     [TestClass]
     public class OrdersTests
     {
-        #region Order class Add method unit tests'
+        #region Order class Add method unit tests
         [TestMethod]
         public void AddFoodTestRegular()
         {
@@ -81,7 +81,7 @@ namespace PizzaAppTests
             Assert.AreNotEqual(exception, null);
         }
         #endregion
-        #region Order class Remove method unit tests'
+        #region Order class Remove method unit tests
         [TestMethod]
         public void RemoveFoodTestRegular()
         {
@@ -99,7 +99,8 @@ namespace PizzaAppTests
             Assert.AreEqual(result, false);
         }
         #endregion
-        #region Order class overrided toString method unit tests'
+
+        #region Order class overrided toString method unit tests
 
         [TestMethod]
         public void OneFoodToStringTest()

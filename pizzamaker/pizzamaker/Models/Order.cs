@@ -3,13 +3,14 @@ using pizzamaker.Models.Exceptions;
 using pizzamaker.Models.Foods;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace pizzamaker.Models
 {
-    public class Order:Food
+    public class Order:Food, INotifyPropertyChangedEx
     {
         private Order()
         {
@@ -26,11 +27,18 @@ namespace pizzamaker.Models
             }
             return order;
         }
-
+        private Food[] foods = new Food[4];
+        
         private BindableCollection<Food> pizzaCondiments;
         public BindableCollection<Food> PizzaCondiments {
             get {
-                return pizzaCondiments;
+                BindableCollection<Food> temp = new BindableCollection<Food>();
+                foreach (Food item in foods)
+                {
+                    temp.Add(item);
+                }
+                
+                return temp;
             }
         }
         #region Pizza condiments 
@@ -56,15 +64,27 @@ namespace pizzamaker.Models
             set { meat = value; }
         }
 
-        private Topping[] _toppings;
-        public Topping[] Toppings
+        private Toppings _toppings;
+        public Toppings AllToppings
         {
             get { return _toppings; }
             set { _toppings = value; }
         }
+
         #endregion
 
-
+        public override double Price {
+            get
+            {
+                double fullprice = 0;
+                foreach (Food food in foods)
+                {
+                    if(food !=null)fullprice += food.Price;
+                }
+                if (AllToppings != null) fullprice += AllToppings.Price;
+                return fullprice;
+            }
+        }
         public Customer Customer
         {
             get { return customer; }
@@ -88,14 +108,26 @@ namespace pizzamaker.Models
                 }
                 else {
                     pizzaCondiments.Add(food);
+                    NotifyOfPropertyChange("Price");
                     return true;
                 }
+            }
+            return false;
+        }
+        public bool AddAt(Food food, int index) {
+            if (food != null)
+            {
+                foods[index] = food;
+                NotifyOfPropertyChange("Price");
+                NotifyOfPropertyChange("PizzaCondiments");
+                return true;
             }
             return false;
         }
         public bool Remove(Food food) {
             if (food != null) {
                 pizzaCondiments.Remove(food);
+                NotifyOfPropertyChange("Price");
                 return true;
             }
             return false;
@@ -113,6 +145,19 @@ namespace pizzamaker.Models
                 mydata += fooddata;
             }
             return mydata;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        public bool IsNotifying { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public void NotifyOfPropertyChange(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        public void Refresh()
+        {
+            throw new NotImplementedException();
         }
 
     }
