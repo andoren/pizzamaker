@@ -84,6 +84,7 @@
     <Compile Include="Models\Abstracts\Food.cs" />
     <Compile Include="Models\Abstracts\FoodDecorator.cs" />
     <Compile Include="Models\Abstracts\FoodProxy.cs" />
+    <Compile Include="Models\Foods\SummaryFood.cs" />
     <Compile Include="Models\Foods\Toppings.cs" />
     <Compile Include="Models\RelayCommand.cs" />
     <Compile Include="ViewModels\ChooseCheeseViewModel.cs" />

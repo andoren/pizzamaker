@@ -66,7 +66,7 @@ namespace pizzamaker.ViewModels
 
 
                 _selectedCheese = value;
-                order.AddAt(SelectedCheese, 0);
+                order.AddAt(SelectedCheese, 4);
                 NotifyOfPropertyChange(() => SelectedCheese);
             }
         }
@@ -99,7 +99,7 @@ namespace pizzamaker.ViewModels
             }
             Order.Remove(_selectedCheese);
             Order.Cheese = SelectedCheese;
-            Order.AddAt(SelectedCheese, 0);
+            Order.AddAt(SelectedCheese, 4);
             mainWindow.LoadNextView();
         }
         public void LoadPrevView()

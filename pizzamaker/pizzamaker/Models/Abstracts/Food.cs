@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using Caliburn.Micro;
 using System.Windows.Threading;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace pizzamaker.Models
 {
@@ -420,7 +421,7 @@ oAklQkaxInpYkkA9PfHsKciiVPLIAAHO73UnP+lNtlIWIYgKmSB+ccU2t858wvGrQekKOjDkZoAI
 jYsTFuDuyu3uKTbtFalo1LbG5KuckE1Gsbj5m9eMoAImBU+4z3+9Sbu3eG0LFlYE8jHXBoIaI95c
 SRqohQyPJnCjsRUTzpnMLyhYGC4lA6E54PHbOKTby/MztIwI59P+6PanDIxmY/wr/WgkTcTXTwlV
 dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
-
+        CultureInfo us = CultureInfo.GetCultureInfo("en-US");
         private int _id;
 
         public int Id
@@ -476,10 +477,16 @@ dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
         public virtual string GetInformation {
             get {
                 
-                return string.Format("Name: {0}"+Environment.NewLine+"Description: {1}"+Environment.NewLine+"Price: {2}",Name,Description,Price.ToString());
+                return string.Format(us,"Name: {0}"+Environment.NewLine+"Description: {1}"+Environment.NewLine+"Price: {2}",Name,Description,Price.ToString());
             }
         }
 
+        public string GetPriceInCurrency
+        {
+            get { 
+            return string.Format(us,"{0:C2}",Price);
+            }
+        }
 
         protected virtual void CreateBitMapImage()
         {

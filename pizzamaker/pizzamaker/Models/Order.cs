@@ -28,7 +28,29 @@ namespace pizzamaker.Models
             return order;
         }
         private Food[] foods = new Food[5];
-        
+
+        public BindableCollection<Food> GetItems()
+        {
+            BindableCollection<Food> temp = new BindableCollection<Food>();
+            Food summaryfood = new SummaryFood();
+            summaryfood.Name = "";
+            summaryfood.Description = "Your order price is: ";
+            foreach (Food item in foods)
+            {
+                if (!(item is Toppings)) {
+                    temp.Add(item);
+                    summaryfood.Price += item.Price;
+                } 
+            }
+            foreach (Food item in AllToppings.AllToppings)
+            {
+                temp.Add(item);
+                summaryfood.Price += item.Price;
+            }
+            temp.Add(summaryfood);
+            return temp;
+        }
+
         private BindableCollection<Food> pizzaCondiments;
         public BindableCollection<Food> PizzaCondiments {
             get {
@@ -150,6 +172,7 @@ namespace pizzamaker.Models
         public void ResetCondiments() {
             pizzaCondiments = new BindableCollection<Food>();
         }
+
         public override string ToString()
         {
             if (pizzaCondiments.Count == 0) return "Order is empty!";

@@ -29,7 +29,43 @@
         </Grid.ColumnDefinitions>
         <TextBlock Foreground="{StaticResource ForeGroundColor}" FontSize="36" Grid.ColumnSpan="8" HorizontalAlignment="Center" VerticalAlignment="Center" >Order summary</TextBlock>
         <Grid Background="#9EFFFFFF" Grid.Row="1" Margin="0,0,0,30" Grid.RowSpan="7" Grid.Column="2" Grid.ColumnSpan="4">
-            
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <ItemsControl x:Name="OrderItems">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+
+                            <StackPanel Margin="0,10,0,0"  HorizontalAlignment="left" VerticalAlignment="Center" Orientation="Vertical"/>
+
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="10,0,0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="60"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="auto"/>
+                                </Grid.RowDefinitions>
+                                <Image Margin="10,0,0,0" Grid.Column="0" Width="100" Height="75" Source="{Binding Picture}" Stretch="Fill"></Image>
+                                <Grid Grid.Column="1" >
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <TextBlock FontSize="14" Padding="20,0,0,0" FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Left" Grid.Row="0" TextWrapping="Wrap" Text="{Binding Name}"></TextBlock>
+                                    <TextBlock FontSize="14" Padding="20,0,20,0" VerticalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="{Binding Description}"></TextBlock>
+                                </Grid>
+                                <TextBlock  VerticalAlignment="Center" Grid.Column="2" Text="{Binding GetPriceInCurrency}" FontSize="20"></TextBlock>
+                                <Separator Margin="30,10,30,10" Grid.Row="1" Grid.ColumnSpan="3" FontSize="16" Background="Black"  />
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
         </Grid>
         <Button x:Name="LoadPrevView" Grid.Row="6" Grid.RowSpan="2" Grid.ColumnSpan="2">Back</Button>
         <Button Grid.Row="6" Grid.RowSpan="2" Grid.Column="6" Grid.ColumnSpan="2">Order</Button>

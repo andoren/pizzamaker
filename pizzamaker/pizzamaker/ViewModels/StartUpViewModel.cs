@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +16,7 @@ namespace pizzamaker.ViewModels
         public StartUpViewModel()
         {
             ActivateItem(sceneFactory.CreateScene(this, 0));
+            
         }
         SceneFactory sceneFactory = new SceneFactory();
         private int _currentLoadedView = 0;

@@ -89,7 +89,7 @@ namespace pizzamaker.ViewModels
             }
             order.Remove(SelectedMeat);
             order.Meat = SelectedMeat;
-            order.AddAt(SelectedMeat, 1);
+            order.AddAt(SelectedMeat, 2);
             mainWindow.LoadNextView();
         }
         public void LoadPrevView()

@@ -3,6 +3,7 @@ using pizzamaker.Models.Abstracts;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace pizzamaker.Models.Foods
         {
             AllToppings = new List<Topping>();
         }
+        CultureInfo us = CultureInfo.GetCultureInfo("en-US");
         private List<Topping> toppings;
 
         public List<Topping> AllToppings
@@ -58,6 +60,16 @@ namespace pizzamaker.Models.Foods
             image.EndInit();
             image.Freeze();
             Picture = image;
+        }
+        public override string GetInformation {
+            get {
+                string toppinginformations = string.Empty;
+                foreach (var item in AllToppings)
+                {
+                    toppinginformations += string.Format(us,"Name: {0}  Description: {1}  Price: {2:C2}"+Environment.NewLine, item.Name, item.Description, item.Price);
+                }
+                return toppinginformations;
+            }
         }
 
     }
