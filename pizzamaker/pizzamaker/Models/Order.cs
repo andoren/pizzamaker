@@ -1,4 +1,5 @@
-﻿using pizzamaker.Models.Exceptions;
+﻿using Caliburn.Micro;
+using pizzamaker.Models.Exceptions;
 using pizzamaker.Models.Foods;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace pizzamaker.Models
     {
         private Order()
         {
-            pizzaCondiments = new List<Food>();
+            pizzaCondiments = new BindableCollection<Food>();
         }
         static Order order = null;
 
@@ -26,8 +27,12 @@ namespace pizzamaker.Models
             return order;
         }
 
-        private List<Food> pizzaCondiments;
-
+        private BindableCollection<Food> pizzaCondiments;
+        public BindableCollection<Food> PizzaCondiments {
+            get {
+                return pizzaCondiments;
+            }
+        }
         #region Pizza condiments 
         private Customer customer;
         private Dough dough;
@@ -96,7 +101,7 @@ namespace pizzamaker.Models
             return false;
         }
         public void ResetCondiments() {
-            pizzaCondiments = new List<Food>();
+            pizzaCondiments = new BindableCollection<Food>();
         }
         public override string ToString()
         {

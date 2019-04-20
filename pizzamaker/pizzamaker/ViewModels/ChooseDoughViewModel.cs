@@ -47,9 +47,11 @@ namespace pizzamaker.ViewModels
         {
             get { return _selectedDough; }
             set {
-                _selectedDough = value;
                 var order = Order.getInstance();
+                order.Remove(_selectedDough);
+                _selectedDough = value;
                 order.Dough = value;
+                order.Add(_selectedDough);
                 NotifyOfPropertyChange(() => SelectedDough);
             }
         }

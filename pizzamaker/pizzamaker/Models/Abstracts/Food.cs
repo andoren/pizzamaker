@@ -473,7 +473,12 @@ dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
 
             }
         }
-
+        public string GetInformation {
+            get {
+                
+                return string.Format("Name: {0}"+Environment.NewLine+"Description: {1}"+Environment.NewLine+"Price: {2}",Name,Description,Price.ToString());
+            }
+        }
 
 
         protected virtual void CreateBitMapImage()

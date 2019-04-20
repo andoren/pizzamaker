@@ -27,7 +27,48 @@
             <ColumnDefinition/>
 
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ForeGroundColor}" FontSize="36">Choose your sauce</TextBlock>
+        <Grid Background="#99FFFFFF" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5">
+            <ItemsControl ItemsSource="{Binding Order.PizzaCondiments}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+
+                        <StackPanel  HorizontalAlignment="left" VerticalAlignment="Center" Orientation="Horizontal"/>
+
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Image ToolTip="{Binding GetInformation}" Stretch="Fill"  >
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="Cursor" Value="Hand" />
+                                    <Setter Property="Height" Value="50" />
+                                    <Setter Property="Width" Value="70" />
+                                    <Setter Property="Margin" Value="10,10,10,10" />
+                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                    <Setter Property="Opacity" Value="0.6" />
+                                    <Style.Triggers>
+                                        <Trigger Property="Image.IsMouseOver" Value="True">
+                                            <Setter Property="Image.Opacity" Value="1" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Image.Style>
+                            <Image.Source>
+                                <Binding Path="Picture">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>/imgs/italyflag.png</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
+        <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ForeGroundColor}" FontSize="36">Choose your sauce</TextBlock>
         <Grid  Grid.Row="0" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="7">
             <Button Visibility="Visible" Style="{StaticResource PaginationButton}" HorizontalContentAlignment="Center"  VerticalContentAlignment="Top" Panel.ZIndex="3" Padding="0" Margin="0" x:Name="LoadPrevView" Width="100" Height="100" Grid.Row="0" Grid.ColumnSpan="1" Grid.RowSpan="6" Grid.Column="5" VerticalAlignment="Center"  HorizontalAlignment="Left" BorderBrush="Transparent" Background="Transparent" RenderTransformOrigin="0.5,0.5">
                 <Button.RenderTransform>

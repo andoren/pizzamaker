@@ -34,13 +34,21 @@ namespace pizzamaker.ViewModels
         }
         private void LoadOrderData()
         {
-            var order = Order.getInstance();
-            if (order.Sauce != null) SelectedSauce = order.Sauce;
+            Order = Order.getInstance();
+            if (Order.Sauce != null) SelectedSauce = Order.Sauce;
         }
         #endregion
         #region View properties and methods like current Sauce
         //
         public BindableCollection<Food> Sauces { get; set; }
+        private Order order;
+
+        public Order Order
+        {
+            get { return order; }
+            set { order = value; }
+        }
+
         private StartUpViewModel mainWindow;
         public void SauceSelected(object obj)
         {

@@ -100,19 +100,35 @@
     <Compile Include="Models\Foods\Sauce.cs" />
     <Compile Include="Models\Foods\Topping.cs" />
     <Compile Include="Models\Order.cs" />
+    <Compile Include="ViewModels\ChooseMeatViewModel.cs" />
     <Compile Include="ViewModels\ChooseYourSauceViewModel.cs" />
     <Compile Include="ViewModels\CustomerDataViewModel.cs" />
     <Compile Include="Models\SceneFactory.cs" />
+    <Compile Include="ViewModels\DeliverViewModel.cs" />
+    <Compile Include="ViewModels\PizzaSummaryViewModel.cs" />
+    <Compile Include="ViewModels\SelectToppingsViewModel.cs" />
     <Compile Include="ViewModels\StartUpViewModel.cs" />
     <Compile Include="ViewModels\StartViewModel.cs" />
     <Compile Include="Views\ChooseDoughView.xaml.cs">
       <DependentUpon>ChooseDoughView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ChooseMeatView.xaml.cs">
+      <DependentUpon>ChooseMeatView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ChooseYourSauceView.xaml.cs">
       <DependentUpon>ChooseYourSauceView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CustomerDataView.xaml.cs">
       <DependentUpon>CustomerDataView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeliverView.xaml.cs">
+      <DependentUpon>DeliverView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PizzaSummaryView.xaml.cs">
+      <DependentUpon>PizzaSummaryView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SelectToppingsView.xaml.cs">
+      <DependentUpon>SelectToppingsView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\StartUpView.xaml.cs">
       <DependentUpon>StartUpView.xaml</DependentUpon>
@@ -129,11 +145,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ChooseMeatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ChooseYourSauceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\CustomerDataView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeliverView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PizzaSummaryView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SelectToppingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
