@@ -42,7 +42,7 @@ namespace pizzamaker.ViewModels
                 Order.AllToppings = new Toppings();
                 Order.AllToppings.AllToppings = new List<Topping>() { new Topping(1, "Normal Topping", "Regualr Topping with our spicy spice", 0.99), new Topping(2, "Normal Topping2", "Regualr2 Topping with our spicy spice", 2.99) };
             }
-            SelectedToppings = Order.AllToppings;
+            
         }
         #endregion
         #region View properties and methods like current Topping
@@ -56,9 +56,9 @@ namespace pizzamaker.ViewModels
             get { return order; }
             set { order = value; }
         }
-        private BindableCollection<Food> _selectedTempToppings;
+        private BindableCollection<Food> _selectedToppings;
 
-        public BindableCollection<Food> SelectedTempToppings
+        public BindableCollection<Food> SelectedToppings
         {
             get
             {
@@ -70,22 +70,9 @@ namespace pizzamaker.ViewModels
                 return temp;
 
             }
-            set { _selectedTempToppings = value; }
+            set { _selectedToppings = value; }
         }
 
-
-        private Toppings _selectedToppings;
-        public Toppings SelectedToppings
-        {
-            get { return _selectedToppings; }
-            set
-            {
-
-                _selectedToppings = value;
-                
-                NotifyOfPropertyChange(() => SelectedToppings);
-            }
-        }
         public void LoadNextView()
         {
             if (SelectedToppings == null)
@@ -93,8 +80,7 @@ namespace pizzamaker.ViewModels
                 MessageBox.Show("You must select atleast one topping Topping first!");
                 return;
             }
-            order.AllToppings = SelectedToppings;
-            order.AddAt(SelectedToppings, 3);
+            order.AddAt(Order.AllToppings, 3);
             mainWindow.LoadNextView();
         }
         public void LoadPrevView()
@@ -108,19 +94,19 @@ namespace pizzamaker.ViewModels
                     RemoveHandlers(scrollTimer);
                 }
                 Order.AllToppings.RemoveTopping(obj as Topping);
-                NotifyOfPropertyChange(() => SelectedTempToppings);
+                NotifyOfPropertyChange(() => SelectedToppings);
             }
         }
         public void ToppingSelected(object obj)
         {
-            if (obj is Toppings)
+            if (obj is Topping)
             {
                 if (scrollTimer != null)
                 {
                     RemoveHandlers(scrollTimer);
                 }
                 Order.AllToppings.AddTopping(obj as Topping);
-                NotifyOfPropertyChange(()=>SelectedTempToppings);
+                NotifyOfPropertyChange(()=>SelectedToppings);
             }
         }
 

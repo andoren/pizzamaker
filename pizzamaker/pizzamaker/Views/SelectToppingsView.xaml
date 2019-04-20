@@ -104,7 +104,7 @@
             </Grid>
             <Border BorderBrush="{StaticResource ForeGroundColor}" BorderThickness="1" Grid.RowSpan="8" Grid.ColumnSpan="7" Width="450" Height="300">
                 <ScrollViewer Background="#99FFFFFF" x:Name="SelectedToppingsScroller" HorizontalScrollBarVisibility="Hidden"  VerticalScrollBarVisibility="Disabled">
-                    <ItemsControl x:Name="SelectedTempToppings">
+                    <ItemsControl x:Name="SelectedToppings">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
 
