@@ -1,4 +1,5 @@
 ﻿using pizzamaker.Models.Exceptions;
+using pizzamaker.Models.Foods;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,41 @@ namespace pizzamaker.Models
             }
             return order;
         }
+
         private List<Food> pizzaCondiments;
+
+        #region Pizza condiments 
         private Customer customer;
-        public Dough dough;
+        private Dough dough;
+        public Dough Dough
+        {
+            get { return dough; }
+            set { dough = value; }
+        }
+
+        private Sauce _sauce;
+        public Sauce Sauce
+        {
+            get { return _sauce; }
+            set { _sauce = value; }
+        }
+
+        private Meat meat;
+        public Meat Meat
+        {
+            get { return meat; }
+            set { meat = value; }
+        }
+
+        private Topping[] _toppings;
+        public Topping[] Toppings
+        {
+            get { return _toppings; }
+            set { _toppings = value; }
+        }
+        #endregion
+
+
         public Customer Customer
         {
             get { return customer; }

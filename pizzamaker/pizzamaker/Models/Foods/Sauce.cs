@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace pizzamaker.Models.Foods
 {
-    class Sauce:FoodProxy
+   public class Sauce:FoodProxy
     {
         public Sauce():base()
         {

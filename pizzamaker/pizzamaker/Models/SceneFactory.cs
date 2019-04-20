@@ -29,6 +29,26 @@ namespace pizzamaker.ViewModels
                         scene = new ChooseYourSauceViewModel(mainWindow);
                         break;
                     }
+                case 4:
+                    {
+                        scene = new ChooseMeatViewModel(mainWindow);
+                        break;
+                    }
+                case 5:
+                    {
+                        scene = new SelectToppingsViewModel(mainWindow);
+                        break;
+                    }
+                case 6:
+                    {
+                        scene = new PizzaSummaryViewModel(mainWindow);
+                        break;
+                    }
+                case 7:
+                    {
+                        scene = new DeliverViewModel(mainWindow);
+                        break;
+                    }
                 default:
                     break;
             }

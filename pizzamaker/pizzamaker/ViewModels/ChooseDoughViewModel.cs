@@ -21,7 +21,9 @@ namespace pizzamaker.ViewModels
             Initialize();
             LoadOrderData();
         }
-        private void Initialize() {
+        #region Initialize data
+        private void Initialize()
+        {
             Doughs = new BindableCollection<Food>() { new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(2, "Wholegrain Dough", "Regualr dough with our spicy spice", 1.99), new Dough(3, "GlutenFree Dough", "Regualr dough with our spicy spice", 1.99), new Dough(4, "Crusty Dough", "Regualr dough with our spicy spice", 1.99) };
             SelectedDoughCommand = new RelayCommand(DoughSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
@@ -30,12 +32,57 @@ namespace pizzamaker.ViewModels
 
 
         }
-        private void LoadOrderData() {
+        private void LoadOrderData()
+        {
             var order = Order.getInstance();
-            if (order.dough != null) SelectedDough = order.dough;
+            if (order.Dough != null) SelectedDough = order.Dough;
         }
-        DispatcherTimer scrollTimer;
+        #endregion
+
+        #region View properties and Methods like page changing or current dough
         private StartUpViewModel mainWindow;
+        public BindableCollection<Food> Doughs { get; set; }
+        private Dough _selectedDough;
+        public Dough SelectedDough
+        {
+            get { return _selectedDough; }
+            set {
+                _selectedDough = value;
+                var order = Order.getInstance();
+                order.Dough = value;
+                NotifyOfPropertyChange(() => SelectedDough);
+            }
+        }
+
+        public void DoughSelected(object obj) {
+            if (obj is Dough) {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
+                SelectedDough = obj as Dough;
+            }
+        }
+        public void ChangeCanExecute(object obj)
+        {
+            canExecute = !canExecute;
+        }
+        public void LoadNextView()
+        {
+            var order = Order.getInstance();
+            if (order.Dough == null) {
+                MessageBox.Show("You must selected a dough first!");
+                return;
+            }
+            mainWindow.LoadNextView();
+        }
+        public void LoadPrevView()
+        {
+            mainWindow.LoadPrevView();
+        }
+        #endregion
+        #region Scrollers properties and methods
+        DispatcherTimer scrollTimer;
         private ICommand selectedDoughCommand;
         public ICommand SelectedDoughCommand
         {
@@ -102,49 +149,8 @@ namespace pizzamaker.ViewModels
                 this.canExecute = value;
             }
         }
-
-        public BindableCollection<Food> Doughs { get; set; }
-
-        private Dough _selectedDough;
-
-        public Dough SelectedDough
+        public void ScrollerToRight(object obj)
         {
-            get { return _selectedDough; }
-            set {
-                _selectedDough = value;
-                var order = Order.getInstance();
-                order.dough = value;
-                NotifyOfPropertyChange(() => SelectedDough);
-            }
-        }
-
-        public void DoughSelected(object obj) {
-            if (obj is Dough) {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
-                SelectedDough = obj as Dough;
-            }
-        }
-        public void ChangeCanExecute(object obj)
-        {
-            canExecute = !canExecute;
-        }
-        public void LoadNextView()
-        {
-            var order = Order.getInstance();
-            if (order.dough == null) {
-                MessageBox.Show("You must selected a dough first!");
-                return;
-            }
-            mainWindow.LoadNextView();
-        }
-        public void LoadPrevView()
-        {
-            mainWindow.LoadPrevView();
-        }
-        public void ScrollerToRight(object obj) {
             if (obj is ScrollViewer)
             {
                 if (scrollTimer != null)
@@ -159,17 +165,17 @@ namespace pizzamaker.ViewModels
 
 
                 scrollTimer.Interval = TimeSpan.FromTicks(5000);
-                
+
                 scrollTimer.Tick += (s, e) =>
                 {
                     scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 0.2);
 
-                    if (curroffset + 170 <= scrollViewer.HorizontalOffset )
+                    if (curroffset + 170 <= scrollViewer.HorizontalOffset)
                     {
                         scrollTimer.Stop();
                     }
                 };
-                
+
             }
         }
         public void ScrollerToLeft(object obj)
@@ -212,5 +218,6 @@ namespace pizzamaker.ViewModels
             }
 
         }
+        #endregion
     }
 }

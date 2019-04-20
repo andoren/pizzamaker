@@ -19,68 +19,29 @@ namespace pizzamaker.ViewModels
         public ChooseYourSauceViewModel(StartUpViewModel mainWindow)
         {
             this.mainWindow = mainWindow;
-            Sauces = new BindableCollection<Food>() { new Sauce(),new Sauce(1,"Spicy Sauce","This is our Spicy sauce",1.99)};
+            Initialize();
+            LoadOrderData();
+
+        }
+        #region Initialize data
+        void Initialize()
+        {
+            Sauces = new BindableCollection<Food>() { new Sauce(), new Sauce(1, "Spicy Sauce", "This is our Spicy sauce", 1.99) };
             SelectedSauceCommand = new RelayCommand(SauceSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
         }
+        private void LoadOrderData()
+        {
+            var order = Order.getInstance();
+            if (order.Sauce != null) SelectedSauce = order.Sauce;
+        }
+        #endregion
+        #region View properties and methods like current Sauce
+        //
         public BindableCollection<Food> Sauces { get; set; }
         private StartUpViewModel mainWindow;
-        DispatcherTimer scrollTimer;
-        private bool canExecute = true;
-        private ICommand selectedSauceCommand;
-        public ICommand SelectedSauceCommand
-        {
-            get
-            {
-                return selectedSauceCommand;
-            }
-            set
-            {
-                selectedSauceCommand = value;
-            }
-        }
-        private ICommand scrollerToLeft;
-        public ICommand ScrollerToLeftCommand
-        {
-            get
-            {
-                return scrollerToLeft;
-            }
-            set
-            {
-                scrollerToLeft = value;
-            }
-        }
-        private ICommand scrollerToRight;
-        public ICommand ScrollerToRightCommand
-        {
-            get
-            {
-                return scrollerToRight;
-            }
-            set
-            {
-                scrollerToRight = value;
-            }
-        }
-        private ICommand toggleExecuteCommand { get; set; }
-        public ICommand ToggleExecuteCommand
-        {
-            get
-            {
-                return toggleExecuteCommand;
-            }
-            set
-            {
-                toggleExecuteCommand = value;
-            }
-        }
-        public void ChangeCanExecute(object obj)
-        {
-            canExecute = !canExecute;
-        }
         public void SauceSelected(object obj)
         {
             if (obj is Sauce)
@@ -93,7 +54,6 @@ namespace pizzamaker.ViewModels
             }
         }
         private Sauce _selectedSauce;
-
         public Sauce SelectedSauce
         {
             get { return _selectedSauce; }
@@ -104,7 +64,6 @@ namespace pizzamaker.ViewModels
                 NotifyOfPropertyChange(() => SelectedSauce);
             }
         }
-
         public void LoadNextView()
         {
             mainWindow.LoadNextView();
@@ -113,6 +72,73 @@ namespace pizzamaker.ViewModels
         {
             mainWindow.LoadPrevView();
         }
+        #endregion
+        #region Scrollers properties and methods
+        //This timer moves the scroller in the view.
+        DispatcherTimer scrollTimer;
+
+        private bool canExecute = true;
+        //Command for the scroller image button
+        private ICommand selectedSauceCommand;
+        public ICommand SelectedSauceCommand
+        {
+            get
+            {
+                return selectedSauceCommand;
+            }
+            set
+            {
+                selectedSauceCommand = value;
+            }
+        }
+        //Command for the scroller button
+        private ICommand scrollerToLeft;
+        public ICommand ScrollerToLeftCommand
+        {
+            get
+            {
+                return scrollerToLeft;
+            }
+            set
+            {
+                scrollerToLeft = value;
+            }
+        }
+        //Command for the scroller button
+        private ICommand scrollerToRight;
+        public ICommand ScrollerToRightCommand
+        {
+            get
+            {
+                return scrollerToRight;
+            }
+            set
+            {
+                scrollerToRight = value;
+            }
+        }
+
+        private ICommand toggleExecuteCommand { get; set; }
+        public ICommand ToggleExecuteCommand
+        {
+            get
+            {
+                return toggleExecuteCommand;
+            }
+            set
+            {
+                toggleExecuteCommand = value;
+            }
+        }
+
+        public void ChangeCanExecute(object obj)
+        {
+            canExecute = !canExecute;
+        }
+        /// <summary>
+        /// Gets the object(Scroller) as command parameter from the view and moving the scroller right with DispatcherTimer
+        /// </summary>
+        /// <param name="obj"></param>
         public void ScrollerToRight(object obj)
         {
             if (obj is ScrollViewer)
@@ -142,6 +168,10 @@ namespace pizzamaker.ViewModels
 
             }
         }
+        /// <summary>
+        /// Gets the object(Scroller) as command parameter from the view and moving the scroller left with DispatcherTimer
+        /// </summary>
+        /// <param name="obj"></param>
         public void ScrollerToLeft(object obj)
         {
             if (obj is ScrollViewer)
@@ -168,6 +198,10 @@ namespace pizzamaker.ViewModels
                 };
             }
         }
+        /// <summary>
+        /// Removes the given DispatcherTimer tick events if has any.
+        /// </summary>
+        /// <param name="dispatchTimer"></param>
         private void RemoveHandlers(DispatcherTimer dispatchTimer)
         {
             var eventField = dispatchTimer.GetType().GetField("Tick",
@@ -182,6 +216,7 @@ namespace pizzamaker.ViewModels
             }
 
         }
+        #endregion
     }
-   
+
 }
