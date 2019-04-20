@@ -100,7 +100,7 @@ namespace pizzamaker.Models
                 {
                     if(food !=null)fullprice += food.Price;
                 }
-                if (AllToppings != null) fullprice += AllToppings.Price;
+                
                 return fullprice;
             }
         }

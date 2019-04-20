@@ -74,7 +74,7 @@
                 </ItemsControl>
                 <StackPanel  Grid.Column="1">
                     <TextBlock Margin="0,0,10,0" FontSize="20">Your order price:</TextBlock>
-                    <TextBlock Text="{Binding FullPrice}" HorizontalAlignment="Center" Margin="0,10,10,0" FontSize="20"></TextBlock>
+                    <TextBlock Text="{Binding Order.Price}" HorizontalAlignment="Center" Margin="0,10,10,0" FontSize="20"></TextBlock>
                 </StackPanel>
             </Grid>
             <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ForeGroundColor}" FontSize="36">Choose your Toppings</TextBlock>

@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace pizzamaker.Models.Foods
 {
@@ -46,7 +47,18 @@ namespace pizzamaker.Models.Foods
             NotifyOfPropertyChange("Price");
         }
 
-
+        protected override void CreateBitMapImage()
+        {
+            var image = new BitmapImage();
+            
+            image.BeginInit();
+            image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+            image.CacheOption = BitmapCacheOption.OnLoad;
+            image.UriSource = new Uri(@"E:\git2019\pizzamaker\pizzamaker\pizzamaker\imgs\toppingspicture.jpg", UriKind.Relative);
+            image.EndInit();
+            image.Freeze();
+            Picture = image;
+        }
 
     }
 }

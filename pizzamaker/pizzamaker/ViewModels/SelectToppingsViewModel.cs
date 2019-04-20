@@ -94,6 +94,8 @@ namespace pizzamaker.ViewModels
                     RemoveHandlers(scrollTimer);
                 }
                 Order.AllToppings.RemoveTopping(obj as Topping);
+                Order.AddAt(Order.AllToppings, 3);
+                if (Order.AllToppings.AllToppings.Count == 0) Order.AddAt(null, 3);
                 NotifyOfPropertyChange(() => FullPrice);
                 NotifyOfPropertyChange(() => SelectedToppings);
             }
@@ -106,15 +108,18 @@ namespace pizzamaker.ViewModels
                 {
                     RemoveHandlers(scrollTimer);
                 }
+
+
                 Order.AllToppings.AddTopping(obj as Topping);
-                NotifyOfPropertyChange(()=>FullPrice);
+                Order.AddAt(Order.AllToppings, 3);
+                NotifyOfPropertyChange(() => FullPrice);
                 NotifyOfPropertyChange(() => SelectedToppings);
             }
         }
         public double FullPrice {
             get
             {
-                return Order.Price + Order.AllToppings.Price;
+                return Order.Price;
             }
         }
         #endregion
