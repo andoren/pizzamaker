@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace pizzamaker.ViewModels
 {
-    class StartViewModel:Screen
+    public class StartViewModel:Screen
     {
 
         public StartViewModel(StartUpViewModel mainWindow)

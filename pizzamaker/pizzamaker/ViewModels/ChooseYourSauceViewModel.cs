@@ -16,7 +16,7 @@ using System.Windows.Threading;
 
 namespace pizzamaker.ViewModels
 {
-    class ChooseYourSauceViewModel:Screen
+    public class ChooseYourSauceViewModel:Screen
     {
         public ChooseYourSauceViewModel(StartUpViewModel mainWindow)
         {

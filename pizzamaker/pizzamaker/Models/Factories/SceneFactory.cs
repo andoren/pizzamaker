@@ -1,6 +1,7 @@
 ﻿using pizzamaker.Models;
 using Caliburn.Micro;
-
+using System;
+using pizzamaker.Models.Exceptions;
 namespace pizzamaker.ViewModels
 {
     public class SceneFactory
@@ -10,6 +11,8 @@ namespace pizzamaker.ViewModels
         }
         public Screen CreateScene(StartUpViewModel mainWindow, int index)
         {
+            if (mainWindow == null) throw new NullReferenceException();
+            else if (index < 0) throw new InvalidIndexExceptionForScene();
             Screen scene = null;
             switch (index)
             {

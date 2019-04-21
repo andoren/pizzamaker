@@ -15,7 +15,7 @@ using System.Windows.Threading;
 
 namespace pizzamaker.ViewModels
 {
-    class ChooseCheeseViewModel : Screen
+    public class ChooseCheeseViewModel : Screen
     {
 
 

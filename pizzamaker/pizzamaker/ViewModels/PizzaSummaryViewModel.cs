@@ -9,7 +9,7 @@ using System.Windows;
 
 namespace pizzamaker.ViewModels
 {
-    class PizzaSummaryViewModel:Screen
+    public class PizzaSummaryViewModel:Screen
     {
         private StartUpViewModel mainWindow;
 
