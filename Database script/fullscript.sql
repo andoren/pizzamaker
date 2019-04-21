@@ -70,3 +70,9 @@ insert into pizzamaker.topping(name,description,price,rawpicture) values("Rocket
 insert into pizzamaker.topping(name,description,price,rawpicture) values("Corn","Caned corn",0.2,load_file("C:/Pictures/Toppings/corn.jpg"));
 insert into pizzamaker.topping(name,description,price,rawpicture) values("Bean","Caned bean",0.3,load_file("C:/Pictures/Toppings/bean.png"));
 insert into pizzamaker.topping(name,description,price,rawpicture) values("Eggs","Boiled egg slices",0.4,load_file("C:/Pictures/Toppings/egg.jpg"));
+/*cheese*/
+insert into pizzamaker.meat(name,description,price,rawpicture) values("Mozzarella","",0.5,load_file("C:/Pictures/Cheese/moz.jpg"));
+insert into pizzamaker.meat(name,description,price,rawpicture) values("Mix","All kind of cheese what you can find in our cheese menu",0.6,load_file("C:/Pictures/Cheese/mix.jpg"));
+insert into pizzamaker.meat(name,description,price,rawpicture) values("Edami","Regular edami cheese",0.8,load_file("C:/Pictures/Cheese/edami.jpg"));
+insert into pizzamaker.meat(name,description,price,rawpicture) values("Parmegano","Finest parmegano what you can find in the world. You should really try this.",1.9,load_file("C:/Pictures/Cheese/parm.jpg"));
+insert into pizzamaker.meat(name,description,price,rawpicture) values("Trapist","Regular trapist cheese",0.4,load_file("C:/Pictures/Cheese/trap.jpg"));
