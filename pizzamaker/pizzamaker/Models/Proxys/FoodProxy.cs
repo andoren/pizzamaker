@@ -58,27 +58,24 @@ namespace pizzamaker.Models.Abstracts
         protected override void CreateBitMapImage()
         {
             var image = new BitmapImage();
+            lock (this) { 
             if (RawPicture == null)
             {
                 if (!retrieving)
                 {
-
                     retrieving = true;
                     image.BeginInit();
                     image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
                     image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.UriSource = new Uri(@"E:\git2019\pizzamaker\pizzamaker\pizzamaker\imgs\imgicon.png", UriKind.Relative);
+                    image.UriSource = new Uri(Directory.GetCurrentDirectory()+@"\imgs\imgicon.png", UriKind.Relative);
                     image.EndInit();
                     image.Freeze();
                     Picture = image;
                     Task.Factory.StartNew(() =>
-                    {
-                        Thread.Sleep(200);
+                    {                    
                         var databasehelper = DatabaseHelper.getInstance();
                         this.RawPicture = databasehelper.GetRawPicture(Id);
                         CreateBitMapImage();
-
-
                     });
 
                 }
@@ -100,8 +97,8 @@ namespace pizzamaker.Models.Abstracts
                 Picture = image;
             }
         }
-    
-        
+
+        }
 
     }
 }

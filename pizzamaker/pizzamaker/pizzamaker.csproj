@@ -82,8 +82,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Abstracts\Food.cs" />
-    <Compile Include="Models\Abstracts\FoodDecorator.cs" />
-    <Compile Include="Models\Foods\FoodProxy.cs" />
+    <Compile Include="Models\Proxys\FoodProxy.cs" />
     <Compile Include="Models\Exceptions\InvalidIndexExceptionForScene.cs" />
     <Compile Include="Models\Exceptions\InvalidLegthExceptionForFood.cs" />
     <Compile Include="Models\Factories\FoodFactory.cs" />
@@ -221,19 +220,29 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imgs\italyflag.png" />
+    <Content Include="imgs\italyflag.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imgs\pizza-pngrepo-com.png" />
+    <Content Include="imgs\pizza-pngrepo-com.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imgs\PizzaTitle.png" />
+    <Content Include="imgs\PizzaTitle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imgs\imgicon.png" />
+    <Content Include="imgs\imgicon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imgs\toppingspicture.jpg" />
+    <Content Include="imgs\toppingspicture.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
