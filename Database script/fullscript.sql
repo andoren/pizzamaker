@@ -58,4 +58,15 @@ insert into pizzamaker.meat(name,description,price,rawpicture) values("Fish","Fr
 insert into pizzamaker.meat(name,description,price,rawpicture) values("Pork Ham","The unique flavor of our hams comes from the slow smoking methods we have been faithful to for over 141 years. ",1.00,load_file("C:/Pictures/Meats/ham.jpg"));
 insert into pizzamaker.meat(name,description,price,rawpicture) values("Pulled pork","Pulled Pork is an American culinary dish that originated in the southern US states which uses shredded barbecued pork shoulder as the main ingredient.",1.25,load_file("C:/Pictures/Meats/pulled.png"));
 insert into pizzamaker.meat(name,description,price,rawpicture) values("Salami slices","Sliced seasoned pork salami. This perfectly seasoned Italian salami is traditionally dry cured by a Italian family run company with 8 generations of expertise.",0.45,load_file("C:/Pictures/Meats/salami.jpg"));
-insert into pizzamaker.sauce(name,description,price,rawpicture) values("Sausage","Pork sausage meat filled into natural pork casings.",1.25,load_file("C:/Pictures/Meats/sausage.jpg"));
+insert into pizzamaker.meat(name,description,price,rawpicture) values("Sausage","Pork sausage meat filled into natural pork casings.",1.25,load_file("C:/Pictures/Meats/sausage.jpg"));
+/*Topping*/
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Tomato","Freshly sliced tomato is always a perfect choice",0.1,load_file("C:/Pictures/Toppings/tomato.jpg"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Mushroom ","Freshly sliced mushroom is always a perfect choice",0.2,load_file("C:/Pictures/Toppings/mushroom.jpg"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Pepper","Freshly sliced pepper is always a perfect choice",0.3,load_file("C:/Pictures/Toppings/pepper.png"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Pineapple","The most valami ingredient in the world",1.1,load_file("C:/Pictures/Toppings/pineapple.jpg"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Banana","This ingridients is for the nutella souce",1.2,load_file("C:/Pictures/Toppings/banana.jpg"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Olive","Fresh olive straight from the shop.",0.4,load_file("C:/Pictures/Toppings/olive.jpg"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Rocket","Fresh rocket",0.1,load_file("C:/Pictures/Toppings/rocket.jpg"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Corn","Caned corn",0.2,load_file("C:/Pictures/Toppings/corn.jpg"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Bean","Caned bean",0.3,load_file("C:/Pictures/Toppings/bean.png"));
+insert into pizzamaker.topping(name,description,price,rawpicture) values("Eggs","Boiled egg slices",0.4,load_file("C:/Pictures/Toppings/egg.jpg"));
