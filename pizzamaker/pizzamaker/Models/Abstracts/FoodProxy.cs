@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using pizzamaker.Models.Utilities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,15 +13,15 @@ using System.Windows.Threading;
 
 namespace pizzamaker.Models.Abstracts
 {
-    public class FoodProxy: Food, INotifyPropertyChangedEx
+    public class FoodProxy : Food, INotifyPropertyChangedEx
     {
         public FoodProxy()
         {
-            
+
             CreateBitMapImage();
 
         }
-        bool retrieving = false;
+        volatile bool retrieving = false;
         public event PropertyChangedEventHandler PropertyChanged;
         public bool IsNotifying { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public void NotifyOfPropertyChange(string propertyName)
@@ -40,36 +41,42 @@ namespace pizzamaker.Models.Abstracts
             get { return _picture; }
             set
             {
+                lock (typeof (FoodProxy)){
+
+        
                 _picture = value;
                 NotifyOfPropertyChange("Picture");
+                }
 
             }
         }
         protected override void CreateBitMapImage()
         {
             var image = new BitmapImage();
-            if (RawPicture == null || RawPicture.Length == 0 || !retrieving)
+            if (RawPicture == null)
             {
-
-                retrieving = true;
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = new Uri(@"E:\git2019\pizzamaker\pizzamaker\pizzamaker\imgs\imgicon.png", UriKind.Relative);
-                image.EndInit();
-                image.Freeze();
-                Picture = image;
-
-                Thread t = new Thread(() =>
+                if (!retrieving)
                 {
-                    Thread.Sleep(200);                   
-                    this.RawPicture = Convert.FromBase64String(temp);
-                    CreateBitMapImage();
-                    
+
+                    retrieving = true;
+                    image.BeginInit();
+                    image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.UriSource = new Uri(@"E:\git2019\pizzamaker\pizzamaker\pizzamaker\imgs\imgicon.png", UriKind.Relative);
+                    image.EndInit();
+                    image.Freeze();
+                    Picture = image;
+                    Task.Factory.StartNew(() =>
+                    {
+                        Thread.Sleep(200);
+                        var databasehelper = DatabaseHelper.getInstance();
+                        this.RawPicture = databasehelper.GetRawPicture(Id);
+                        CreateBitMapImage();
+
+
+                    });
 
                 }
-                 );
-                t.Start();
             }
             else
             {
@@ -88,6 +95,8 @@ namespace pizzamaker.Models.Abstracts
                 Picture = image;
             }
         }
+    
+        
 
     }
 }

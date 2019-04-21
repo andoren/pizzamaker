@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using pizzamaker.Models;
 using pizzamaker.Models.Foods;
+using pizzamaker.Models.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,8 @@ namespace pizzamaker.ViewModels
         #region Initialize data
         private void Initialize()
         {
-            Toppings = new BindableCollection<Food>() { new Topping(1, "Normal Topping", "Regualr Topping with our spicy spice", 0.99), new Topping(2, "Spicy Topping", "Regualr Topping with our spicy spice", 2.99), new Topping(3, "Banana", "Regualr Topping with our spicy spice", 1.99), new Topping(4, "Wholegrain Topping", "Regualr Topping with our spicy spice", 13.99), new Topping(5, "GlutenFree Topping", "Regualr Topping with our spicy spice", 1.99), new Topping(6, "Crusty Topping", "Regualr Topping with our spicy spice", 4.99) };
+            var databasehelper = DatabaseHelper.getInstance();
+            Toppings = databasehelper.GetFoodsByType("topping");
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);

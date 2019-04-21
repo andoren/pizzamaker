@@ -457,10 +457,18 @@ dVJP1rzmlelMhRtjUDC5Iye1JDjbuK9WzikSZkJVjkdQKAP/2Q==";
 
         private byte[] _rawpicture;
 
-        public byte[] RawPicture
+        public  byte[] RawPicture
         {
-            get { return _rawpicture; }
-            set { _rawpicture = value; }
+            get {
+                lock (typeof(Food)) {
+                return _rawpicture;
+                }
+            }
+            set {
+                lock (typeof(Food)) { 
+                _rawpicture = value;
+                }
+            }
         }
         protected volatile BitmapImage _picture;
 

@@ -9,6 +9,7 @@ using System.Windows.Media.Animation;
 using System.Windows;
 using System.Windows.Threading;
 using System.Reflection;
+using pizzamaker.Models.Utilities;
 
 namespace pizzamaker.ViewModels
 {
@@ -24,7 +25,8 @@ namespace pizzamaker.ViewModels
         #region Initialize data
         private void Initialize()
         {
-            Doughs = new BindableCollection<Food>() { new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 0.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice",2.99), new Dough(1, "Normal Dough", "Regualr dough with our spicy spice", 1.99), new Dough(2, "Wholegrain Dough", "Regualr dough with our spicy spice", 13.99), new Dough(3, "GlutenFree Dough", "Regualr dough with our spicy spice", 1.99), new Dough(4, "Crusty Dough", "Regualr dough with our spicy spice", 4.99) };
+            var dataaccess = DatabaseHelper.getInstance();
+            Doughs = dataaccess.GetFoodsByType("dough");
             SelectedDoughCommand = new RelayCommand(DoughSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);

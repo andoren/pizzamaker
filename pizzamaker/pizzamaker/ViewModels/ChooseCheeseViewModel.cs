@@ -1,6 +1,7 @@
 ﻿using Caliburn.Micro;
 using pizzamaker.Models;
 using pizzamaker.Models.Foods;
+using pizzamaker.Models.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,8 @@ namespace pizzamaker.ViewModels
         #region Initialize data
         private void Initialize()
         {
-            Cheeses = new BindableCollection<Food>() { new Cheese(1, "Normal Cheese", "Regualr Cheese with our spicy spice", 0.99), new Cheese(1, "Normal Cheese", "Regualr Cheese with our spicy spice", 2.99), new Cheese(1, "Normal Cheese", "Regualr Cheese with our spicy spice", 1.99), new Cheese(2, "Wholegrain Cheese", "Regualr Cheese with our spicy spice", 13.99), new Cheese(3, "GlutenFree Cheese", "Regualr Cheese with our spicy spice", 1.99), new Cheese(4, "Crusty Cheese", "Regualr Cheese with our spicy spice", 4.99) };
+            var databasehelper = DatabaseHelper.getInstance();
+            Cheeses = databasehelper.GetFoodsByType("cheese");
             SelectedCheeseCommand = new RelayCommand(CheeseSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);

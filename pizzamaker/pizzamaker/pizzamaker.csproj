@@ -84,9 +84,12 @@
     <Compile Include="Models\Abstracts\Food.cs" />
     <Compile Include="Models\Abstracts\FoodDecorator.cs" />
     <Compile Include="Models\Abstracts\FoodProxy.cs" />
+    <Compile Include="Models\Factories\FoodFactory.cs" />
     <Compile Include="Models\Foods\SummaryFood.cs" />
     <Compile Include="Models\Foods\Toppings.cs" />
     <Compile Include="Models\RelayCommand.cs" />
+    <Compile Include="Models\Utilities\DatabaseHelper.cs" />
+    <Compile Include="Models\Utilities\SqlHelper.cs" />
     <Compile Include="ViewModels\ChooseCheeseViewModel.cs" />
     <Compile Include="ViewModels\ChooseDoughViewModel.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -106,7 +109,7 @@
     <Compile Include="ViewModels\ChooseMeatViewModel.cs" />
     <Compile Include="ViewModels\ChooseYourSauceViewModel.cs" />
     <Compile Include="ViewModels\CustomerDataViewModel.cs" />
-    <Compile Include="Models\SceneFactory.cs" />
+    <Compile Include="Models\Factories\SceneFactory.cs" />
     <Compile Include="ViewModels\DeliverViewModel.cs" />
     <Compile Include="ViewModels\PizzaSummaryViewModel.cs" />
     <Compile Include="ViewModels\SelectToppingsViewModel.cs" />
