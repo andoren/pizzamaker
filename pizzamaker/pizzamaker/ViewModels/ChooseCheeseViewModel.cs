@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.ViewModels
 {
@@ -34,8 +35,6 @@ namespace pizzamaker.ViewModels
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
-
-
         }
         private void LoadOrderData()
         {
@@ -93,20 +92,33 @@ namespace pizzamaker.ViewModels
         }
         public void LoadNextView()
         {
-
-            if (SelectedCheese == null)
+            try
             {
-                MessageBox.Show("You must selected a Cheese first!");
-                return;
+                if (SelectedCheese == null)
+                {
+                    MessageBox.Show("You must selected a Cheese first!");
+                    return;
+                }
+                Order.Remove(_selectedCheese);
+                Order.Cheese = SelectedCheese;
+                Order.AddAt(SelectedCheese, 4);
+                mainWindow.LoadNextView();
             }
-            Order.Remove(_selectedCheese);
-            Order.Cheese = SelectedCheese;
-            Order.AddAt(SelectedCheese, 4);
-            mainWindow.LoadNextView();
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadNextView", e.Message);
+            }
         }
         public void LoadPrevView()
         {
-            mainWindow.LoadPrevView();
+            try
+            {
+                mainWindow.LoadPrevView();
+            }
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadPrevView", e.Message);
+            }
         }
         #endregion
         #region Scrollers properties and methods
@@ -234,15 +246,22 @@ namespace pizzamaker.ViewModels
         }
         private void RemoveHandlers(DispatcherTimer dispatchTimer)
         {
-            var eventField = dispatchTimer.GetType().GetField("Tick",
-                    BindingFlags.NonPublic | BindingFlags.Instance);
-            var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
-            if (eventDelegate != null)
+            try
             {
-                var invocatationList = eventDelegate.GetInvocationList();
+                var eventField = dispatchTimer.GetType().GetField("Tick",
+                        BindingFlags.NonPublic | BindingFlags.Instance);
+                var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
+                if (eventDelegate != null)
+                {
+                    var invocatationList = eventDelegate.GetInvocationList();
 
-                foreach (var handler in invocatationList)
-                    dispatchTimer.Tick -= ((EventHandler)handler);
+                    foreach (var handler in invocatationList)
+                        dispatchTimer.Tick -= ((EventHandler)handler);
+                }
+            }
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "RemoveHandlers", e.Message);
             }
 
         }

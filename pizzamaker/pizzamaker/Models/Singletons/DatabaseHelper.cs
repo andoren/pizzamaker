@@ -7,8 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using pizzamaker.Models.Utilities;
 
-namespace pizzamaker.Models.Utilities
+namespace pizzamaker.Models.Singletons
 {
     public class DatabaseHelper:SqlHelper
     {
@@ -71,8 +72,9 @@ namespace pizzamaker.Models.Utilities
                  
             catch (Exception e)
             {
-                MessageBox.Show("Én dobom az errort!");
-            }
+                    var logger = LogHelper.getInstance();
+                    logger.Log(Logging.LogType.DbLog, this.GetType().ToString(), "GetFoodsByType", e.Message);
+                }
             finally
             {
                 CloseConnection(connection);
@@ -80,7 +82,56 @@ namespace pizzamaker.Models.Utilities
             }
             return doughs;
         }
+        public void AddLog(string what, string icommand , string message) {
+            MySqlCommand command = new MySqlCommand();
+            MySqlParameter whatparameter = new MySqlParameter()
+            {
+                Value = what,
+                DbType = System.Data.DbType.String,
+                ParameterName = "iwhat"
 
+            };
+            MySqlParameter commandparameter = new MySqlParameter()
+            {
+                Value = icommand,
+                DbType = System.Data.DbType.String,
+                ParameterName = "icommand"
+
+            };
+            MySqlParameter commandresult = new MySqlParameter()
+            {
+                Value = message,
+                DbType = System.Data.DbType.String,
+                ParameterName = "message"
+
+            };
+            command.CommandType = System.Data.CommandType.Text;
+            command.CommandText = "insert into logs(class,what,result)values(@iwhat,@icommand,@message)";
+            command.Parameters.Add(whatparameter);
+            command.Parameters.Add(commandparameter);
+            command.Parameters.Add(commandresult);
+            MySqlConnection connection = null;
+            try
+            {
+                lock (this)
+                {
+                    connection = getConnection();
+                    command.Connection = connection;
+                    OpenConnection(connection);
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception e)
+            {
+                var logger = LogHelper.getInstance();
+                logger.Log(Logging.LogType.FileLog, this.GetType().ToString(), "AddLog", e.Message);
+            }
+            finally {
+                if(connection != null)CloseConnection(connection);
+            }
+
+
+        }
         public Byte[] GetRawPicture(int id)
         {
             byte[] picture = null;
@@ -115,8 +166,9 @@ namespace pizzamaker.Models.Utilities
             }
             catch (Exception e)
             {
-                MessageBox.Show("Kép exception");
-            }
+                    var logger = LogHelper.getInstance();
+                    logger.Log(Logging.LogType.DbLog, this.GetType().ToString(), "GetRawPicture", e.Message);
+                }
             finally
             {
                 CloseConnection(connection);

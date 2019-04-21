@@ -82,6 +82,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Models\Abstracts\Food.cs" />
+    <Compile Include="Models\Logging\BaseLogging.cs" />
+    <Compile Include="Models\Logging\DBLog.cs" />
+    <Compile Include="Models\Logging\FileLog.cs" />
+    <Compile Include="Models\Singletons\LogHelper.cs" />
+    <Compile Include="Models\Logging\LogType.cs" />
     <Compile Include="Models\Proxys\FoodProxy.cs" />
     <Compile Include="Models\Exceptions\InvalidIndexExceptionForScene.cs" />
     <Compile Include="Models\Exceptions\InvalidLegthExceptionForFood.cs" />
@@ -89,7 +94,7 @@
     <Compile Include="Models\Foods\SummaryFood.cs" />
     <Compile Include="Models\Foods\Toppings.cs" />
     <Compile Include="Models\RelayCommand.cs" />
-    <Compile Include="Models\Utilities\DatabaseHelper.cs" />
+    <Compile Include="Models\Singletons\DatabaseHelper.cs" />
     <Compile Include="Models\Utilities\SqlHelper.cs" />
     <Compile Include="ViewModels\ChooseCheeseViewModel.cs" />
     <Compile Include="ViewModels\ChooseDoughViewModel.cs" />
@@ -106,7 +111,7 @@
     <Compile Include="Models\Foods\Meat.cs" />
     <Compile Include="Models\Foods\Sauce.cs" />
     <Compile Include="Models\Foods\Topping.cs" />
-    <Compile Include="Models\Order.cs" />
+    <Compile Include="Models\Singletons\Order.cs" />
     <Compile Include="ViewModels\ChooseMeatViewModel.cs" />
     <Compile Include="ViewModels\ChooseYourSauceViewModel.cs" />
     <Compile Include="ViewModels\CustomerDataViewModel.cs" />
@@ -221,6 +226,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="imgs\italyflag.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Logs\Logs.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

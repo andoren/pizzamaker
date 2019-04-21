@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using pizzamaker.Models.Abstracts;
+using pizzamaker.Models.Singletons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -51,22 +52,38 @@ namespace pizzamaker.Models.Foods
 
         protected override void CreateBitMapImage()
         {
-            var image = new BitmapImage();
-            
-            image.BeginInit();
-            image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-            image.CacheOption = BitmapCacheOption.OnLoad;
-            image.UriSource = new Uri(@"E:\git2019\pizzamaker\pizzamaker\pizzamaker\imgs\toppingspicture.jpg", UriKind.Relative);
-            image.EndInit();
-            image.Freeze();
-            Picture = image;
+            try
+            {
+                var image = new BitmapImage();
+
+                image.BeginInit();
+                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                image.CacheOption = BitmapCacheOption.OnLoad;
+                image.UriSource = new Uri(System.IO.Directory.GetCurrentDirectory() + @"imgs\toppingspicture.jpg", UriKind.Relative);
+                image.EndInit();
+                image.Freeze();
+                Picture = image;
+            }
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Logging.LogType.DbLog, this.GetType().ToString(), "CreateBitMapImage", e.Message);
+            }
         }
         public override string GetInformation {
             get {
                 string toppinginformations = string.Empty;
-                foreach (var item in AllToppings)
+                try
                 {
-                    toppinginformations += string.Format(us,"Name: {0}  Description: {1}  Price: {2:C2}"+Environment.NewLine, item.Name, item.Description, item.Price);
+                    
+                    foreach (var item in AllToppings)
+                    {
+                        toppinginformations += string.Format(us, "Name: {0}  Description: {1}  Price: {2:C2}" + Environment.NewLine, item.Name, item.Description, item.Price);
+                    }
+                }
+                catch(Exception e)
+                {
+                    var logger = LogHelper.getInstance();
+                    logger.Log(Logging.LogType.DbLog, this.GetType().ToString(), "GetInformation", e.Message);
                 }
                 return toppinginformations;
             }

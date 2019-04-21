@@ -1,7 +1,6 @@
 ﻿using Caliburn.Micro;
 using pizzamaker.Models;
 using pizzamaker.Models.Foods;
-using pizzamaker.Models.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.ViewModels
 {
@@ -83,19 +83,36 @@ namespace pizzamaker.ViewModels
         }
         public void LoadNextView()
         {
-            if (SelectedSauce == null)
+            try
             {
-                MessageBox.Show("You must selected a sauce first!");
-                return;
+                if (SelectedSauce == null)
+                {
+                    MessageBox.Show("You must selected a sauce first!");
+                    return;
+                }
+                order.Remove(SelectedSauce);
+                order.Sauce = SelectedSauce;
+                order.AddAt(SelectedSauce, 1);
+                mainWindow.LoadNextView();
             }
-            order.Remove(SelectedSauce);
-            order.Sauce = SelectedSauce;
-            order.AddAt(SelectedSauce,1);
-            mainWindow.LoadNextView();
+            catch (Exception e)
+            {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadNextView", e.Message);
+
+            }
         }
         public void LoadPrevView()
         {
-            mainWindow.LoadPrevView();
+            try
+            {
+                mainWindow.LoadPrevView();
+            }
+            catch(Exception e)
+            {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadPrevView", e.Message);
+            }
         }
         #endregion
         #region Scrollers properties and methods
@@ -229,15 +246,22 @@ namespace pizzamaker.ViewModels
         /// <param name="dispatchTimer"></param>
         private void RemoveHandlers(DispatcherTimer dispatchTimer)
         {
-            var eventField = dispatchTimer.GetType().GetField("Tick",
-                    BindingFlags.NonPublic | BindingFlags.Instance);
-            var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
-            if (eventDelegate != null)
+            try
             {
-                var invocatationList = eventDelegate.GetInvocationList();
+                var eventField = dispatchTimer.GetType().GetField("Tick",
+                        BindingFlags.NonPublic | BindingFlags.Instance);
+                var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
+                if (eventDelegate != null)
+                {
+                    var invocatationList = eventDelegate.GetInvocationList();
 
-                foreach (var handler in invocatationList)
-                    dispatchTimer.Tick -= ((EventHandler)handler);
+                    foreach (var handler in invocatationList)
+                        dispatchTimer.Tick -= ((EventHandler)handler);
+                }
+            }
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "RemoveHandlers", e.Message);
             }
 
         }

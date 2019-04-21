@@ -207,7 +207,7 @@ namespace pizzamaker.Models
         }
         public void Refresh()
         {
-            throw new NotImplementedException();
+            
         }
         #endregion
     }

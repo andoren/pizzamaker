@@ -3,6 +3,7 @@ using System.Windows;
 using System;
 using System.Configuration;
 using System.Runtime.CompilerServices;
+using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.Models.Utilities
 {
@@ -32,22 +33,23 @@ namespace pizzamaker.Models.Utilities
             }
             catch (MySqlException e)
             {
+                var logger = LogHelper.getInstance();
                 switch (e.Number)
                 {
                     case 0:
-                        MessageBox.Show("Nem tudok a mysql szerverhez kapcsolódni.");
-                        MessageBox.Show(e.Message);
+                        logger.Log(Logging.LogType.FileLog, this.GetType().ToString(), "OpenConnection", e.Message);
                         break;
 
                     case 1045:
-                        MessageBox.Show("Hibás felhasználónév vagy jelszó");
+                        logger.Log(Logging.LogType.FileLog, this.GetType().ToString(), "OpenConnection", e.Message);
                         break;
                 }
                 return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("OpenConnection Exception ág.");
+                var logger = LogHelper.getInstance();
+                logger.Log(Logging.LogType.FileLog, this.GetType().ToString(), "OpenConnection", ex.Message);
                 return false;
             }
         }
@@ -60,12 +62,14 @@ namespace pizzamaker.Models.Utilities
             }
             catch (MySqlException e)
             {
-                MessageBox.Show("CloseConnection MysqlExceptioág");
+                var logger = LogHelper.getInstance();
+                logger.Log(Logging.LogType.FileLog, this.GetType().ToString(), "CloseConnection", e.Message);
                 return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show("CloseConnection Exception ág");
+                var logger = LogHelper.getInstance();
+                logger.Log(Logging.LogType.FileLog, this.GetType().ToString(), "CloseConnection", ex.Message);
                 return false;
             }
         }

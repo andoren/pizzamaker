@@ -9,7 +9,7 @@ using System.Windows.Media.Animation;
 using System.Windows;
 using System.Windows.Threading;
 using System.Reflection;
-using pizzamaker.Models.Utilities;
+using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.ViewModels
 {
@@ -83,19 +83,33 @@ namespace pizzamaker.ViewModels
         }
         public void LoadNextView()
         {
-           
-            if (SelectedDough == null) {
-                MessageBox.Show("You must selected a dough first!");
-                return;
+            try
+            {
+                if (SelectedDough == null)
+                {
+                    MessageBox.Show("You must selected a dough first!");
+                    return;
+                }
+                Order.Remove(_selectedDough);
+                Order.Dough = SelectedDough;
+                Order.AddAt(SelectedDough, 0);
+                mainWindow.LoadNextView();
             }
-            Order.Remove(_selectedDough);
-            Order.Dough = SelectedDough;
-            Order.AddAt(SelectedDough,0);
-            mainWindow.LoadNextView();
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadNextView", e.Message);
+            }
         }
         public void LoadPrevView()
         {
-            mainWindow.LoadPrevView();
+            try
+            {
+                mainWindow.LoadPrevView();
+            }
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadPrevView", e.Message);
+            }
         }
         #endregion
         #region Scrollers properties and methods
@@ -223,15 +237,23 @@ namespace pizzamaker.ViewModels
         }
         private void RemoveHandlers(DispatcherTimer dispatchTimer)
         {
-            var eventField = dispatchTimer.GetType().GetField("Tick",
-                    BindingFlags.NonPublic | BindingFlags.Instance);
-            var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
-            if (eventDelegate != null)
+            try
             {
-                var invocatationList = eventDelegate.GetInvocationList();
+                var eventField = dispatchTimer.GetType().GetField("Tick",
+                        BindingFlags.NonPublic | BindingFlags.Instance);
+                var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
+                if (eventDelegate != null)
+                {
+                    var invocatationList = eventDelegate.GetInvocationList();
 
-                foreach (var handler in invocatationList)
-                    dispatchTimer.Tick -= ((EventHandler)handler);
+                    foreach (var handler in invocatationList)
+                        dispatchTimer.Tick -= ((EventHandler)handler);
+                }
+            }
+            catch (Exception e) {
+
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "RemoveHandler", e.Message);
             }
 
         }

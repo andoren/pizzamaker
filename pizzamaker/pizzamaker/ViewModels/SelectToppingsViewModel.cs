@@ -1,7 +1,6 @@
 ﻿using Caliburn.Micro;
 using pizzamaker.Models;
 using pizzamaker.Models.Foods;
-using pizzamaker.Models.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.ViewModels
 {
@@ -42,7 +42,7 @@ namespace pizzamaker.ViewModels
             if (Order.AllToppings == null)
             {
                 Order.AllToppings = new Toppings();
-                Order.AllToppings.AllToppings = new List<Topping>();
+                
             }
             
         }
@@ -77,17 +77,34 @@ namespace pizzamaker.ViewModels
 
         public void LoadNextView()
         {
-            if (SelectedToppings == null)
+            try
             {
-                MessageBox.Show("You must select atleast one topping Topping first!");
-                return;
+                if (Order.AllToppings.AllToppings.Count == 0)
+                {
+                    MessageBox.Show("You must select atleast one topping Topping first!");
+                    return;
+                }
+                order.AddAt(Order.AllToppings, 3);
+                mainWindow.LoadNextView();
             }
-            order.AddAt(Order.AllToppings, 3);
-            mainWindow.LoadNextView();
+            catch(Exception e)
+            {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadNextView", e.Message);
+
+            }
         }
         public void LoadPrevView()
         {
-            mainWindow.LoadPrevView();
+            try
+            {
+                mainWindow.LoadPrevView();
+            }
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadPrevView", e.Message);
+            }
+            
         }
         public void RemoveTopping(object obj) {
             if (obj is Topping) {
@@ -271,15 +288,22 @@ namespace pizzamaker.ViewModels
         /// <param name="dispatchTimer"></param>
         private void RemoveHandlers(DispatcherTimer dispatchTimer)
         {
-            var eventField = dispatchTimer.GetType().GetField("Tick",
-                    BindingFlags.NonPublic | BindingFlags.Instance);
-            var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
-            if (eventDelegate != null)
+            try
             {
-                var invocatationList = eventDelegate.GetInvocationList();
+                var eventField = dispatchTimer.GetType().GetField("Tick",
+                        BindingFlags.NonPublic | BindingFlags.Instance);
+                var eventDelegate = (Delegate)eventField.GetValue(dispatchTimer);
+                if (eventDelegate != null)
+                {
+                    var invocatationList = eventDelegate.GetInvocationList();
 
-                foreach (var handler in invocatationList)
-                    dispatchTimer.Tick -= ((EventHandler)handler);
+                    foreach (var handler in invocatationList)
+                        dispatchTimer.Tick -= ((EventHandler)handler);
+                }
+            }
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "RemoveHandlers", e.Message);
             }
 
         }

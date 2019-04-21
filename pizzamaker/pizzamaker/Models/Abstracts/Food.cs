@@ -10,6 +10,7 @@ using Caliburn.Micro;
 using System.Windows.Threading;
 using System.ComponentModel;
 using System.Globalization;
+using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.Models
 {
@@ -93,21 +94,28 @@ namespace pizzamaker.Models
 
         protected virtual void CreateBitMapImage()
         {
-            var image = new BitmapImage();
-            using (var mem = new MemoryStream(RawPicture))
+            try
             {
-                mem.Position = 0;
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = null;
+                var image = new BitmapImage();
+                using (var mem = new MemoryStream(RawPicture))
+                {
+                    mem.Position = 0;
+                    image.BeginInit();
+                    image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                    image.CacheOption = BitmapCacheOption.OnLoad;
+                    image.UriSource = null;
 
-                image.StreamSource = mem;
-                image.EndInit();
-                mem.Close();
+                    image.StreamSource = mem;
+                    image.EndInit();
+                    mem.Close();
+                }
+                image.Freeze();
+                Picture = image;
             }
-            image.Freeze();
-            Picture = image;
+            catch (Exception e) {
+                var logger = LogHelper.getInstance();
+                logger.Log(Logging.LogType.DbLog, this.GetType().ToString(), "CreateBitMapImage", e.Message);
+            }
         }
 
 

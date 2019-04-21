@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using pizzamaker.Models.Utilities;
+using pizzamaker.Models.Singletons;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -34,7 +34,7 @@ namespace pizzamaker.Models.Abstracts
 
         public void Refresh()
         {
-            throw new NotImplementedException();
+           
         }
         public override BitmapImage Picture
         {
@@ -57,47 +57,55 @@ namespace pizzamaker.Models.Abstracts
         }
         protected override void CreateBitMapImage()
         {
-            var image = new BitmapImage();
-            lock (this) { 
-            if (RawPicture == null)
-            {
-                if (!retrieving)
-                {
-                    retrieving = true;
-                    image.BeginInit();
-                    image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.UriSource = new Uri(Directory.GetCurrentDirectory()+@"\imgs\imgicon.png", UriKind.Relative);
-                    image.EndInit();
-                    image.Freeze();
-                    Picture = image;
-                    Task.Factory.StartNew(() =>
-                    {                    
-                        var databasehelper = DatabaseHelper.getInstance();
-                        this.RawPicture = databasehelper.GetRawPicture(Id);
-                        CreateBitMapImage();
-                    });
+            try {
+                var image = new BitmapImage();
+                lock (this) {
+                    if (RawPicture == null)
+                    {
+                        if (!retrieving)
+                        {
+                            retrieving = true;
+                            image.BeginInit();
+                            image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                            image.CacheOption = BitmapCacheOption.OnLoad;
+                            image.UriSource = new Uri(Directory.GetCurrentDirectory() + @"\imgs\imgicon.png", UriKind.Relative);
+                            image.EndInit();
+                            image.Freeze();
+                            Picture = image;
+                            Task.Factory.StartNew(() =>
+                            {
+                                var databasehelper = DatabaseHelper.getInstance();
+                                this.RawPicture = databasehelper.GetRawPicture(Id);
+                                CreateBitMapImage();
+                            });
+
+                        }
+                    }
+                    else
+                    {
+                        using (var mem = new MemoryStream(RawPicture))
+                        {
+                            mem.Position = 0;
+                            image.BeginInit();
+                            image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                            image.CacheOption = BitmapCacheOption.OnLoad;
+                            image.UriSource = null;
+                            image.StreamSource = mem;
+                            image.EndInit();
+                            mem.Close();
+                        }
+                        image.Freeze();
+                        Picture = image;
+                    }
 
                 }
-            }
-            else
-            {
-                using (var mem = new MemoryStream(RawPicture))
-                {
-                    mem.Position = 0;
-                    image.BeginInit();
-                    image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                    image.CacheOption = BitmapCacheOption.OnLoad;
-                    image.UriSource = null;
-                    image.StreamSource = mem;
-                    image.EndInit();
-                    mem.Close();
-                }
-                image.Freeze();
-                Picture = image;
-            }
+
         }
-
+            catch (Exception e)
+            {
+                var logger = LogHelper.getInstance();
+                logger.Log(Logging.LogType.DbLog, this.GetType().ToString(), "CreateBitMapImage", e.Message);
+            }
         }
 
     }

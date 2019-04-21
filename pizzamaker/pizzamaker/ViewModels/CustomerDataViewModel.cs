@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using pizzamaker.Models.Exceptions;
 using System.Windows;
+using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.ViewModels
 {
@@ -81,7 +82,14 @@ namespace pizzamaker.ViewModels
                 if (customer.MassValidation()) {
                     var order = Order.getInstance();
                     order.Customer = customer;
-                    mainWindow.LoadNextView();
+                    try
+                    {
+                        mainWindow.LoadNextView();
+                    }
+                    catch (Exception e) {
+                        var logger = LogHelper.getInstance();
+                        logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadNextView", e.Message);
+                    }
                 } 
             }
             catch (CustomerNameErrorException)
@@ -102,7 +110,8 @@ namespace pizzamaker.ViewModels
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                var logger = LogHelper.getInstance();
+                logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadNextView", e.Message);
             }
 
         }
