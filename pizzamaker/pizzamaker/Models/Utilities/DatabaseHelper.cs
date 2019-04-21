@@ -16,7 +16,7 @@ namespace pizzamaker.Models.Utilities
         {
 
         }
-        private static DatabaseHelper databaseHelper;
+        private volatile static DatabaseHelper databaseHelper;
         public static DatabaseHelper getInstance() {
             if (databaseHelper == null) {
                 lock (typeof(DatabaseHelper)) {
@@ -42,8 +42,12 @@ namespace pizzamaker.Models.Utilities
 
             };
             command.Parameters.Add(typeparameter);
-            MySqlConnection connection = getConnection();
-            try
+           
+            lock (this) {
+                MySqlConnection connection = getConnection();
+
+
+                try
             {
                 FoodFactory foodFactory = new FoodFactory();
                 command.Connection = connection;
@@ -64,13 +68,15 @@ namespace pizzamaker.Models.Utilities
 
                 }
             }
+                 
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("Én dobom az errort!");
             }
             finally
             {
                 CloseConnection(connection);
+            }
             }
             return doughs;
         }
@@ -78,6 +84,8 @@ namespace pizzamaker.Models.Utilities
         public Byte[] GetRawPicture(int id)
         {
             byte[] picture = null;
+            
+            
             MySqlCommand command = new MySqlCommand();
             command.CommandType = System.Data.CommandType.Text;
             command.CommandText = "select rawpicture from foods where id = @id";
@@ -90,7 +98,9 @@ namespace pizzamaker.Models.Utilities
 
             };
             command.Parameters.Add(idparameter);
-            MySqlConnection connection = getConnection();
+            lock (this)
+            {
+                MySqlConnection connection = getConnection();
             try
             {
 
@@ -105,11 +115,12 @@ namespace pizzamaker.Models.Utilities
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("Kép exception");
             }
             finally
             {
                 CloseConnection(connection);
+            }
             }
             return picture;
         }

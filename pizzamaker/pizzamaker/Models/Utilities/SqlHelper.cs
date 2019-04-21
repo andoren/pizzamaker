@@ -2,13 +2,14 @@
 using System.Windows;
 using System;
 using System.Configuration;
+using System.Runtime.CompilerServices;
 
 namespace pizzamaker.Models.Utilities
 {
     public abstract class SqlHelper
     {
 
-
+   
         protected MySqlConnection getConnection()
         {
             string server = ConfigurationManager.AppSettings["DATABASEPATH"];
@@ -21,6 +22,7 @@ namespace pizzamaker.Models.Utilities
 
             return new MySqlConnection(connectionString);
         }
+
         protected bool OpenConnection(MySqlConnection connection)
         {
             try
@@ -45,7 +47,7 @@ namespace pizzamaker.Models.Utilities
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("OpenConnection Exception ág.");
                 return false;
             }
         }
@@ -58,12 +60,12 @@ namespace pizzamaker.Models.Utilities
             }
             catch (MySqlException e)
             {
-                MessageBox.Show(e.Message);
+                MessageBox.Show("CloseConnection MysqlExceptioág");
                 return false;
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("CloseConnection Exception ág");
                 return false;
             }
         }
