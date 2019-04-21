@@ -45,7 +45,7 @@ namespace pizzamaker.Models.Utilities
             MySqlConnection connection = getConnection();
             try
             {
-
+                FoodFactory foodFactory = new FoodFactory();
                 command.Connection = connection;
                 OpenConnection(connection);
                 MySqlDataReader reader = command.ExecuteReader();
@@ -55,7 +55,7 @@ namespace pizzamaker.Models.Utilities
                     string name = reader["name"].ToString();
                     string description = reader["description"].ToString();
                     double price = double.Parse(reader["price"].ToString());
-                    Food food = FoodFactory.GetFood(t);
+                    Food food = foodFactory.GetFood(t);
                     food.Id = id;
                     food.Name = name;
                     food.Description = description;

@@ -66,6 +66,7 @@
     <Compile Include="DatabaseHelperTests.cs" />
     <Compile Include="OrdersTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FoodFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

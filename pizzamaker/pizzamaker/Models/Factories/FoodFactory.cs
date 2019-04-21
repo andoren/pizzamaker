@@ -4,15 +4,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using pizzamaker.Models.Exceptions;
 
 namespace pizzamaker.Models.Factories
 {
-    class FoodFactory
+    public class FoodFactory
     {
-        public static Food GetFood(string type)
+        public  Food GetFood(string type)
         {
             Food temp = new Dough();
-            switch (type)
+            if (type == null) throw new NullReferenceException();
+            
+            else if (type.Length > 10 || type.Length < 4) {
+                throw new InvalidLegthExceptionForFood();
+            }
+            else {
+            
+                switch (type)
             {
                 case "dough":
                     break;
@@ -31,6 +39,7 @@ namespace pizzamaker.Models.Factories
 
                 default:
                     break;
+            }
             }
             return temp;
         }
