@@ -25,7 +25,7 @@ namespace pizzamaker.ViewModels
         #region Initialize data
         private void Initialize()
         {
-            var dataaccess = DatabaseHelper.getInstance();
+            var dataaccess = DatabaseHelperProxy.getInstance();
             Doughs = dataaccess.GetFoodsByType("dough");
             SelectedDoughCommand = new RelayCommand(DoughSelected, param => this.canExecute);
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);

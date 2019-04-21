@@ -28,7 +28,7 @@ namespace pizzamaker.ViewModels
         #region Initialize data
         private void Initialize()
         {
-            var databasehelper = DatabaseHelper.getInstance();
+            var databasehelper = DatabaseHelperProxy.getInstance();
             Toppings = databasehelper.GetFoodsByType("topping");
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);

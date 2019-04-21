@@ -28,7 +28,7 @@ namespace pizzamaker.Models.Singletons
             }
             return databaseHelper;
         }
-        public BindableCollection<Food> GetFoodsByType(string t) {
+        public override BindableCollection<Food> GetFoodsByType(string t) {
             BindableCollection<Food> doughs = new BindableCollection<Food>();
             MySqlCommand command = new MySqlCommand();
             command.CommandType = System.Data.CommandType.Text;
@@ -82,7 +82,7 @@ namespace pizzamaker.Models.Singletons
             }
             return doughs;
         }
-        public void AddLog(string what, string icommand , string message) {
+        public override void AddLog(string what, string icommand , string message) {
             MySqlCommand command = new MySqlCommand();
             MySqlParameter whatparameter = new MySqlParameter()
             {
@@ -132,7 +132,7 @@ namespace pizzamaker.Models.Singletons
 
 
         }
-        public Byte[] GetRawPicture(int id)
+        public override Byte[] GetRawPicture(int id)
         {
             byte[] picture = null;
             

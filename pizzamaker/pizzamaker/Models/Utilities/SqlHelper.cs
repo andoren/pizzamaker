@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.Runtime.CompilerServices;
 using pizzamaker.Models.Singletons;
+using Caliburn.Micro;
 
 namespace pizzamaker.Models.Utilities
 {
@@ -73,5 +74,8 @@ namespace pizzamaker.Models.Utilities
                 return false;
             }
         }
+        public abstract BindableCollection<Food> GetFoodsByType(string type);
+        public abstract Byte[] GetRawPicture(int id);
+        public abstract void AddLog(string what, string icommand, string message);
     }
 }

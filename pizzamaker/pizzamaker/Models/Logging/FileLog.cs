@@ -19,7 +19,7 @@ namespace pizzamaker.Models.Logging
                 {
                     using (StreamWriter streamWriter = new StreamWriter(filePath))
                     {
-                        streamWriter.WriteLine("Error: When: {0}\t ClassName: {1}\t Command: {2}\t Result: {3}", DateTime.Now.ToLongDateString(), what, command, message);
+                        streamWriter.WriteLine("Error: When: {0}\t ClassName: {1}\t Command: {2}\t Result: {3}", DateTime.Now.ToShortDateString()+" "+DateTime.Now.ToShortTimeString(), what, command, message);
                         streamWriter.Close();
                     }
                 }

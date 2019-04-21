@@ -16,7 +16,7 @@ namespace pizzamaker.Models.Singletons
         private volatile static LogHelper logHelper;
         public static LogHelper getInstance() {
             if (logHelper == null) {
-                lock (logHelper)
+                lock (typeof(LogHelper))
                 {
                     if (logHelper == null) {
                         logHelper = new LogHelper();

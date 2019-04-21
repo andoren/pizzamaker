@@ -85,6 +85,7 @@
     <Compile Include="Models\Logging\BaseLogging.cs" />
     <Compile Include="Models\Logging\DBLog.cs" />
     <Compile Include="Models\Logging\FileLog.cs" />
+    <Compile Include="Models\Proxys\DatabaseHelperProxy.cs" />
     <Compile Include="Models\Singletons\LogHelper.cs" />
     <Compile Include="Models\Logging\LogType.cs" />
     <Compile Include="Models\Proxys\FoodProxy.cs" />
