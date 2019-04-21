@@ -38,10 +38,15 @@ namespace pizzamaker.Models.Abstracts
         }
         public override BitmapImage Picture
         {
-            get { return _picture; }
+            get {
+                lock (this) { 
+                return _picture;
+                }
+
+            }
             set
             {
-                lock (typeof (FoodProxy)){
+                lock (this){
 
         
                 _picture = value;

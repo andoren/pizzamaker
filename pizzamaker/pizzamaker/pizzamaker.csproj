@@ -83,7 +83,7 @@
     </ApplicationDefinition>
     <Compile Include="Models\Abstracts\Food.cs" />
     <Compile Include="Models\Abstracts\FoodDecorator.cs" />
-    <Compile Include="Models\Abstracts\FoodProxy.cs" />
+    <Compile Include="Models\Foods\FoodProxy.cs" />
     <Compile Include="Models\Exceptions\InvalidIndexExceptionForScene.cs" />
     <Compile Include="Models\Exceptions\InvalidLegthExceptionForFood.cs" />
     <Compile Include="Models\Factories\FoodFactory.cs" />
