@@ -6,6 +6,7 @@ using Caliburn.Micro;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using pizzamaker.Models;
 using pizzamaker.Models.Foods;
+using pizzamaker.Models.Singletons;
 
 namespace PizzaAppTests
 {

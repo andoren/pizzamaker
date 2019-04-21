@@ -226,6 +226,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="imgs\delivery.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="imgs\italyflag.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

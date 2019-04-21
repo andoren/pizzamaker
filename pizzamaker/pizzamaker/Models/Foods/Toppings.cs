@@ -59,7 +59,7 @@ namespace pizzamaker.Models.Foods
                 image.BeginInit();
                 image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
                 image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = new Uri(System.IO.Directory.GetCurrentDirectory() + @"imgs\toppingspicture.jpg", UriKind.Relative);
+                image.UriSource = new Uri(System.IO.Directory.GetCurrentDirectory() + @"\imgs\toppingspicture.jpg", UriKind.Relative);
                 image.EndInit();
                 image.Freeze();
                 Picture = image;

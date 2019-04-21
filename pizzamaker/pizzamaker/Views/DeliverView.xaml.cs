@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -10,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace pizzamaker.Views
@@ -17,11 +19,17 @@ namespace pizzamaker.Views
     /// <summary>
     /// Interaction logic for DeliverView.xaml
     /// </summary>
-    public partial class DeliverView : Window
+    public partial class DeliverView : UserControl
     {
         public DeliverView()
         {
             InitializeComponent();
+        }
+
+        private void PlayGif_MediaEnded(object sender, RoutedEventArgs e)
+        {
+            Thread.Sleep(500);
+            Application.Current.Shutdown();
         }
     }
 }
