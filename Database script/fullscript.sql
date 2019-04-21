@@ -8,6 +8,13 @@ description varchar(1000)  not null,
 price  double not null default 0,
 rawpicture mediumblob  not null
 );
+create table pizzamaker.logs(
+id int primary key Auto_increment,
+occured TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+class varchar(400) not null,
+what varchar(400) not null,
+result varchar(400) not null
+);
 
 /*doughs*/
 insert into pizzamaker.foods(name,type,description,price,rawpicture) values("Normal dough","dough","This is a regular dough where we add all the necessary ingridients what is needed to a good pizza dough",0.99,load_file("C:/Pictures/Doughs/normal.jpg"));
