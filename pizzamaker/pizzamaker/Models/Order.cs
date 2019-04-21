@@ -28,7 +28,17 @@ namespace pizzamaker.Models
             return order;
         }
         private Food[] foods = new Food[5];
-
+        private Food _summaryFood;
+        public Food SummaryFood
+        {
+            get {
+                return _summaryFood;
+            }
+            set
+            {
+                _summaryFood = value;
+            }
+        }
         public BindableCollection<Food> GetItems()
         {
             BindableCollection<Food> temp = new BindableCollection<Food>();
@@ -47,7 +57,7 @@ namespace pizzamaker.Models
                 temp.Add(item);
                 summaryfood.Price += item.Price;
             }
-            temp.Add(summaryfood);
+            SummaryFood = summaryfood;
             return temp;
         }
 
