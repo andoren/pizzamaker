@@ -10,6 +10,11 @@ namespace pizzamaker.Models.Factories
 {
     public class FoodFactory
     {
+        /// <summary>
+        /// Gives back type of food. Type can be  dough,sauce,meat,topping,cheese.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public  Food GetFood(string type)
         {
             Food temp = new Dough();

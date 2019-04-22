@@ -11,9 +11,7 @@ namespace pizzamaker.Models.Foods
     {
         public Sauce():base()
         {
-            Name = "Normal Sauce";
-            Description = "This is a regular sauce where we add all the ingridients what is needed to a good pizza sauce";
-            Price = 1.99;
+
         }
         public Sauce(int Id, string Name, string Description, double Price):this()
         {

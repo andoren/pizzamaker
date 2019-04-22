@@ -26,6 +26,9 @@ namespace pizzamaker.ViewModels
 
         }
         #region Initialize data
+        /// <summary>
+        /// We initialize here the necessary data what is needed to the view. The Buttons commands, the foods .
+        /// </summary>
         void Initialize()
         {
             var databasehelper = DatabaseHelperProxy.getInstance();
@@ -35,6 +38,9 @@ namespace pizzamaker.ViewModels
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
         }
+        /// <summary>
+        /// If we came back to this page then load the previously selected data
+        /// </summary>
         private void LoadOrderData()
         {
             Order = Order.getInstance();
@@ -47,7 +53,7 @@ namespace pizzamaker.ViewModels
         }
         #endregion
         #region View properties and methods like current Sauce
-        //
+        //We store here the visualizeable foods
         public BindableCollection<Food> Sauces { get; set; }
         private Order order;
 
@@ -58,18 +64,10 @@ namespace pizzamaker.ViewModels
         }
 
         private StartUpViewModel mainWindow;
-        public void SauceSelected(object obj)
-        {
-            if (obj is Sauce)
-            {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
-                SelectedSauce = obj as Sauce;
-            }
-        }
+
+
         private Sauce _selectedSauce;
+        //Add the food to our order, and changes the selected food picture from the view
         public Sauce SelectedSauce
         {
             get { return _selectedSauce; }
@@ -131,6 +129,18 @@ namespace pizzamaker.ViewModels
             set
             {
                 selectedSauceCommand = value;
+            }
+        }
+        //The actual command of the SelectedSauceCommand
+        public void SauceSelected(object obj)
+        {
+            if (obj is Sauce)
+            {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
+                SelectedSauce = obj as Sauce;
             }
         }
         //Command for the scroller button

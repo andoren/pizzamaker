@@ -27,6 +27,9 @@ namespace pizzamaker.ViewModels
             LoadOrderData();
         }
         #region Initialize data
+        /// <summary>
+        /// We initialize here the necessary data what is needed to the view. The Buttons commands, the foods .
+        /// </summary>
         private void Initialize()
         {
             var databasehelper = DatabaseHelperProxy.getInstance();
@@ -36,6 +39,9 @@ namespace pizzamaker.ViewModels
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
         }
+        /// <summary>
+        /// If we came back to this page then load the previously selected data
+        /// </summary>
         private void LoadOrderData()
         {
             Order = Order.getInstance();
@@ -56,9 +62,10 @@ namespace pizzamaker.ViewModels
             get { return order; }
             set { order = value; }
         }
-
+        //We store here the visualizeable foods
         public BindableCollection<Food> Cheeses { get; set; }
         private Cheese _selectedCheese;
+        //Add the food to our order, and changes the selected food picture from the view
         public Cheese SelectedCheese
         {
             get { return _selectedCheese; }
@@ -72,24 +79,7 @@ namespace pizzamaker.ViewModels
             }
         }
 
-        public void CheeseSelected(object obj)
-        {
-            if (obj is Cheese)
-            {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
-                SelectedCheese = obj as Cheese;
-                order.AddAt(SelectedCheese, 4);
-                NotifyOfPropertyChange(() => SelectedCheese);
-                
-            }
-        }
-        public void ChangeCanExecute(object obj)
-        {
-            canExecute = !canExecute;
-        }
+        //Loads the prev view by mainWindow
         public void LoadNextView()
         {
             try
@@ -109,6 +99,7 @@ namespace pizzamaker.ViewModels
                 logger.Log(Models.Logging.LogType.DbLog, this.GetType().ToString(), "LoadNextView", e.Message);
             }
         }
+        //Loads the prev view by mainWindow
         public void LoadPrevView()
         {
             try
@@ -122,8 +113,13 @@ namespace pizzamaker.ViewModels
         }
         #endregion
         #region Scrollers properties and methods
+        public void ChangeCanExecute(object obj)
+        {
+            canExecute = !canExecute;
+        }
         DispatcherTimer scrollTimer;
         private ICommand selectedCheeseCommand;
+        //Command for the scroller image button
         public ICommand SelectedCheeseCommand
         {
             get
@@ -135,7 +131,23 @@ namespace pizzamaker.ViewModels
                 selectedCheeseCommand = value;
             }
         }
+        //The actual command of the SelectedCheeseCommand
+        public void CheeseSelected(object obj)
+        {
+            if (obj is Cheese)
+            {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
+                SelectedCheese = obj as Cheese;
+                order.AddAt(SelectedCheese, 4);
+                NotifyOfPropertyChange(() => SelectedCheese);
+
+            }
+        }
         private ICommand scrollerToLeft;
+        //Command for the scroller button
         public ICommand ScrollerToLeftCommand
         {
             get
@@ -148,6 +160,7 @@ namespace pizzamaker.ViewModels
             }
         }
         private ICommand scrollerToRight;
+        //Command for the scroller button
         public ICommand ScrollerToRightCommand
         {
             get
@@ -189,6 +202,10 @@ namespace pizzamaker.ViewModels
                 this.canExecute = value;
             }
         }
+        /// <summary>
+        /// Gets the object(Scroller) as command parameter from the view and moving the scroller right with DispatcherTimer
+        /// </summary>
+        /// <param name="obj"></param>
         public void ScrollerToRight(object obj)
         {
             if (obj is ScrollViewer)
@@ -218,6 +235,10 @@ namespace pizzamaker.ViewModels
 
             }
         }
+        /// <summary>
+        /// Gets the object(Scroller) as command parameter from the view and moving the scroller left with DispatcherTimer
+        /// </summary>
+        /// <param name="obj"></param>
         public void ScrollerToLeft(object obj)
         {
             if (obj is ScrollViewer)
@@ -244,6 +265,10 @@ namespace pizzamaker.ViewModels
                 };
             }
         }
+        /// <summary>
+        /// Removes the given DispatcherTimer tick events if has any.
+        /// </summary>
+        /// <param name="dispatchTimer"></param>
         private void RemoveHandlers(DispatcherTimer dispatchTimer)
         {
             try

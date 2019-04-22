@@ -11,9 +11,7 @@ namespace pizzamaker.Models.Foods
     {
         public Topping():base()
         {
-            Name = "Normal dough";
-            Description = "This is a regular dough where we add all the ingridients what is needed to a good pizza dough";
-            Price = 1.99;
+
         }
         public Topping(int Id, string Name, string Description, double Price):this()
         {

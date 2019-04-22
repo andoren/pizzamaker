@@ -26,6 +26,9 @@ namespace pizzamaker.ViewModels
             LoadOrderData();
         }
         #region Initialize data
+        /// <summary>
+        /// We initialize here the necessary data what is needed to the view. The Buttons commands, the foods .
+        /// </summary>
         private void Initialize()
         {
             var databasehelper = DatabaseHelperProxy.getInstance();
@@ -36,6 +39,9 @@ namespace pizzamaker.ViewModels
             ToppingSelectedCommand = new RelayCommand(ToppingSelected, param => this.canExecute);
             ToppingRemoveCommand = new RelayCommand(RemoveTopping, param => this.canExecute);
         }
+        /// <summary>
+        /// If we came back to this page then load the previously selected data
+        /// </summary>
         private void LoadOrderData()
         {
             Order = Order.getInstance();
@@ -48,8 +54,8 @@ namespace pizzamaker.ViewModels
         }
         #endregion
         #region View properties and methods like current Topping
-        //
         private StartUpViewModel mainWindow;
+        //We store here the visualizeable foods
         public BindableCollection<Food> Toppings { get; set; }
         private Order order;
 
@@ -59,7 +65,7 @@ namespace pizzamaker.ViewModels
             set { order = value; }
         }
         private BindableCollection<Food> _selectedToppings;
-
+        //Add the food to our order, and changes the selected food picture from the view
         public BindableCollection<Food> SelectedToppings
         {
             get
@@ -106,35 +112,8 @@ namespace pizzamaker.ViewModels
             }
             
         }
-        public void RemoveTopping(object obj) {
-            if (obj is Topping) {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
-                Order.AllToppings.RemoveTopping(obj as Topping);
-                Order.AddAt(Order.AllToppings, 3);
-                if (Order.AllToppings.AllToppings.Count == 0) Order.AddAt(null, 3);
-                NotifyOfPropertyChange(() => FullPrice);
-                NotifyOfPropertyChange(() => SelectedToppings);
-            }
-        }
-        public void ToppingSelected(object obj)
-        {
-            if (obj is Topping)
-            {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
+       
 
-
-                Order.AllToppings.AddTopping(obj as Topping);
-                Order.AddAt(Order.AllToppings, 3);
-                NotifyOfPropertyChange(() => FullPrice);
-                NotifyOfPropertyChange(() => SelectedToppings);
-            }
-        }
         public double FullPrice {
             get
             {
@@ -167,6 +146,23 @@ namespace pizzamaker.ViewModels
             get { return _toppingSelectedComand; }
             set { _toppingSelectedComand = value; }
         }
+        //Actual command of the ToppingSelectedCommand
+        public void ToppingSelected(object obj)
+        {
+            if (obj is Topping)
+            {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
+
+
+                Order.AllToppings.AddTopping(obj as Topping);
+                Order.AddAt(Order.AllToppings, 3);
+                NotifyOfPropertyChange(() => FullPrice);
+                NotifyOfPropertyChange(() => SelectedToppings);
+            }
+        }
         private ICommand _toppingRemoveCommand;
             
         public ICommand ToppingRemoveCommand
@@ -174,7 +170,22 @@ namespace pizzamaker.ViewModels
             get { return _toppingRemoveCommand; }
             set { _toppingRemoveCommand = value; }
         }
-
+        //Actual command of the ToppingRemoveCommand
+        public void RemoveTopping(object obj)
+        {
+            if (obj is Topping)
+            {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
+                Order.AllToppings.RemoveTopping(obj as Topping);
+                Order.AddAt(Order.AllToppings, 3);
+                if (Order.AllToppings.AllToppings.Count == 0) Order.AddAt(null, 3);
+                NotifyOfPropertyChange(() => FullPrice);
+                NotifyOfPropertyChange(() => SelectedToppings);
+            }
+        }
         //Command for the scroller button
         private ICommand scrollerToLeft;
         public ICommand ScrollerToLeftCommand

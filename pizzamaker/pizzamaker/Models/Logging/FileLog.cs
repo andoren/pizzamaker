@@ -11,6 +11,12 @@ namespace pizzamaker.Models.Logging
     class FileLog : BaseLogging
     {
         public string filePath = Directory.GetCurrentDirectory()+@"\Logs\Logs.txt";
+        /// <summary>
+        /// Log into the database. First param: Which class caused the error. Second param: Which Command caused the error. Third param: The message that exception has created.
+        /// </summary>
+        /// <param name="what"></param>
+        /// <param name="command"></param>
+        /// <param name="message"></param>
         public override void Log(string what, string command, string message)
         {
             try

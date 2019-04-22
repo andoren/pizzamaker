@@ -14,16 +14,27 @@ using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.Models
 {
-    public abstract class Food
+    public abstract class Food: PropertyChangedBase
     {
-        
+        public Food()
+        {
+
+        }
+
+        //we lock this for thread safety
+        protected readonly  object lockobj = new object();
+        //changing the local currency to dollar.
         CultureInfo us = CultureInfo.GetCultureInfo("en-US");
+
         private int _id;
 
         public int Id
         {
             get { return _id; }
-            set { _id = value; }
+            set {
+                _id = value;
+                
+            }
         }
 
 
@@ -32,7 +43,10 @@ namespace pizzamaker.Models
         public string Name
         {
             get { return _name; }
-            set { _name = value; }
+            set {
+                _name = value;
+                
+            }
         }
 
         private string _description;
@@ -40,7 +54,10 @@ namespace pizzamaker.Models
         public string Description
         {
             get { return _description; }
-            set { _description = value; }
+            set {
+                _description = value;
+                
+            }
         }
 
         protected double _price;
@@ -48,50 +65,58 @@ namespace pizzamaker.Models
         public virtual double Price
         {
             get { return _price; }
-            set { _price = value; }
+            set {
+                _price = value;
+                
+            }
         }
-
-        private byte[] _rawpicture;
-
+        //Variable for the downloaded blob  file from database 
+        private volatile byte[] _rawpicture;
         public  byte[] RawPicture
         {
             get {
-                lock (this) {
+                lock (lockobj) {
                 return _rawpicture;
                 }
             }
             set {
-                lock (this) { 
+                lock (lockobj) { 
                 _rawpicture = value;
+                    
                 }
             }
         }
-        protected volatile BitmapImage _picture;
 
-        
+        protected volatile BitmapImage _picture;     
         public virtual BitmapImage Picture
         {
             get { return _picture; }
             set {
                 _picture = value;
                 
-
             }
         }
+        /// <summary>
+        /// Gives back the food informations like, name, description and price
+        /// </summary>
         public virtual string GetInformation {
             get {
                 
-                return string.Format(us,"Name: {0}"+Environment.NewLine+"Description: {1}"+Environment.NewLine+"Price: {2}",Name,Description,Price.ToString());
+                return string.Format(us,"Name: {0}"+Environment.NewLine+"Description: {1}"+Environment.NewLine+"Price: {2}",Name,Description, GetPriceInCurrency.ToString());
             }
         }
-
+        /// <summary>
+        /// Gives the price back in the currency($)
+        /// </summary>
         public string GetPriceInCurrency
         {
             get { 
             return string.Format(us,"{0:C2}",Price);
             }
         }
-
+        /// <summary>
+        /// We creat here the BitMapImage from the RawPicture.
+        /// </summary>
         protected virtual void CreateBitMapImage()
         {
             try

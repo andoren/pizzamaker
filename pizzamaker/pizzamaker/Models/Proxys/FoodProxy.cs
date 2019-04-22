@@ -13,7 +13,7 @@ using System.Windows.Threading;
 
 namespace pizzamaker.Models.Abstracts
 {
-    public class FoodProxy : Food, INotifyPropertyChangedEx
+    public class FoodProxy : Food 
     {
         public FoodProxy()
         {
@@ -21,21 +21,9 @@ namespace pizzamaker.Models.Abstracts
             CreateBitMapImage();
 
         }
+        //We need this for t
         volatile bool retrieving = false;
-        public event PropertyChangedEventHandler PropertyChanged;
-        public bool IsNotifying { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public void NotifyOfPropertyChange(string propertyName)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
 
-        public void Refresh()
-        {
-           
-        }
         public override BitmapImage Picture
         {
             get {
@@ -46,20 +34,25 @@ namespace pizzamaker.Models.Abstracts
             }
             set
             {
-                lock (this){
-
-        
-                _picture = value;
-                NotifyOfPropertyChange("Picture");
+                lock (this)
+                {
+                    _picture = value;
+                    
                 }
+                NotifyOfPropertyChange(() => Picture);
+
 
             }
         }
+
+        /// <summary>
+        /// First gives back a placeholder picture for enhance the speed of the view load. When its downloaded the picture notifys the view to changed the placeholder.
+        /// </summary>
         protected override void CreateBitMapImage()
         {
             try {
                 var image = new BitmapImage();
-                lock (this) {
+                lock (lockobj) {
                     if (RawPicture == null)
                     {
                         if (!retrieving)
@@ -74,9 +67,10 @@ namespace pizzamaker.Models.Abstracts
                             Picture = image;
                             Task.Factory.StartNew(() =>
                             {
-                                var databasehelper = DatabaseHelper.getInstance();
+                                var databasehelper = DatabaseHelperProxy.getInstance();
                                 this.RawPicture = databasehelper.GetRawPicture(Id);
                                 CreateBitMapImage();
+                                
                             });
 
                         }
@@ -99,8 +93,8 @@ namespace pizzamaker.Models.Abstracts
                     }
 
                 }
-
-        }
+                NotifyOfPropertyChange(() => Picture);
+            }
             catch (Exception e)
             {
                 var logger = LogHelper.getInstance();

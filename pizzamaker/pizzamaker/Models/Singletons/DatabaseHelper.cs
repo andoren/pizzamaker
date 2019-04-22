@@ -17,6 +17,7 @@ namespace pizzamaker.Models.Singletons
         {
 
         }
+        private  readonly object lockobj = new object();
         private volatile static DatabaseHelper databaseHelper;
         public static DatabaseHelper getInstance() {
             if (databaseHelper == null) {
@@ -28,6 +29,11 @@ namespace pizzamaker.Models.Singletons
             }
             return databaseHelper;
         }
+        /// <summary>
+        /// Gives back the type of foods what we add to input.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         public override BindableCollection<Food> GetFoodsByType(string t) {
             BindableCollection<Food> doughs = new BindableCollection<Food>();
             MySqlCommand command = new MySqlCommand();
@@ -44,7 +50,7 @@ namespace pizzamaker.Models.Singletons
             };
             command.Parameters.Add(typeparameter);
            
-            lock (this) {
+            lock (lockobj) {
                 MySqlConnection connection = getConnection();
 
 
@@ -82,6 +88,12 @@ namespace pizzamaker.Models.Singletons
             }
             return doughs;
         }
+        /// <summary>
+        /// Log into the database. First param: Which class caused the error. Second param: Which Command caused the error. Third param: The message that exception has created.
+        /// </summary>
+        /// <param name="what"></param>
+        /// <param name="command"></param>
+        /// <param name="message"></param>
         public override void AddLog(string what, string icommand , string message) {
             MySqlCommand command = new MySqlCommand();
             MySqlParameter whatparameter = new MySqlParameter()
@@ -113,7 +125,7 @@ namespace pizzamaker.Models.Singletons
             MySqlConnection connection = null;
             try
             {
-                lock (this)
+                lock (lockobj)
                 {
                     connection = getConnection();
                     command.Connection = connection;
@@ -132,6 +144,11 @@ namespace pizzamaker.Models.Singletons
 
 
         }
+        /// <summary>
+        /// Gets back the specific food picture.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public override Byte[] GetRawPicture(int id)
         {
             byte[] picture = null;
@@ -149,7 +166,7 @@ namespace pizzamaker.Models.Singletons
 
             };
             command.Parameters.Add(idparameter);
-            lock (this)
+            lock (lockobj)
             {
                 MySqlConnection connection = getConnection();
             try

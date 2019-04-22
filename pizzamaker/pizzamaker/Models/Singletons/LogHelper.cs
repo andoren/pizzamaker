@@ -13,6 +13,7 @@ namespace pizzamaker.Models.Singletons
         {
 
         }
+
         private volatile static LogHelper logHelper;
         public static LogHelper getInstance() {
             if (logHelper == null) {
@@ -26,6 +27,13 @@ namespace pizzamaker.Models.Singletons
             return logHelper;
         }
         private BaseLogging logger = null;
+        /// <summary>
+        /// Through this we use the logging system. We can choose which type of logger do we want to use.
+        /// </summary>
+        /// <param name="logType"></param>
+        /// <param name="what"></param>
+        /// <param name="command"></param>
+        /// <param name="message"></param>
         public void Log(LogType logType,string what,string command, string message)
         {
             switch (logType)

@@ -28,6 +28,9 @@ namespace pizzamaker.ViewModels
         }
 
         #region Initialize data
+        /// <summary>
+        /// We initialize here the necessary data what is needed to the view. The Buttons commands, the foods .
+        /// </summary>
         void Initialize()
         {
             var databasehelper = DatabaseHelperProxy.getInstance();
@@ -36,7 +39,10 @@ namespace pizzamaker.ViewModels
             ScrollerToLeftCommand = new RelayCommand(ScrollerToLeft, param => this.canExecute);
             ScrollerToRightCommand = new RelayCommand(ScrollerToRight, param => this.canExecute);
             toggleExecuteCommand = new RelayCommand(ChangeCanExecute);
-        }
+        } 
+        /// <summary>
+        /// If we came back to this page then load the previously selected data
+        /// </summary>
         private void LoadOrderData()
         {
             Order = Order.getInstance();
@@ -49,7 +55,7 @@ namespace pizzamaker.ViewModels
         }
         #endregion
         #region View properties and methods like current Meat
-        //
+        //We store here the visualizeable foods
         public BindableCollection<Food> Meats { get; set; }
         private Order order;
 
@@ -60,18 +66,9 @@ namespace pizzamaker.ViewModels
         }
 
         private StartUpViewModel mainWindow;
-        public void MeatSelected(object obj)
-        {
-            if (obj is Meat)
-            {
-                if (scrollTimer != null)
-                {
-                    RemoveHandlers(scrollTimer);
-                }
-                SelectedMeat = obj as Meat;
-            }
-        }
+
         private Meat _selectedMeat;
+        //Add the food to our order, and changes the selected food picture from the view
         public Meat SelectedMeat
         {
             get { return _selectedMeat; }
@@ -130,6 +127,18 @@ namespace pizzamaker.ViewModels
             set
             {
                 selectedMeatCommand = value;
+            }
+        }
+        //The actual command of the SelectedMeatCommand
+        public void MeatSelected(object obj)
+        {
+            if (obj is Meat)
+            {
+                if (scrollTimer != null)
+                {
+                    RemoveHandlers(scrollTimer);
+                }
+                SelectedMeat = obj as Meat;
             }
         }
         //Command for the scroller button

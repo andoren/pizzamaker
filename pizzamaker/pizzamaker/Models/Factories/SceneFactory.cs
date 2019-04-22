@@ -9,6 +9,12 @@ namespace pizzamaker.ViewModels
         public SceneFactory()
         {
         }
+        /// <summary>
+        /// Gives back the specific view by index. We need the mainWindow because we use its loadnext and loadprev method to change the view
+        /// </summary>
+        /// <param name="mainWindow"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
         public Screen CreateScene(StartUpViewModel mainWindow, int index)
         {
             if (mainWindow == null) throw new NullReferenceException();
