@@ -65,7 +65,6 @@ namespace pizzamaker.ViewModels
 
         private StartUpViewModel mainWindow;
 
-
         private Sauce _selectedSauce;
         //Add the food to our order, and changes the selected food picture from the view
         public Sauce SelectedSauce
