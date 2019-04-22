@@ -57,5 +57,3 @@ insert into pizzamaker.foods(name,type,description,price,rawpicture) values("Eda
 insert into pizzamaker.foods(name,type,description,price,rawpicture) values("Parmegano","cheese","Finest parmegano what you can find in the world. You should really try this.",1.9,load_file("C:/Pictures/Cheese/parm.jpg"));
 insert into pizzamaker.foods(name,type,description,price,rawpicture) values("Trapist","cheese","Regular trapist cheese",0.4,load_file("C:/Pictures/Cheese/trap.jpg"));
 
-insert into pizzamaker.logs(class,what,result)values("proba","insert","ez egy próba logolás");
-select * from pizzamaker.logs;
