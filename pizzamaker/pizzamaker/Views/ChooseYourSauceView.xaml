@@ -73,7 +73,7 @@
             </ItemsControl>
             <StackPanel  Grid.Column="1">
                 <TextBlock Margin="0,0,10,0" FontSize="20">Your order price: </TextBlock>
-                <TextBlock Text="{Binding Order.Price}" HorizontalAlignment="Center" Margin="0,10,10,0" FontSize="20"></TextBlock>
+                <TextBlock Text="{Binding Order.GetPriceInCurrency}" HorizontalAlignment="Center" Margin="0,10,10,0" FontSize="20"></TextBlock>
             </StackPanel>
         </Grid>
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource ForeGroundColor}" FontSize="36">Choose your sauce</TextBlock>
@@ -143,32 +143,35 @@
                                             </Style.Triggers>
                                         </Style>
                                     </Button.Style>
-                                    <Image ToolTip="{Binding Description}" Stretch="Fill"  >
-                                        <Image.Style>
-                                            <Style TargetType="Image">
-                                                <Setter Property="Cursor" Value="Hand" />
-                                                <Setter Property="Height" Value="105" />
-                                                <Setter Property="Width" Value="135" />
-                                                <Setter Property="Margin" Value="0" />
-                                                <Setter Property="HorizontalAlignment" Value="Center" />
-                                                <Setter Property="VerticalAlignment" Value="Center" />
-                                                <Setter Property="Opacity" Value="0.6" />
-                                                <Style.Triggers>
-                                                    <Trigger Property="Image.IsMouseOver" Value="True">
-                                                        <Setter Property="Image.Opacity" Value="1" />
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
+                                    <Grid Width="110" Height="90" Margin="5">
+                                        <Grid Background="#99FFFFFF"  Panel.ZIndex="2" Margin="0,0,0,0" Width="110" Height="20" VerticalAlignment="Top">
+                                            <TextBlock Padding="5,0,0,0" FontWeight="Bold" Text="{Binding Name, Mode=OneWay}"  VerticalAlignment="Center" FontSize="10" HorizontalAlignment="Left" ></TextBlock>
+                                        </Grid>
+                                        <Grid Panel.ZIndex="2"  Background="#99FFFFFF" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,0,10">
+                                            <TextBlock Text="{Binding GetPriceInCurrency}"></TextBlock>
+                                        </Grid>
+                                        <Image Source="{Binding Picture}" ToolTip="{Binding Description, Mode=OneWay}" Stretch="UniformToFill"  >
+                                            <Image.Style>
+                                                <Style TargetType="Image">
+                                                    <Setter Property="Cursor" Value="Hand" />
+                                                    <Setter Property="Height" Value="105" />
+                                                    <Setter Property="Width" Value="135" />
+                                                    <Setter Property="Margin" Value="0" />
+                                                    <Setter Property="HorizontalAlignment" Value="Center" />
+                                                    <Setter Property="VerticalAlignment" Value="Center" />
+                                                    <Setter Property="Opacity" Value="0.6" />
+                                                    <Style.Triggers>
+                                                        <Trigger Property="Image.IsMouseOver" Value="True">
+                                                            <Setter Property="Image.Opacity" Value="1" />
+                                                        </Trigger>
+                                                    </Style.Triggers>
+                                                </Style>
 
-                                        </Image.Style>
-                                        <Image.Source>
-                                            <Binding Path="Picture">
-                                                <Binding.TargetNullValue>
-                                                    <ImageSource>/imgs/italyflag.png</ImageSource>
-                                                </Binding.TargetNullValue>
-                                            </Binding>
-                                        </Image.Source>
-                                    </Image>
+                                            </Image.Style>
+
+                                        </Image>
+
+                                    </Grid>
                                 </Button>
 
                             </DataTemplate>
