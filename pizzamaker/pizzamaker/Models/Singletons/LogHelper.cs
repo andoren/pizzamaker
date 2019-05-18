@@ -31,9 +31,9 @@ namespace pizzamaker.Models.Singletons
         /// Through this we use the logging system. We can choose which type of logger do we want to use.
         /// </summary>
         /// <param name="logType"></param>
-        /// <param name="what"></param>
-        /// <param name="command"></param>
-        /// <param name="message"></param>
+        /// <param name="what">Which class caused the error</param>
+        /// <param name="command">Which command caused the error</param>
+        /// <param name="message">The meassage of the exception</param>
         public void Log(LogType logType,string what,string command, string message)
         {
             switch (logType)
