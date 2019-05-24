@@ -80,6 +80,7 @@ namespace PizzaAppTests
 
             Assert.AreNotEqual(exception, null);
         }
+
         #endregion
         #region Order class Remove method unit tests
         [TestMethod]
@@ -106,6 +107,13 @@ namespace PizzaAppTests
         public void OneFoodToStringTest()
         {
             Order order = Order.getInstance();
+            order.ResetCondiments();
+            Food dough = new Dough();
+            dough.Id = 0;
+            dough.Name = "Normal dough";
+            dough.Description = "This is a regular dough where we add all the ingridients what is needed to a good pizza dough";
+            dough.Price = 1.99;
+            order.Add(dough);
             string actual = order.ToString();
             string expected = "0/1,99/Normal dough/This is a regular dough where we add all the ingridients what is needed to a good pizza dough;";
             Assert.AreEqual(expected,actual);
@@ -114,11 +122,18 @@ namespace PizzaAppTests
         public void TwoFoodToStringTest()
         {
             Order order = Order.getInstance();
+            order.ResetCondiments();
+            Food dough2 = new Dough();
+            dough2.Id = 0;
+            dough2.Name = "Normal dough";
+            dough2.Description = "This is a regular dough where we add all the ingridients what is needed to a good pizza dough";
+            dough2.Price = 1.99;
+            order.Add(dough2);
             Food dough = new Dough();
             dough.Id = 1;
             dough.Name = "Regular dough";
             dough.Description = "Its a regular dough. We made it in the traditional way.";
-            dough.Price = 1.99;         
+            dough.Price = 1.99;
             order.Add(dough);
             string actual = order.ToString();
             string expected = "0/1,99/Normal dough/This is a regular dough where we add all the ingridients what is needed to a good pizza dough;1/1,99/Regular dough/Its a regular dough. We made it in the traditional way.;";
