@@ -15,6 +15,7 @@ namespace pizzamaker.Models.Abstracts
 {
     public class FoodProxy : Food 
     {
+        private Food food;
         public FoodProxy()
         {
 
@@ -53,7 +54,7 @@ namespace pizzamaker.Models.Abstracts
             try {
                 var image = new BitmapImage();
                 lock (lockobj) {
-                    if (RawPicture == null)
+                    if (food == null)
                     {
                         if (!retrieving)
                         {
@@ -67,8 +68,9 @@ namespace pizzamaker.Models.Abstracts
                             Picture = image;
                             Task.Factory.StartNew(() =>
                             {
+                                food = new Food();
                                 var databasehelper = DatabaseHelperProxy.getInstance();
-                                this.RawPicture = databasehelper.GetRawPicture(Id);
+                                food.RawPicture = databasehelper.GetRawPicture(Id);
                                 CreateBitMapImage();
                                 
                             });
@@ -77,7 +79,7 @@ namespace pizzamaker.Models.Abstracts
                     }
                     else
                     {
-                        using (var mem = new MemoryStream(RawPicture))
+                        using (var mem = new MemoryStream(food.RawPicture))
                         {
                             mem.Position = 0;
                             image.BeginInit();

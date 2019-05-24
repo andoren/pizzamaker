@@ -14,7 +14,7 @@ using pizzamaker.Models.Singletons;
 
 namespace pizzamaker.Models
 {
-    public abstract class Food: PropertyChangedBase
+    public  class Food: PropertyChangedBase
     {
         public Food()
         {
